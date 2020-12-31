@@ -1,0 +1,53 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">{{ form_row(form.nom) }}</span>
+                </div>
+            </div>
+            <div class="block_button_backnext">
+                <a id="button_back"
+                   class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                   href="{{ path('home_construct_projet_list')}}" data-speed="350">
+                    <div  class="fas fa-reply"></div>
+                    Précédent
+                </a>
+
+                <button id="button_next"
+                        class=" btn btn-success btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                        href="" data-speed="350">
+                    {% if editMode %}
+                        Enregistrer
+                    {% else %}
+                        Suivant
+                    {% endif %}
+                    <div  class="fas fa-share"></div>
+                </button>
+            </div>
+        </div>
+        <!-- End Info -->
+
+    </div>
+
+
+    {{ form_end(form) }}
+
+
+{% endblock content %}
+

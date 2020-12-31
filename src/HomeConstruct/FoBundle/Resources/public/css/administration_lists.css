@@ -1,0 +1,11 @@
+.row{
+    margin-bottom: 8px;
+}
+
+.nom-groupe{
+    width: 100% !important;
+}
+
+.capsule_type{
+    z-index: 1 !important;
+}

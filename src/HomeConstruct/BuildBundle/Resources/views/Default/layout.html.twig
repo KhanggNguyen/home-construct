@@ -1,0 +1,1204 @@
+<!doctype html>
+<html lang="fr">
+<head>
+
+    <title>
+        {% block title_fixe %}
+            Home-Construct |
+        {% endblock title_fixe %}
+        {% block title %}
+            {% if titreOnglet is defined and titreOnglet is not empty %}
+                {{ titreOnglet }}
+            {% endif %}
+        {% endblock title %}
+    </title>
+
+    {% block meta %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Home-Construct - Ayez une vision globale sur la construction de votre maison">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="format-detection" content="telephone=yes"/>
+        <meta name="robots" content="index, follow"/>
+        <meta property="og:site_name" content="Home-Construct"/>
+        <meta property="og:title" content="Application web pour l’aide des artisans de construction de maisons individuelles"/>
+        <meta property="og:description" content="Ayez une vision globale de la construction de votre maison"/>
+    {% endblock meta %}
+
+    {% block meta_google %}
+        <link rel="alternate" href="http://example.com/fr" hreflang="fr"/>
+    {% endblock meta_google %}
+
+    {% block favicon %}
+        <!-- Favicon -->
+    {% endblock favicon %}
+
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite, ?scssphp'
+            'bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.css'
+            'bundles/symracinetemplate/vendor/icon-awesome/css/fontawesome-all.min.css'
+            'bundles/symracinetemplate/vendor/icon-line/css/simple-line-icons.min.css'
+            'bundles/symracinetemplate/vendor/icon-line-pro/style.css'
+            'bundles/symracinetemplate/vendor/icon-hs/style.min.css'
+            'bundles/symracinetemplate/vendor/animate.min.css'
+            'bundles/symracinetemplate/vendor/hs-megamenu/src/hs.megamenu.min.css'
+            'bundles/symracinetemplate/vendor/hamburgers/hamburgers.min.css'
+            'bundles/symracinetemplate/vendor/chosen/chosen.min.css'
+            'bundles/symracinetemplate/vendor/slick-carousel/slick/slick.min.css'
+            'bundles/symracinetemplate/vendor/fancybox/jquery.fancybox.min.css'
+            'bundles/symracinetemplate/vendor/noty/lib/noty.css'
+            'bundles/symracinetemplate/css/unify.css'
+            'bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.css'
+            'bundles/symracinetemplate/css-admin/unify-admin.css'
+            'bundles/symracinetemplate/vendor/icon-etlinefont/style.css'
+            'bundles/symracinetemplate/vendor/icon-line-pro/style.css'
+            'bundles/symracinetemplate/vendor/hs-admin-icons/hs-admin-icons.css'
+            'bundles/symracinetemplate/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css'
+            'bundles/symracinetemplate/vendor/bootstrap-select/css/bootstrap-select.min.css'
+            'bundles/symracinetemplate/vendor/fancybox-3.0.47/jquery.fancybox.min.css'
+            'bundles/symracinetemplate/css-admin/unify-admin.css'
+            'bundles/symracinetemplate/css/custom.css'
+            'bundles/symracinetemplate/vendor/jquery-ui/themes/base/jquery-ui.css'
+            'bundles/homeconstructfo/css/layout_build.css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+        <!-- Bootstrap CSS -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet" type="text/css">
+
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+
+    {% endblock stylesheets %}
+
+</head>
+<body {% block body_attributs %}
+        {% if page is defined %}
+            {% if page.title=='Le Gros Oeuvre'%}
+                onload="progressBarGo()"
+            {% elseif page.title=='Le Second Oeuvre'%}
+                onload="progressBarSo()"
+            {% endif %}
+        {% endif %}
+        {% endblock %}>
+<!-- Header -->
+<header id="js-header" class="u-header u-header--sticky-top">
+    <div class="u-header__section u-header__section--admin-dark g-min-height-65">
+        <nav class="navbar no-gutters g-pa-0">
+
+            <div class="col-auto d-flex flex-nowrap u-header-logo-toggler g-py-12">
+                <!-- Logo -->
+                <a href="{{ path('home_construct_projet_list') }}" class="lien_accueil navbar-brand d-flex align-self-center g-hidden-xs-down g-line-height-1 py-0 g-mt-5">
+                    <div class="icone_menu_lateral fas fa-home"></div>
+                    {#<img id="logo_oit" src="{{ asset('bundles/oitfo/img/logo_oit_blanc.png') }}">#}
+                    <span class="icone_menu_lateral">Accueil</span>
+                </a>
+                <!-- End Logo -->
+
+                <!-- Sidebar Toggler -->
+                <a class="js-side-nav u-header__nav-toggler d-flex align-self-center ml-auto" href="#!"
+                   data-hssm-class="u-side-nav--mini u-sidebar-navigation-v1--mini"
+                   data-hssm-body-class="u-side-nav-mini" data-hssm-is-close-all-except-this="true"
+                   data-hssm-target="#sideNav">
+                    <i class="hs-admin-align-left"></i>
+                </a>
+                <!-- End Sidebar Toggler -->
+            </div>
+            <div>
+                <span class="titre_systeme fas icon-real-estate-009">
+                    HOME-CONSTRUCT
+                </span>
+            </div>
+
+            <div id="block_mysubmenu" class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
+
+                <div class="g-pos-rel">
+
+                    <a  class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="#!"
+                        aria-controls="profileMenu"
+                        aria-haspopup="true" aria-expanded="false" data-dropdown-event="click"
+                        data-dropdown-target="#profileMenu" data-dropdown-type="css-animation"
+                        data-dropdown-duration="300"
+                        data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut"
+                        href="" >
+                        <i class="fas fa-user-circle"></i>
+                    </a>
+                </div>
+                <!-- End Top Notifications -->
+
+                <!-- Top Search Bar (Mobi) -->
+                <!-- End Top Search Bar (Mobi) -->
+
+                <!-- Top User -->
+                <div id="block_user" class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
+                    <div class="g-pos-rel g-px-10--lg">
+                        <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="profileMenu"
+                           aria-haspopup="true" aria-expanded="false" data-dropdown-event="click"
+                           data-dropdown-target="#profileMenu" data-dropdown-type="css-animation"
+                           data-dropdown-duration="300"
+                           data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+
+                            <span class="g-pos-rel g-top-2">
+                                <span id="username_navbar" class="g-hidden-sm-down">
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        {% if app.user.name is defined and app.user.firstname is defined and app.user.name is not empty and app.user.firstname is not empty %}
+                                            {{ app.user.name }} {{ app.user.firstname }}
+                                            {% if 'SUPER ADMIN' in app.user.groups %}
+                                                (Super Admin)
+                                            {% elseif 'PROFESSIONNEL' in app.user.groups %}
+                                                (Professionnel)
+                                            {% elseif 'CLIENT' in app.user.groups %}
+                                                (Client)
+                                            {% endif %}
+                                        {% else %}
+                                            {{ app.user.username }}
+                                            {% if 'SUPER ADMIN' in app.user.groups %}
+                                                (Super Admin)
+                                            {% elseif 'PROFESSIONNEL' in app.user.groups %}
+                                                (Professionnel)
+                                            {% elseif 'CLIENT' in app.user.groups %}
+                                                (Client)
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        Anonymous
+                                    {% endif %}
+
+                                </span>
+                                <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-10"></i>
+                            </span>
+                        </a>
+
+                        <!-- Top User Menu -->
+                        <ul id="profileMenu"
+                            class="g-pos-abs g-left-0 g-width-100x--lg g-nowrap g-font-size-14 g-py-20 g-mt-17 rounded"
+                            aria-labelledby="profileMenuInvoker" style="width:172px !important;">
+
+                            <li class="g-mb-10">
+                                <a class="media g-color-lightred-v2--hover g-py-5 g-px-20" href="{{ path('home_construct_user_myprofile_show') }}">
+                                    <span class="d-flex align-self-center g-mr-12">
+                                        <i class="hs-admin-user"></i>
+                                    </span>
+                                    <span class="media-body align-self-center">
+                                        Profil
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="g-mb-10">
+                                <a class="media g-color-lightred-v2--hover g-py-5 g-px-20" href="{{ path('fos_user_security_logout') }}">
+                                    <span class="d-flex align-self-center g-mr-12">
+                                        <i class="hs-admin-power-off"></i>
+                                    </span>
+                                    <span class="media-body align-self-center">
+                                       Déconnexion
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- End Top User Menu -->
+                    </div>
+                </div>
+                <!-- End Top User -->
+            </div>
+            <!-- End Messages/Notifications/Top Search Bar/Top User -->
+        </nav>
+    </div>
+</header>
+
+<section class="container-fluid px-0 g-pt-65 contenu_entier">
+    <div class="row no-gutters g-pos-rel g-overflow-x-hidden contenu_entier">
+        <!-- Début du menu latérale -->
+        <div id="sideNav" class="col-auto u-sidebar-navigation-v1 u-sidebar-navigation--dark">
+            <ul id="sideNavMenu"
+                class="u-sidebar-navigation-v1-menu u-side-nav--top-level-menu g-min-height-100vh mb-0">
+                <!-- Création contenu -->
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+                    <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12"
+                       href="#!" data-hssm-target="#subMenu2">
+                            <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                                <i class="icone_menu_lateral hs-admin-ruler-pencil"></i>
+                            </span>
+                        <span class="media-body align-self-center">
+                                Projets
+                            </span>
+                        <span class="d-flex align-self-center u-side-nav--control-icon">
+                                <i class="hs-admin-angle-right"></i>
+                            </span>
+                        <span class="u-side-nav--has-sub-menu__indicator"></span>
+                    </a>
+
+                    <ul id="subMenu2" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+                        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                               href="{{ path('home_construct_projet_list') }}">
+                                        <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                            <i class="fas fa-list"></i>
+                                        </span>
+                                <span class="media-body align-self-center">
+                                    Liste
+                                </span>
+                            </a>
+                        </li>
+
+                        <!-- Création contenu : Entreprise -->
+                        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                               href="{{ path('home_construct_projet_creation') }}">
+                                        <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                            <i class="fas fa-plus-square"></i>
+                                        </span>
+                                <span class="media-body align-self-center">
+                                    Création
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% if 'SUPER ADMIN' in app.user.groups %}
+                    <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+                        <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12"
+                           href="#!" data-hssm-target="#subMenu3">
+                                <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                                    <i class="icone_menu_lateral  fas fa-users"></i>
+                                </span>
+                            <span class="media-body align-self-center">
+                                    Utilisateurs
+                            </span>
+                            <span class="d-flex align-self-center u-side-nav--control-icon">
+                                    <i class="hs-admin-angle-right"></i>
+                            </span>
+                            <span class="u-side-nav--has-sub-menu__indicator"></span>
+                        </a>
+
+                        <ul id="subMenu3" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+                            <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                                <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                                   href="{{ path('home_construct_user_list') }}">
+                                            <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                                <i class="fas fa-list"></i>
+                                            </span>
+                                    <span class="media-body align-self-center">
+                                        Liste
+                                    </span>
+                                </a>
+                            </li>
+
+                            <!-- Création contenu : Utilisateur -->
+                            <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                                <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                                   href="{{ path('home_construct_user_ajout') }}">
+                                            <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                                <i class="fas fa-plus-square"></i>
+                                            </span>
+                                    <span class="media-body align-self-center">
+                                        Création
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Administration -->
+                    <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+                        <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12"
+                           href="{{ path('home_construct_administration_profile') }}">
+                                <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                                    <i class="icone_menu_lateral hs-admin-panel"></i>
+                                </span>
+                            <span class="media-body align-self-center">
+                                    Administration
+                            </span>
+                            <span class="d-flex align-self-center u-side-nav--control-icon">
+                                    <i class="hs-admin-angle-right"></i>
+                            </span>
+                            <span class="u-side-nav--has-sub-menu__indicator"></span>
+                        </a>
+                    </li>
+                {% endif %}
+                <b class="ml-1"> Aperçu de vos projets : </b>
+                {% if app.user.projets is defined and app.user.projets is not null and app.user.projets is not empty%}
+                    {% set index=3 %}
+                    {% set cpt=0 %}
+                    {% for projet in app.user.projets %}
+                        {% if projet.etat.nom != 'Archivé' and projet.etat.nom != 'Terminé' %}
+                            {% set cpt=cpt+1 %}
+                            {% if cpt<11 %}
+                                {% set index=index+1 %}
+                                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item">
+                                    <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12"
+                                       href="#!" data-hssm-target="#subMenu{{ index }}">
+                                        <div class="d-flex align-self-center g-mr-10">
+                                            <span id="badge_etat" class="u-badge-v2--sm g-pos-stc g-transform-origin--top-left {% if projet.etat.nom =="En cours" %}g-bg-lightblue-v3  {% else %}g-bg-teal-v2{% endif %}"></span>
+                                        </div>
+                                        <span class="media-body align-self-center">
+                                                {{ projet.nom }}
+                                        </span>
+                                        <span class="d-flex align-self-center u-side-nav--control-icon">
+                                                <i class="hs-admin-angle-right"></i>
+                                            </span>
+                                        <span class="u-side-nav--has-sub-menu__indicator"></span>
+                                    </a>
+                                    <ul id="subMenu{{ index }}" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0">
+
+                                        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                                               href="{% if projet.grosOeuvre is defined and projet.grosOeuvre is not null %}
+                                                    {{ path('home_construct_gros_oeuvre_profile',{'id':projet.grosOeuvre.id}) }}
+                                                {% else %}
+                                                    {{ path('home_construct_gros_oeuvre_creation',{'id':projet.id}) }}
+                                                  {% endif %}
+                                                 ">
+                                                    <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                                        {% if projet.grosOeuvre is defined and projet.grosOeuvre is not null %}
+                                                            <i class="fas fa-list"></i>
+                                                        {% else %}
+                                                            <i class="fas fa-plus-square"></i>
+                                                        {% endif %}
+                                                    </span>
+                                                <span class="media-body align-self-center">
+                                                        Gros Oeuvre
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                        <!-- Création contenu : Contact -->
+                                        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                                               href="{% if projet.secondOeuvre is defined and projet.secondOeuvre is not null %}
+                                                    {{ path('home_construct_second_oeuvre_profile',{'id':projet.secondOeuvre.id}) }}
+                                                {% else %}
+                                                    {{ path('home_construct_second_oeuvre_creation',{'id':projet.id}) }}
+                                                  {% endif %}
+                                                 ">
+                                                    <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                                        {% if projet.secondOeuvre is defined and projet.secondOeuvre is not null %}
+                                                            <i class="fas fa-list"></i>
+                                                        {% else %}
+                                                            <i class="fas fa-plus-square"></i>
+                                                        {% endif %}
+                                                    </span>
+                                                <span class="media-body align-self-center">
+                                                        Second Oeuvre
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                        <I> Aucun projet</I>
+                {% endif %}
+
+            </ul>
+        </div>
+        <!-- Fin du menu latérale !-->
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+            <div class="g-hidden-sm-down g-bg-gray-light-v8 g-pa-20">
+                <ul class="u-list-inline g-color-gray-dark-v6">
+                    <li class="list-inline-item g-mr-10">
+                        <a class="u-link-v5 g-color-gray-dark-v6 g-color-lightblue-v3--hover g-valign-middle" href="{{ path('home_construct_projet_list') }}">
+                            HOME-CONSTRUCT
+                        </a>
+                        <i class="hs-admin-angle-right g-font-size-12 g-color-gray-light-v6 g-valign-middle g-ml-10"></i>
+                    </li>
+                    {% if grosOeuvre is defined and grosOeuvre is not null %}
+                        <li class="list-inline-item g-mr-10">
+                            <a class="u-link-v5 g-color-gray-dark-v6 g-color-lightblue-v3--hover g-valign-middle"
+                               href="{{ path('home_construct_projet_profile',{'id':grosOeuvre.projet.id}) }}">
+                                {% if grosOeuvre.projet.nom is defined and grosOeuvre.projet.nom is not null%}
+                                    Projet : "{{ grosOeuvre.projet.nom }}"
+                                {% endif %}
+                            </a>
+                            <i class="hs-admin-angle-right g-font-size-12 g-color-gray-light-v6 g-valign-middle g-ml-10"></i>
+                        </li>
+                        {% elseif projet is defined and projet is not null %}
+                            <li class="list-inline-item g-mr-10">
+                                <a class="u-link-v5 g-color-gray-dark-v6 g-color-lightblue-v3--hover g-valign-middle"
+                                   href="{{ path('home_construct_projet_profile',{'id':projet.id}) }}">
+                                    {% if projet.nom is defined and projet.nom is not null%}
+                                        Projet : "{{ projet.nom }}"
+                                    {% endif %}
+                                </a>
+                                <i class="hs-admin-angle-right g-font-size-12 g-color-gray-light-v6 g-valign-middle g-ml-10"></i>
+                            </li>
+                    {% endif %}
+                    <li class="list-inline-item g-mr-10">
+                        <a class="u-link-v5 g-color-gray-dark-v6 g-color-lightblue-v3--hover g-valign-middle"
+                           href="{% block linkPageTitle %}
+
+                                 {% endblock linkPageTitle %}">
+                            {% block pageTitle %}
+                                {% if page is defined %}
+                                    {{ page.title }}
+                                {% endif %}
+                            {% endblock pageTitle %}
+                        </a>
+                        <i class="hs-admin-angle-right g-font-size-12 g-color-gray-light-v6 g-valign-middle g-ml-10"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <span class="g-valign-middle">
+                            {% block pageSubTitle %}
+                                {% if page is defined and page.sub_title is defined %}
+                                    {{ page.sub_title }}
+                                {% endif %}
+                            {% endblock pageSubTitle %}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="g-pa-20">
+                <div class="media sous_titre">
+                    <div class="d-flex align-self-center">
+                        <h1 class="g-font-weight-300 g-font-size-28 g-color-black mb-0">
+                            {% if page is defined %}
+                                <div class="d-flex">
+                                    {% if object is defined and object is not null and (object=='Gros Oeuvre' or object=='Second Oeuvre') %}
+                                    <div>
+                                        {{ object }}
+                                    </div>
+                                    {% elseif page.sub_title is defined and page.sub_title is not null %}
+                                    <div>
+                                        {{ page.sub_title }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            {% elseif titleProfileProjet is defined and titleProfileProjet is not null %}
+                                <div class="d-flex">
+                                    <div>
+                                        {{ titleProfileProjet }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </h1>
+                    </div>
+                    {% if page is defined %}
+                        {% if page.title=='Le Gros Oeuvre'%}
+                            <span id="prix_grosOeuvre" class="u-tags-v1 text-center g-width-150--md g-brd-around g-brd-lightblue-v3 g-bg-lightblue-v3 g-font-size-12 g-font-size-default--md g-color-white g-rounded-50 g-py-4 g-px-15">
+                                    <b>
+                                        {{ grosOeuvre.prix|number_format(2, ',', ' ') }} €
+                                    </b>
+                                </span>
+                        {% elseif page.title=='Le Second Oeuvre' %}
+                            <span id="prix_secondOeuvre" class="u-tags-v1 text-center g-width-150--md g-brd-around g-brd-lightblue-v3 g-bg-lightblue-v3 g-font-size-12 g-font-size-default--md g-color-white g-rounded-50 g-py-4 g-px-15">
+                                <b>
+                                    {{ secondOeuvre.prix|number_format(2, ',', ' ') }} €
+                                </b>
+                            </span>
+                        {% endif %}
+                    {% endif %}
+                    <span>
+                        {% if projet is defined and projet is not null %}
+                            <span class="block_button_back">
+                                <a id="button_back" data-toggle="tooltip" data-placement="right" data-html="true" title="Voir un aperçu de votre projet avant la conversion en PDF"
+                                   class="btn btn-md u-btn-bluegray g-width-160--md g-font-size-default g-ml-10" href="{{ path('home_construct_projet_testpdf',{'id':projet.id}) }}" data-speed="350">
+                                    <div class="fas fa-file mr-2"></div>
+                                    Aperçu
+                                </a>
+                            </span>
+                        {% endif %}
+                        {% if (grosOeuvre is defined and grosOeuvre is not null) or (secondOeuvre is defined and secondOeuvre is not null) %}
+                            <span class="text-right">
+                                <a class="btn btn-md u-btn-red g-width-160--md g-font-size-default g-ml-10"
+                                   data-toggle="tooltip" data-placement="right" data-html="true" title="Télécharger votre projet au format PDF"
+                                   href="{% if grosOeuvre is defined and grosOeuvre is not null %}
+                                            {{ path('home_construct_projet_pdf',{'id':grosOeuvre.projet.id}) }}
+                                        {% else %}
+                                            {{ path('home_construct_projet_pdf',{'id':secondOeuvre.projet.id}) }}
+                                        {% endif %}"
+                                   data-speed="350">
+                                    <div class="fas fa-file-pdf mr-2"></div>
+                                    Print To PDF
+                                </a>
+                            </span>
+                        {% endif %}
+                        </span>
+                    {% if (object is defined and object is not null) and (object=="Projet" or object=="Piece") %}
+                    <div class="media-body align-self-center text-right">
+                        <a id="button_add"
+                           class=" btn btn-xl u-btn-lightblue-v3 g-width-120 g-font-size-default g-ml-10"
+                           href="{% if object == "Projet" %}
+                                    {{ path('home_construct_projet_creation') }}
+                                 {% elseif object == "Piece" %}
+                                    {{ path('home_construct_piece_creation',{'idGrosOeuvre':grosOeuvre.id}) }}
+                                 {% endif %}
+                            " data-speed="350">
+                            <div id="icone_plus_add" class="fas fa-plus"></div>
+                            Ajouter
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if page is defined %}
+                    {% if page.title=='Le Gros Oeuvre' or page.title=='Le Second Oeuvre' %}
+                        <h6 class="heading-xs">
+                            <span id="infos_progressBar" class="pull-right">
+                            </span>
+                        </h6>
+                        <div class="progress progress-u progress-sm">
+                            <div id="progress_bar" class="progress-bar progress-bar-u" role="progressbar" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                            </div>
+                        </div>
+                        <h6 class="heading-xs">
+                            <span id="valeur_pourcentage" class="pull-right">
+                            </span>
+                        </h6>
+                        <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                    {% endif %}
+                {% endif %}
+
+                {# Start Alert #}
+                {% block alert %}
+
+                {% endblock alert %}
+                {% block content %}
+                    {% if error is defined and error is not empty %}
+                        <div class="noty_bar noty_type__error noty_theme__unify--v1 g-mb-25">
+                            <div class="noty_body">
+                                <div class="g-mr-20">
+                                    <div class="noty_body__icon">
+                                        <i class="hs-admin-alert"></i>
+                                    </div>
+                                </div>
+
+                                <div>{{ error }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                {% endblock content %}
+
+                {% block bas %}
+                    <!-- Footer -->
+                    <footer id="footer" class="u-footer--bottom-sticky g-bg-white g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                        <div class="row align-items-center">
+                            <!-- Footer Nav -->
+                            <div class="col-md-4 g-mb-10 g-mb-0--md">
+                                <ul class="list-inline text-center text-md-left mb-0">
+                                    <li class="list-inline-item">
+                                        <a class="g-color-gray-dark-v6 g-color-lightblue-v3--hover" href="#!">FAQ</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <span class="g-color-gray-dark-v6">|</span>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="g-color-gray-dark-v6 g-color-lightblue-v3--hover" href="#!">Support</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <span class="g-color-gray-dark-v6">|</span>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="g-color-gray-dark-v6 g-color-lightblue-v3--hover" href="{{ path('home_construct_contact') }}">Contact Us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Footer Nav -->
+
+                        </div>
+                    </footer>
+                    <!-- End Footer -->
+                {% endblock bas %}
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- End Header -->
+
+
+{% block javascripts %}
+    {% javascripts filter='jsqueeze'
+        'bundles/symracinetemplate/vendor/jquery/jquery.min.js'
+        'bundles/symracinetemplate/vendor/jquery-migrate/jquery-migrate.min.js'
+        'bundles/symracinetemplate/vendor/popper.min.js'
+        'bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.js'
+        'bundles/symracinetemplate/vendor/noty/lib/noty.min.js'
+        'bundles/symracinetemplate/vendor/cookiejs/jquery.cookie.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+    {% block javascripts_implementing_plugins %}
+        {% javascripts filter='jsqueeze'
+            'bundles/symracinetemplate/vendor/hs-megamenu/src/hs.megamenu.min.js'
+            'bundles/symracinetemplate/vendor/jquery-ui/ui/widget.min.js'
+            'bundles/symracinetemplate/vendor/jquery-ui/ui/widgets/menu.js'
+            'bundles/symracinetemplate/vendor/jquery-ui/ui/widgets/mouse.js'
+            'bundles/symracinetemplate/vendor/chosen/chosen.jquery.js'
+            'bundles/symracinetemplate/vendor/slick-carousel/slick/slick.min.js'
+        %}
+    <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+    <!-- JS Unify -->
+    {% javascripts filter='jsqueeze'
+        'bundles/symracinetemplate/js/hs.core.min.js'
+        'bundles/symracinetemplate/js/components/hs.header.min.js'
+        'bundles/symracinetemplate/js/helpers/hs.hamburgers.min.js'
+        'bundles/symracinetemplate/js/components/hs.dropdown.min.js'
+        'bundles/symracinetemplate/js/components/hs.slider.min.js'
+        'bundles/symracinetemplate/js/components/hs.select.min.js'
+        'bundles/symracinetemplate/js/components/hs.carousel.min.js'
+        'bundles/symracinetemplate/js/components/hs.popup.min.js'
+        'bundles/symracinetemplate/js/components/hs.go-to.min.js'
+        'bundles/symracinetemplate/js/components/hs.side-nav.js'
+        'bundles/symracinetemplate/js/components/hs.scrollbar.js'
+        'bundles/symracinetemplate/js/helpers/hs.focus-state.js'
+        'bundles/symracinetemplate/js/components/hs.count-qty.js'
+        'bundles/symracinetemplate/js/components/hs.datatables.js'
+        'bundles/symracinetemplate/js/components/hs.bar-chart.js'
+        'bundles/symracinetemplate/js/custom.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/widget.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/version.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/keycode.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/position.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/unique-id.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/safe-active-element.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/widgets/menu.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/widgets/mouse.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/widgets/slider.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/widgets/datepicker.js'
+        'bundles/symracinetemplate/vendor/jquery-ui/ui/minified/i18n/datepicker-fr.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    {% block javascripts_ready_initialization %}
+
+    {% endblock %}
+
+
+    {% block javascripts_function_initialization %}
+
+        <!-- JS Plugins Init. -->
+        {% javascripts filter='jsqueeze'
+            'bundles/symracinetemplate/vendor/appear.js'
+            'bundles/symracinetemplate/vendor/bootstrap-select/js/bootstrap-select.min.js'
+            'bundles/symracinetemplate/vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js'
+            'bundles/symracinetemplate/vendor/datatables/media/js/jquery.dataTables.min.js'
+            'bundles/symracinetemplate/vendor/bloodhound-js/bloodhound.min.js'
+            'bundles/symracinetemplate/vendor/bloodhound-js/typeahead.jquery.min.js'
+            'bundles/symracinetemplate/vendor/datatables/media/js/dataTables.select.js'
+            'bundles/symracinetemplate/vendor/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js'
+            'bundles/symracinetemplate/vendor/chartist-js/chartist.min.js'
+            'bundles/symracinetemplate/vendor/fancybox/jquery.fancybox.min.js'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <!-- JS Plugins Init. -->
+        <script>
+            $(document).on('ready', function () {
+                // initialization of custom select
+                $('.js-select').selectpicker();
+
+
+                // initialization of sidebar navigation component
+                $.HSCore.components.HSSideNav.init('.js-side-nav');
+
+                // initialization of hamburger
+                $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+                // initialization of HSDropdown component
+                $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
+                    dropdownHideOnScroll: false,
+                    dropdownType: 'css-animation',
+                    dropdownAnimationIn: 'fadeIn',
+                    dropdownAnimationOut: 'fadeOut'
+                });
+
+                // initialization of custom scrollbar
+                $.HSCore.components.HSScrollBar.init($('.js-custom-scroll'));
+
+                // initialization of datatables
+                $.HSCore.components.HSDatatables.init('.js-datatable');
+
+                // initialization of forms
+                $.HSCore.components.HSSlider.init('#regularSlider, #regularSlider2, #regularSlider3, #rangeSlider, #rangeSlider2, #rangeSlider3, #stepSlider, #stepSlider2, #stepSlider3');
+
+                // initialization of forms
+                $.HSCore.components.HSCountQty.init('.js-quantity');
+
+                // initialization of popups
+                $.HSCore.components.HSPopup.init('.js-fancybox', {
+                    btnTpl: {
+                        smallBtn: '<button data-fancybox-close class="btn g-pos-abs g-top-25 g-right-30 g-line-height-1 g-bg-transparent g-font-size-16 g-color-gray-light-v6 g-brd-none p-0" title=""><i class="hs-admin-close"></i></button>'
+                    }
+                });
+            });
+        </script>
+
+    {% endblock %}
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116877381-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116877381-1');
+    </script>
+
+
+    <!-- jQuery affichage calendrier -->
+    <script>
+        function afficherCalendrier(idInputDate)
+        {
+            $('#' + idInputDate).datepicker({
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1
+            });
+        }
+    </script>
+    <!-- fin du Jquery -->
+
+    {# on teste ici s'il y a une notification, en effet dès qu'il y a une notification la colonne 'notif' du tableau app.flashes est rempli par "true"#}
+    {% if app.flashes('notif') is not empty %}
+        <script>
+            {#{% if '/suppr' in app.request.headers.get("referer") %}
+                var type = "error";
+            {% elseif '/ajout' in app.request.headers.get("referer") %}
+                var type = "success";
+            {% elseif '/edit' in app.request.headers.get("referer") %}
+                var type = "warning";
+            {% endif %}#}
+            $(document).on('ready', function () {
+                var newNoty = new Noty({
+                    "type": "success",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                        {% for message in app.flashes('notice') %}
+                                    "{{ message }}"+
+                            {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+            {% if app.flashes('calcul1') is not empty %}
+            $(document).on('ready', function () {
+                var testNoty = new Noty({
+                    "type": "warning",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                    {% for message in app.flashes('nameEntity1') %}
+                    "<b>{{ message }}</b>"
+                    {% endfor %}
+                    +"<br>"+
+                    {% for message in app.flashes('newPrice1') %}
+                    "{{ message }}"+
+                    {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+            {% endif %}
+            {% if app.flashes('calcul2') is not empty %}
+            $(document).on('ready', function () {
+                var testNoty = new Noty({
+                    "type": "warning",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                    {% for message in app.flashes('nameEntity2') %}
+                    "<b>{{ message }}</b>"
+                    {% endfor %}
+                    +"<br>"+
+                    {% for message in app.flashes('newPrice2') %}
+                    "{{ message }}"+
+                    {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+            {% endif %}
+            {% if app.flashes('calcul3') is not empty %}
+            $(document).on('ready', function () {
+                var testNoty = new Noty({
+                    "type": "warning",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                    {% for message in app.flashes('nameEntity3') %}
+                    "<b>{{ message }}</b>"
+                    {% endfor %}
+                    +"<br>"+
+                    {% for message in app.flashes('newPrice3') %}
+                    "{{ message }}"+
+                    {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+            {% endif %}
+            {% if app.flashes('calculGO') is not empty %}
+                $(document).on('ready', function () {
+                    var testNoty = new Noty({
+                        "type": "warning",
+                        "layout": "topRight",
+                        "timeout": "7000",
+                        "animation": {
+                            "open": "animated fadeIn",
+                            "close": "animated fadeOut"
+                        },
+                        "closeWith": [
+                            "click",
+                            "button"
+                        ],
+                        "text": "<div class=\"g-mr-20\">" +
+                        "<div class=\"noty_body__icon\">" +
+                        "<i class=\"hs-admin-check\">" +
+                        "</i>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div>" +
+                        {% for message in app.flashes('nameEntityGO') %}
+                        "<b>{{ message }}</b>"
+                        {% endfor %}
+                        +"<br>"+
+                        {% for message in app.flashes('newPriceGO') %}
+                        "{{ message }}"+
+                        {% endfor %}
+                        "</div>",
+                        "theme": "unify--v1"
+                    }).show();
+                });
+            {% endif %}
+            {% if app.flashes('calculSO') is not empty %}
+            $(document).on('ready', function () {
+                var testNoty = new Noty({
+                    "type": "warning",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                    {% for message in app.flashes('nameEntitySO') %}
+                    "<b>{{ message }}</b>"
+                    {% endfor %}
+                    +"<br>"+
+                    {% for message in app.flashes('newPriceSO') %}
+                    "{{ message }}"+
+                    {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+            {% endif %}
+            {% if app.flashes('mailSend') is not empty %}
+            $(document).on('ready', function () {
+                var testNoty = new Noty({
+                    "type": "info",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                    {% for message in app.flashes('notifMail') %}
+                    "{{ message }}"+
+                    {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+            {% endif %}
+        </script>
+        {% endif %}
+    {% if page is defined %}
+        {% if page.title=='Le Gros Oeuvre' %}
+            <script>
+                function progressBarGo(){
+                    {% set nbEntites=0 %}
+                    {% if projet is defined and projet is not null %}
+                        {% if projet.grosOeuvre is defined and projet.grosOeuvre is not null %}
+                            var tab=new Array(11);
+                            var index=0;
+                            {% if projet.grosOeuvre.toiture is defined and projet.grosOeuvre.toiture is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Toiture';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.charpente is defined and projet.grosOeuvre.charpente is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Charpente';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.pieces is defined and projet.grosOeuvre.pieces is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Pièce(s)';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.menuiseriesExterieures is defined and projet.grosOeuvre.menuiseriesExterieures is not null and projet.grosOeuvre.menuiseriesExterieures is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Menuiseries extérieures';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.etudeSol is defined and projet.grosOeuvre.etudeSol is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Etude du sol';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.excavation is defined and projet.grosOeuvre.excavation is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Excavation';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.prepaAccesTerrain is defined and projet.grosOeuvre.prepaAccesTerrain is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Preparation d\'accès au terrain';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.fondation is defined and projet.grosOeuvre.fondation is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Fondations';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.soubassement is defined and projet.grosOeuvre.soubassement is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Soubassement';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.vrd is defined and projet.grosOeuvre.vrd is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Vrd';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.plancher is defined and projet.grosOeuvre.plancher is not null and projet.grosOeuvre.plancher is not empty %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Plancher(s)';
+                                index++;
+                            {% endif %}
+                            {% if projet.grosOeuvre.elevation is defined and projet.grosOeuvre.elevation is not null %}
+                                {% set nbEntites=nbEntites+1 %}
+                            {% else %}
+                                tab[index]='Elevation';
+                            {% endif %}
+                            {% set pourcentage=(nbEntites/12)*100 %}
+                            document.getElementById('valeur_pourcentage').innerHTML="<b>{{ pourcentage|round(1) }}%</b>";
+                            {% if nbEntites!=12 %}
+                                document.getElementById('infos_progressBar').innerHTML="<b>{{ nbEntites }} éléments renseignés sur 12 possibles </b>";
+                                document.getElementById('infos_progressBar').innerHTML+=" Il manque les informations sur : ";
+                                for(var i=0;i<tab.length;i++){
+                                    if(tab[i]!=""&&tab[i]!=undefined){
+                                        document.getElementById('infos_progressBar').innerHTML+="<I>"+tab[i]+"</I>"+" - ";
+                                    }
+
+                                }
+                            {% else %}
+                                document.getElementById('infos_progressBar').innerHTML="<b>Tous les éléments du gros oeuvre ont été renseignés </b>";
+                            {% endif %}
+                            $('#progress_bar').attr("aria-valuenow","{{ pourcentage|round(1) }}");
+                            $('#progress_bar').attr("style","width:"+"{{ pourcentage|round(1) }}%");
+                    {% endif %}
+                    {% endif %}
+                }
+            </script>
+        {% elseif page.title == 'Le Second Oeuvre' %}
+            <script>
+                function progressBarSo(){
+                    {% set nbEntites=0 %}
+                    {% if projet is defined and projet is not null %}
+                        {% if projet.secondOeuvre is defined and projet.secondOeuvre is not null %}
+                        var tab=new Array(10);
+                        var index=0;
+                        {% if projet.secondOeuvre.domotiques is defined and projet.secondOeuvre.domotiques is not null and projet.secondOeuvre.domotiques is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Domotiques';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.isolation is defined and projet.secondOeuvre.isolation is not null %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Isolation';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.enduitExterieur is defined and projet.secondOeuvre.enduitExterieur is not null %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Enduit de façade';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.menuiseriesInterieures is defined and projet.secondOeuvre.menuiseriesInterieures is not null and projet.secondOeuvre.menuiseriesInterieures is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Menuiseries intérieures';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.escaliers is defined and projet.secondOeuvre.escaliers is not null and projet.secondOeuvre.escaliers is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Escaliers';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.climatisation is defined and projet.secondOeuvre.climatisation is not null and projet.secondOeuvre.climatisation is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Climatisation';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.chauffage is defined and projet.secondOeuvre.chauffage is not null and projet.secondOeuvre.chauffage is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Chauffage';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.revetementSol is defined and projet.secondOeuvre.revetementSol is not null and projet.secondOeuvre.revetementSol is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Revêtement du sol';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.ventilations is defined and projet.secondOeuvre.ventilations is not null and projet.secondOeuvre.ventilations is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Ventilations';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.evacuations is defined and projet.secondOeuvre.evacuations is not null and projet.secondOeuvre.evacuations is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Évacuations';
+                            index++;
+                        {% endif %}
+                        {% if projet.secondOeuvre.plomberies is defined and projet.secondOeuvre.plomberies is not null and projet.secondOeuvre.plomberies is not empty %}
+                            {% set nbEntites=nbEntites+1 %}
+                        {% else %}
+                            tab[index]='Plomberie';
+                            index++;
+                        {% endif %}
+                    {% set pourcentage=(nbEntites/11)*100 %}
+                            document.getElementById('valeur_pourcentage').innerHTML="<b>{{ pourcentage|round(1) }}%</b>";
+                        {% if nbEntites!=11 %}
+                            document.getElementById('infos_progressBar').innerHTML="<b>{{ nbEntites }} éléments renseignés sur 11 possibles </b>";
+                            document.getElementById('infos_progressBar').innerHTML+=" Il manque les informations sur : ";
+                        for(var i=0;i<tab.length;i++){
+                            if(tab[i]!=""&&tab[i]!=undefined){
+                                document.getElementById('infos_progressBar').innerHTML+="<I>"+tab[i]+"</I>"+" - ";
+                            }
+
+                        }
+                        {% else %}
+                        document.getElementById('infos_progressBar').innerHTML="<b>Tous les éléments du second oeuvre ont été renseignés </b>";
+                        {% endif %}
+                        $('#progress_bar').attr("aria-valuenow","{{ pourcentage|round(1) }}");
+                        $('#progress_bar').attr("style","width:"+"{{ pourcentage|round(1) }}%");
+                        {% endif %}
+                    {% endif %}
+                }
+            </script>
+        {% endif %}
+    {% endif %}
+
+
+{% endblock javascripts %}
+</body>
+</html>

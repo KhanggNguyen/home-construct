@@ -1,0 +1,52 @@
+{% extends "@HomeConstructUser/Users/profile_user_view.html.twig" %}
+
+ {% block contenu_profil %}
+<div id="contenu_form_profil_user" class="g-pa-20">
+    <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+            <h2 class="text-uppercase g-font-size-12 g-font-size-default--md g-color-black mb-0 titres_profile">
+                Modification des informations supplémentaires
+            </h2>
+             <!-- Login & Security -->
+
+                     {{ form_start(edit_form) }}
+                     {{ form_widget(edit_form) }}
+                             <div>
+                                 <button onclick="return false;" id="bouton_suppr" class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10 danger" data-toggle="modal" data-target="#delete_confirm">
+                                     <i class="fas fa-trash"></i> Supprimer
+                                 </button>
+                             </div>
+
+                     {{ form_end(edit_form) }}
+
+
+             {{ form_start(delete_form) }}
+             {{ form_widget(delete_form) }}
+
+             {% embed "@SymracineTemplate/Admin/Clever/embed/modal.html.twig" with {'id': 'delete_confirm', 'type': 'danger'} %}
+                 {% block modal_header_content %}
+                     <h4 class="modal-title">Confirmer la suppression</h4>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">×</span>
+                     </button>
+                 {% endblock %}
+                 {% block modal_body_content %}
+                     <p>Vous êtes sur le point de supprimer votre compte, cette procédure est irréversible.</p>
+                     <p>Voulez-vous poursuivre?</p>
+                 {% endblock %}
+                 {% block modal_footer_content %}
+                     <button class="btn btn-danger">Oui</button>
+                     <button class="btn btn-default"
+                             data-dismiss="modal">Non</button>
+                 {% endblock %}
+             {% endembed %}
+
+             {{ form_end(delete_form) }}
+
+             <!-- End Login & Security -->
+
+
+
+    </div>
+</div>
+
+    {% endblock contenu_profil %}

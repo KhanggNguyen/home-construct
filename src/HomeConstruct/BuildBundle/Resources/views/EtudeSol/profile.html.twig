@@ -1,0 +1,161 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+            <div id="block_infos_profile" class="col-lg-9 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Type de sol :
+                                <b>
+                                    {% if etude.type is defined and etude.type is not null %}
+                                        {{ etude.type.nom }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Prix :
+                                <b>
+                                    {% if etude.prixForfait is defined and etude.prixForfait is not null %}
+                                        {{ etude.prixForfait |number_format(2, ',', ' ') }} €
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Ajouté par :
+                                <b>
+                                    {% if etude.createur is defined and etude.createur is not null %}
+                                        {{ etude.createur.firstname }} {{ etude.createur.name }}
+                                        (
+                                            <a class="lien_mail" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Envoyer un email" href="mailto:{{ etude.createur.email }}">
+                                                {{ etude.createur.email }}
+                                            </a>
+                                        )
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Date d'ajout :
+                                <b>
+                                    {% if etude.dateCreation is defined and etude.dateCreation is not null %}
+                                        {{ etude.dateCreation|date('d/m/Y H:i') }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    {% if etude.modifieur is defined and etude.modifieur is not null %}
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Modifié par :
+                                    <b>
+                                        {{ etude.modifieur.firstname }} {{ etude.modifieur.name }}
+                                        (
+                                            <a class="lien_mail" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Envoyer un email" href="mailto:{{ etude.modifieur.email }}">
+                                                {{ etude.modifieur.email }}
+                                            </a>
+                                        )
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                            <span class="d-block">Date de modification :
+                                <b>
+                                    {% if etude.dateModification is defined and etude.dateModification is not null %}
+                                        {{ etude.dateModification|date('d/m/Y H:i') }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div>
+    
+                    </div>
+                    {% if "ROLE_SUPER_ADMIN" in app.user.roles or "ROLE_ADMIN" in app.user.roles %}
+                        <div class="text-center">
+                            <a id="button_next"
+                                    class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                    href="{{ path('home_construct_etude_sol_edit',{'idEtudeSol':etude.id}) }}" data-speed="350">
+                                Modifier
+                                <div  class="fas fa-pencil"></div>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- End Info -->
+            </div>
+            <div class="block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <h5 class="titre_sous_entite">
+                        <a class="link_sous_entite" href="{{ path('home_construct_information_base_profile',{'id':etude.grosOeuvre.informationBase.id}) }}">
+                            Informations de base :
+                        </a>
+                    </h5>
+                    <li>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Surface totale de la maison :
+                        <b>
+                            {{ etude.grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }}m²
+                        </b>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Présence d'un sous sol :
+                        <b>
+                            {% if etude.grosOeuvre.informationBase.sousSol == true %}
+                                Oui
+                            {% else %}
+                                Non
+                            {% endif %}
+                        </b>
+                    </li>
+                </ul>
+                {% if etude.prixForfait is defined and etude.prixForfait is not null %}
+                    <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                        {{ etude.prixForfait|number_format(2, ',', ' ') }} €
+                    </div>
+                {% else %}
+                    <I>
+                        Pour pouvoir estimer un prix total veuillez ajouter les entités manquantes (marquées d'une croix rouge)
+                    </I>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endblock sub_content %}
+
+{% endblock content %}
+

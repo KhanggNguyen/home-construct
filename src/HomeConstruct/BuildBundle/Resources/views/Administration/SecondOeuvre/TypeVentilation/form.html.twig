@@ -1,0 +1,80 @@
+{% extends "@HomeConstructBuild/Administration/base-forms-profiles-secondOeuvre-administration.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true %}
+            {% set retour = path('home_construct_type_ventilation_list') %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div id="block_form_table">
+            {{ form_start(form,{'attr':{'id':'form_type_ventilation'}}) }}
+            <div class="col-lg-12 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30 ">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.nom) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.prix) }}</span>
+                        </div>
+                    </div>
+
+                    <div class="block_button_backnext">
+                        <button id="button_next"
+                                class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                href="" data-speed="350">
+                            Enregistrer
+                            <div  class="fas fa-check"></div>
+                        </button>
+                    </div>
+
+                </div>
+                <!-- End Info -->
+            </div>
+            {{ form_end(form) }}
+            <div id="table_form_type_ventilation">
+                {{ include('@HomeConstructBuild/Administration/SecondOeuvre/TypeVentilation/complex-table-type-ventilation.html.twig') }}
+            </div>
+        </div>
+        <div class="block_button_backnext" class="media-body align-self-center">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ path('home_construct_type_ventilation_list') }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Terminer
+            </a>
+        </div>
+
+    {% endblock sub_content %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent()}}
+    <script>
+        function showGrey(id) {
+            var item = 'champSelect' + id;
+            document.getElementById(item).style.backgroundColor = "rgba(142, 142, 142, 0.4)";
+        }
+
+        function hideGrey(id) {
+            var item = 'champSelect' + id;
+            document.getElementById(item).style.backgroundColor = "white";
+        }
+    </script>
+{% endblock javascripts %}
+

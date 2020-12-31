@@ -1,0 +1,80 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="col-lg-9 g-mb-50">
+            <!-- Info -->
+            <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">
+                            Surface totale :
+                            <b>
+                                {{ information.surfaceTotale|number_format(2, ',', ' ') }}m²
+                            </b>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">
+                            Nombre de pièces :
+                            <b>
+                                {{ information.nbPieces }}
+                            </b>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">
+                            Présence de comble :
+                            <b>
+                                {% if information.comble==true %}
+                                    Oui
+                                {% else %}
+                                    Non
+                                {% endif %}
+                            </b>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">
+                            Présence d'un sous-sol :
+                            <b>
+                                {% if information.sousSol==true %}
+                                    Oui
+                                {% else %}
+                                    Non
+                                {% endif %}
+                            </b>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">Type d'assainissement : <b>{{ information.assainissement.nom }}</b></span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a id="button_next"
+                       class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                       href="{{ path('home_construct_information_base_edit',{'idInformationBase':information.id}) }}" data-speed="350">
+                        Modifier
+                        <div id="icone_plus_add" class="fas fa-pencil"></div>
+                    </a>
+                </div>
+
+            </div>
+            <!-- End Info -->
+        </div>
+    {% endblock sub_content %}
+
+{% endblock content %}
+

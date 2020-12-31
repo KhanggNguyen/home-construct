@@ -1,0 +1,347 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+{% block title %}
+    {{ titreOnglet }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/affichage_liste.css'
+        'bundles/homeconstructfo/css/administration.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="block_button_back">
+        <a id="button_back"
+           class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+           href="{{path('home_construct_administration_profile')}}" data-speed="350">
+            <div id="icone_plus_add" class="fas fa-reply"></div>
+            Retour
+        </a>
+    </div>
+    {% set index = 1 %}
+    <div class="row g-mb-35">
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_materiaux_escalier_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Matériau d'escalier
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_climatisation_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type de climatisation
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_chauffage_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type de chauffage
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_materiaux_menuiserie_interieure_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Matériau de menuiserie intérieure
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_menuiserie_interieure_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type de menuiserie intérieure
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_domotique_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type de domotique
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_evacuation_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type d'évacuation
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_plomberie_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type de plomberie
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_revetement_sol_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Type de revêtement de sol
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_ventilation_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Types de ventilations
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_type_enduitExterieur_list') }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="hs-admin-settings g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Types enduit de façade
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+    </div>
+{% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function select(id){
+            document.getElementById(id).style.backgroundColor = "orange";
+        }
+        function deselection(id){
+            document.getElementById(id).style.backgroundColor = "white";
+        }
+    </script>
+{% endblock javascripts%}

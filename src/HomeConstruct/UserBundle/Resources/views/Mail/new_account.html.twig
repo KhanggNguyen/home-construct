@@ -1,0 +1,40 @@
+{#{% extends "HomeConstructUserBundle:Mail:layout.html.twig" %}#}
+
+{% block subject %}Création de votre compte{% endblock %}
+
+{% block name %}Home-Construct{% endblock %}
+
+{% block body_text %}
+    <h2> Home-Construct - Compte</h2>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Bonjour {{ user.name }} {{ user.firstname }} ({{ user.username }}) !
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;Votre compte
+        {% if 'SUPER ADMIN' in user.groups %}
+            Super Admin
+        {% elseif 'CLIENT' in user.groups %}
+            Client
+        {% elseif 'PROFESSIONNEL' in user.groups %}
+            Professionnel
+        {% endif %}
+            a été créé sur Home-Construct.
+    </p><br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        <strong>Pour valider votre compte utilisateur, merci de vous connecter à l'aide de vos identifiants en vous rendant sur :</strong>
+    </p>
+
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+        {% if token is defined and token is not null %}
+            {{ url('fos_user_registration_confirm',{'token':token}) }} <br>
+        {% endif %}
+    </p>
+
+
+    <br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+    Cordialement,<br/>
+    L'équipe
+    </p>
+
+
+{% endblock %}

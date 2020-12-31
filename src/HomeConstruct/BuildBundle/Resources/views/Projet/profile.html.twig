@@ -1,0 +1,293 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+{% block title %}
+    {{ titreOnglet }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/affichage_liste.css'
+        'bundles/homeconstructfo/css/administration.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block body_attributs %}
+   {% if (idGrosOeuvre is defined and idGrosOeuvre is not null) and (idSecondOeuvre is defined and idSecondOeuvre is not null) %}
+            onload="progressBarGo(),progressBarSo()"
+   {% elseif idGrosOeuvre is defined and idGrosOeuvre is not null %}
+          onload="progressBarGo()"
+   {% elseif idSecondOeuvre is defined and idSecondOeuvre is not null %}
+          onload="progressBarSo()"
+   {% endif %}
+{% endblock %}
+
+{% block content %}
+    <span id="block_etape">
+        <div id="block_grosOeuvre" onmouseover="select('block_grosOeuvre')" onmouseout="deselection('block_grosOeuvre')" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3 text-center">
+            <h3>GROS OEUVRE</h3>
+            <a href="{% if idGrosOeuvre is defined and idGrosOeuvre is not null %}
+                            {{ path('home_construct_gros_oeuvre_profile',{'id':idGrosOeuvre}) }}
+                         {% else %}
+                            {{ path('home_construct_gros_oeuvre_creation',{'id':idProjet}) }}
+                         {% endif %}">
+                <img id="img-grosOeuvre" src="{{ asset('bundles/homeconstructfo/img/gros-oeuvre.jpg') }}"/>
+            </a>
+            {% if idGrosOeuvre is defined and idGrosOeuvre is not null %}
+            <div class="ml-3 mr-3">
+                <h6 class="heading-xs">
+                    <span id="infos_progressBarGo" class="pull-right">
+                    </span>
+                </h6>
+                <div class="progress progress-u progress-sm">
+                    <div id="progress_barGo" class="progress-bar progress-bar-u" role="progressbar" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                    </div>
+                </div>
+                <h6 class="heading-xs">
+                    <span id="valeur_pourcentageGo" class="pull-right">
+                    </span>
+                </h6>
+            </div>
+            {% else %}
+                <h5>Créer</h5>
+            {% endif %}
+        </div>
+        <div id="block_secondOeuvre" onmouseover="select('block_secondOeuvre')" onmouseout="deselection('block_secondOeuvre')" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3 text-center">
+            <h3>SECOND OEUVRE</h3>
+            <a href="{% if idSecondOeuvre is defined and idSecondOeuvre is not null %}
+                            {{ path('home_construct_second_oeuvre_profile',{'id':idSecondOeuvre}) }}
+                         {% else %}
+                            {{ path('home_construct_second_oeuvre_creation',{'id':idProjet}) }}
+                         {% endif %}">
+                <img id="img-secondOeuvre" src="{{ asset('bundles/homeconstructfo/img/second-oeuvre.jpg') }}"/>
+            </a>
+            {% if idSecondOeuvre is defined and idSecondOeuvre is not null %}
+                <div class="ml-3 mr-3">
+                    <h6 class="heading-xs">
+                    <span id="infos_progressBarSo" class="pull-right">
+                    </span>
+                </h6>
+                <div class="progress progress-u progress-sm">
+                    <div id="progress_barSo" class="progress-bar progress-bar-u" role="progressbar" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                    </div>
+                </div>
+                <h6 class="heading-xs">
+                    <span id="valeur_pourcentageSo" class="pull-right">
+                    </span>
+                </h6>
+                </div>
+
+            {% else %}
+                <h5>Créer</h5>
+            {% endif %}
+        </div>
+    </span>
+    <div class="g-mt-10">
+        {% if idGrosOeuvre is defined and idGrosOeuvre is not null %}
+            <a class="btn btn-xl u-btn-red g-width-250--md g-font-size-default g-ml-10"
+               href="{{ path('home_construct_gros_oeuvre_delete',{'id':idGrosOeuvre}) }}" onclick="return confirm('Voulez-vous vraiment supprimer le gros oeuvre ? Cela entrainera également la suppression de tout son contenu (Charpente, Toiture etc..). Attention cette action sera irréversible !')">
+                <i class="fas fa-trash"></i> Supprimer le gros oeuvre
+            </a>
+        {% endif %}
+        {% if idSecondOeuvre is defined and idSecondOeuvre is not null %}
+            <a class="btn btn-xl u-btn-red g-width-250--md g-font-size-default g-ml-10"
+               href="{{ path('home_construct_second_oeuvre_delete',{'id':idSecondOeuvre}) }}" onclick="return confirm('Voulez-vous vraiment supprimer le gros oeuvre ? Cela entrainera également la suppression de tout son contenu (Charpente, Toiture etc..). Attention cette action sera irréversible !')">
+                <i class="fas fa-trash"></i> Supprimer le second oeuvre
+            </a>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function select(id){
+            document.getElementById(id).style.backgroundColor = "orange";
+        }
+        function deselection(id){
+            document.getElementById(id).style.backgroundColor = "lightblue";
+        }
+    </script>
+    {% if idGrosOeuvre is defined and idGrosOeuvre is not null %}
+    <script>
+        function progressBarGo(){
+            {% set nbEntites=0 %}
+            {% if projet is defined and projet is not null %}
+            {% if projet.grosOeuvre is defined and projet.grosOeuvre is not null %}
+            var tab=new Array(11);
+            var index=0;
+            {% if projet.grosOeuvre.toiture is defined and projet.grosOeuvre.toiture is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Toiture';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.charpente is defined and projet.grosOeuvre.charpente is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Charpente';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.pieces is defined and projet.grosOeuvre.pieces is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Pièce(s)';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.menuiseriesExterieures is defined and projet.grosOeuvre.menuiseriesExterieures is not null and projet.grosOeuvre.menuiseriesExterieures is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Menuiseries extérieures';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.etudeSol is defined and projet.grosOeuvre.etudeSol is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Etude du sol';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.excavation is defined and projet.grosOeuvre.excavation is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Excavation';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.prepaAccesTerrain is defined and projet.grosOeuvre.prepaAccesTerrain is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Preparation d\'accès au terrain';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.fondation is defined and projet.grosOeuvre.fondation is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Fondations';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.soubassement is defined and projet.grosOeuvre.soubassement is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Soubassement';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.vrd is defined and projet.grosOeuvre.vrd is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Vrd';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.plancher is defined and projet.grosOeuvre.plancher is not null and projet.grosOeuvre.plancher is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Plancher(s)';
+            index++;
+            {% endif %}
+            {% if projet.grosOeuvre.elevation is defined and projet.grosOeuvre.elevation is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Elevation';
+            {% endif %}
+            {% set pourcentage=(nbEntites/12)*100 %}
+            document.getElementById('valeur_pourcentageGo').innerHTML="<b>{{ pourcentage|round(1) }}%</b>";
+            {% if nbEntites!=12 %}
+            document.getElementById('infos_progressBarGo').innerHTML="<b>{{ nbEntites }} élément(s) renseigné(s) sur 12 possibles </b>";
+            {% else %}
+            document.getElementById('infos_progressBarGo').innerHTML="<b>Tous les éléments du gros oeuvre ont été renseignés </b>";
+            {% endif %}
+            $('#progress_barGo').attr("aria-valuenow","{{ pourcentage|round(1) }}");
+            $('#progress_barGo').attr("style","width:"+"{{ pourcentage|round(1) }}%");
+            {% endif %}
+            {% endif %}
+        }
+    </script>
+    {% endif %}
+    {% if idSecondOeuvre is defined and idSecondOeuvre is not null %}
+    <script>
+        function progressBarSo(){
+            {% set nbEntites=0 %}
+            {% if projet is defined and projet is not null %}
+            {% if projet.secondOeuvre is defined and projet.secondOeuvre is not null %}
+            var tab=new Array(10);
+            var index=0;
+            {% if projet.secondOeuvre.domotiques is defined and projet.secondOeuvre.domotiques is not null and projet.secondOeuvre.domotiques is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Domotiques';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.isolation is defined and projet.secondOeuvre.isolation is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Isolation';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.enduitExterieur is defined and projet.secondOeuvre.enduitExterieur is not null %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Enduit de façade';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.menuiseriesInterieures is defined and projet.secondOeuvre.menuiseriesInterieures is not null and projet.secondOeuvre.menuiseriesInterieures is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Menuiseries intérieures';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.escaliers is defined and projet.secondOeuvre.escaliers is not null and projet.secondOeuvre.escaliers is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Escaliers';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.climatisation is defined and projet.secondOeuvre.climatisation is not null and projet.secondOeuvre.climatisation is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Climatisation';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.chauffage is defined and projet.secondOeuvre.chauffage is not null and projet.secondOeuvre.chauffage is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Chauffage';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.revetementSol is defined and projet.secondOeuvre.revetementSol is not null and projet.secondOeuvre.revetementSol is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Revêtement du sol';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.ventilations is defined and projet.secondOeuvre.ventilations is not null and projet.secondOeuvre.ventilations is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Ventilations';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.evacuations is defined and projet.secondOeuvre.evacuations is not null and projet.secondOeuvre.evacuations is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Évacuations';
+            index++;
+            {% endif %}
+            {% if projet.secondOeuvre.plomberies is defined and projet.secondOeuvre.plomberies is not null and projet.secondOeuvre.plomberies is not empty %}
+            {% set nbEntites=nbEntites+1 %}
+            {% else %}
+            tab[index]='Plomberie';
+            index++;
+            {% endif %}
+            {% set pourcentage=(nbEntites/11)*100 %}
+            document.getElementById('valeur_pourcentageSo').innerHTML="<b>{{ pourcentage|round(1) }}%</b>";
+            {% if nbEntites!=11 %}
+            document.getElementById('infos_progressBarSo').innerHTML="<b>{{ nbEntites }} élément(s) renseigné(s) sur 11 possibles </b>";
+            {% else %}
+            document.getElementById('infos_progressBarSo').innerHTML="<b>Tous les éléments du second oeuvre ont été renseignés </b>";
+            {% endif %}
+            $('#progress_barSo').attr("aria-valuenow","{{ pourcentage|round(1) }}");
+            $('#progress_barSo').attr("style","width:"+"{{ pourcentage|round(1) }}%");
+            {% endif %}
+            {% endif %}
+        }
+    </script>
+    {% endif %}
+{% endblock javascripts%}

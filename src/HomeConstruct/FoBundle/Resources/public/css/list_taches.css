@@ -1,0 +1,19 @@
+.block_date_creation{
+    position:absolute;
+    bottom:0;
+    color:grey;
+}
+
+p{
+    overflow-wrap:break-word;
+}
+
+.fa-building{
+    padding-top: 4px;
+    margin-right: 5px;
+}
+
+.fa-user{
+    padding-top: 4px;
+    margin-right: 5px;
+}

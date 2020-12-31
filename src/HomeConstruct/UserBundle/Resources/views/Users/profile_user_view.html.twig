@@ -1,0 +1,218 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block title %}
+        Profil Utilisateur
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/profiles.css'
+        'bundles/homeconstructfo/css/profile_view.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    {% block cadre_profil %}
+
+        <div class="g-pa-20">
+        <div class="row">
+        <div class="col-md-3 g-mb-30 g-mb-0--md">
+            <div class="h-100 g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-20--md">
+                <!-- User Information -->
+                <section id="block_icone_profil" class="text-center g-mb-30 g-mb-50--md">
+                    <div class="d-inline-block g-pos-rel g-mb-20">
+
+                        <img class="img-fluid rounded-circle icone_profil"
+                             src="{{ asset('bundles/homeconstructfo/img/contact.png') }}"
+                             alt="Image description">
+                    </div>
+
+
+                    <h3 class="g-font-weight-300 g-font-size-20 g-color-black mb-0">
+                        {% if user.name is defined and user.name is not null %}
+                            {{ user.name }}
+                        {% endif %}
+                        {% if user.firstname is defined and user.firstname is not null %}
+                            {{ user.firstname }}
+                        {% endif %}
+                    </h3>
+                </section>
+                <!-- User Information -->
+
+                <!-- End Profile Completion -->
+
+                <!-- Profile Sidebar -->
+                <section>
+                    <ul id="block_navigation_profil" class="list-unstyled mb-0">
+                        <li class="g-brd-top g-brd-gray-light-v7 mb-0">
+                            <a class="d-flex align-items-center u-link-v5 g-parent g-py-15 "
+                               href="{% if app.user.username != user.username %}
+                                        {{ path('home_construct_user_profile_show',{'aff':'general','id':user.id}) }}
+                                     {% else %}
+                                        {{ path('home_construct_user_myprofile_show',{'aff':'general'}) }}
+                                    {% endif %}
+                                    ">
+                                    <span class="g-font-size-18 g-color-gray-light-v6 g-color-lightred-v3--parent-hover g-color-lightred-v3--parent-active g-mr-15">
+                                        <i class="hs-admin-user"></i>
+					                </span>
+                                <span class="g-color-gray-dark-v6 g-color-lightred-v3--parent-hover g-color-lightred-v3--parent-active">
+                                        Infos générales
+                                    </span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <!-- End Profile Sidebar -->
+            </div>
+        </div>
+    {% endblock cadre_profil %}
+
+    {% block contenu_profil %}
+
+
+        <div class="col-md-9">
+            <div id="cadre_contenu_profile"
+                 class="h-100 g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-20--md">
+                <div id="block_profil_general">
+                    <h2 class="text-uppercase g-font-size-12 g-font-size-default--md g-color-black mb-0 titres_profile">
+                        Informations générales
+                    </h2>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <span class="d-block">
+                                Nom :
+                                {% if user.name is defined and user.name is not empty %}
+                                    <strong>{{ user.name }}</strong>
+                                {% else %}
+                                    <I> Non renseigné </I>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <span class="d-block">
+                                Prénom :
+                                {% if user.firstname is defined and user.firstname is not empty %}
+                                    <strong>
+                                {{ user.firstname }}
+                                </strong>
+                                {% else %}
+                                    <I> Non renseigné </I>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">
+                                    E-mail :
+                                    <strong>
+                                        {{ user.email }}
+                                    </strong>
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">
+                                   Groupe :
+                                    {% if user.groups is defined and user.groups is not empty %}
+                                        {% for group in user.groups %}
+                                            <strong>
+                                                {{ group.name }}
+                                            </strong>
+                                        {% endfor %}
+                                    {% else %}
+                                        <I> Non renseigné </I>
+                                    {% endif %}
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                Mot de passe : <strong>*********</strong>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-flex align-items-center justify-content-center u-tags-v1 g-brd-around g-bg-gray-light-v8 g-bg-gray-light-v8 g-font-size-default g-color-gray-dark-v6 g-rounded-50 g-py-4 g-px-15">
+                                    <strong>Date d'inscription :
+                                        {{ user.firstLogin|date('d/m/Y H:i') }}
+                                    </strong>
+                                </span>
+                        </div>
+                    </div>
+                    <div id="boutons_modif_modifmdp">
+                    {% if app.user.username == user.username %}
+                        <div id="block_bouton_modif">
+                            <a id="bouton_modif"
+                               class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                               href="{{ path('home_construct_user_myprofile_edit_general',{'aff':'general'}) }}">
+                                Modifier
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if app.user.username == user.username %}
+                        <div id="block_bouton_modif">
+                            <a id="bouton_modif_mdp"
+                               class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10 boutons"
+                               href="{{ path('fos_user_change_password') }}">
+                                Changer Mot de passe
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    {% endblock contenu_profil %}
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+        function display(thingToDisplay) {
+            var elements = document.getElementsByClassName(thingToDisplay);
+            for (var i = 0, len = elements.length; i < len; i++) {
+                var block = elements[i].style["display"];
+                if (block == 'block') {
+                    elements[i].style["display"] = 'none';
+                } else if (block = 'none') {
+                    elements[i].style["display"] = 'block';
+                }
+            }
+        }
+
+        function showGrey(id) {
+            var item = 'champSelect' + id;
+            document.getElementById(item).style.backgroundColor = "rgba(78, 78, 78, 0.5)";
+            document.getElementById(item).style.borderRadius = '6px';
+        }
+
+        function hideGrey(id) {
+            var item = 'champSelect' + id;
+            document.getElementById(item).style.backgroundColor = "rgba(195, 195, 195, 0.65)";
+            document.getElementById(item).style.borderRadius = '6px';
+        }
+    </script>
+
+{% endblock javascripts %}

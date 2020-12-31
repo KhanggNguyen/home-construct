@@ -1,0 +1,37 @@
+{% extends "@HomeConstructFo/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+        'bundles/homeconstructfo/css/add_user.css'
+        'bundles/homeconstructfo/css/reset_mdp2.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+{% include "@HomeConstructUser/Resetting/reset_content.html.twig" %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function showPwd() {
+            var x = document.getElementById("fos_user_resetting_form_plainPassword_first");
+            var y = document.getElementById("fos_user_resetting_form_plainPassword_second");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            if(y.type==="password"){
+                y.type="text";
+            }else {
+                y.type = "password";
+            }
+
+        }
+    </script>
+{% endblock javascripts %}

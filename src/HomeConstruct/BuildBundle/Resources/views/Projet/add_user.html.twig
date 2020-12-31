@@ -1,0 +1,91 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block content %}
+    <div class="block_button_back">
+        <a id="button_back"
+           class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+           href="{{ path('home_construct_projet_list_users',{'id':projet.id}) }}" data-speed="350">
+            <div  class="fas fa-reply"></div>
+            Retour
+        </a>
+    </div>
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">
+                        <div class="form-group">
+                            <label class="control-label required" for="email_user_to_add">
+                                Email de la personne à ajouter au projet :
+                            </label>
+                            <input type="email" oninput="showButtonAdd()" id="email_user_to_add" name="email_user_to_add" required="required" class="form-control">
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <button id="button_confirm" onclick="changePath()"
+                    class="btn btn-success btn-xl u-btn-lightblue-v3 g-width-180--md g-font-size-default g-ml-10"
+                    href="" data-speed="350">
+                Confirmer l'email
+                <div  class="fas fa-check"></div>
+            </button>
+            <a id="button_add_user_projet"
+                    class="btn btn-success btn-xl u-btn-green g-width-160--md g-font-size-default g-ml-10"
+                    href="" data-speed="350">
+                        Ajouter
+                <div  class="fas fa-check"></div>
+            </a>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function changePath(){
+            if(document.getElementById('email_user_to_add').value!=""){
+                var email=document.getElementById('email_user_to_add').value;
+                var url = "{{ path('home_construct_projet_ajout_personne',{'id':projet.id,'email':'emailtest'}) }}";
+                url = url.replace("emailtest", email);
+                document.getElementById('button_add_user_projet').style.visibility="visible";
+                document.getElementById('button_add_user_projet').setAttribute("href",url);
+            }
+        }
+        function showButtonAdd(){
+            document.getElementById('button_add_user_projet').style.visibility="hidden";
+        }
+    </script>
+    {% if app.flashes('error') is not empty %}
+        <script>
+            $(document).on('ready', function () {
+                var testNoty = new Noty({
+                    "type": "error",
+                    "layout": "topRight",
+                    "timeout": "7000",
+                    "animation": {
+                        "open": "animated fadeIn",
+                        "close": "animated fadeOut"
+                    },
+                    "closeWith": [
+                        "click",
+                        "button"
+                    ],
+                    "text": "<div class=\"g-mr-20\">" +
+                    "<div class=\"noty_body__icon\">" +
+                    "<i class=\"hs-admin-check\">" +
+                    "</i>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div>" +
+                    {% for message in app.flashes('messageError') %}
+                    "{{ message }}"+
+                    {% endfor %}
+                    "</div>",
+                    "theme": "unify--v1"
+                }).show();
+            });
+        </script>
+    {% endif %}
+{% endblock %}

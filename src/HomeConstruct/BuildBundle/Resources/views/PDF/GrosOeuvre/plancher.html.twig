@@ -1,0 +1,92 @@
+<h3>
+    Informations sur les planchers
+</h3>
+<div class="media-md align-items-center g-mb-30">
+    <div class="d-flex g-mb-15 g-mb-0--md">
+        <h3 class="g-font-weight-400 g-font-size-16 g-color-black mb-0">
+            Liste des {{ entities |length }} planchers
+            {% if entities is defined and entities is not null and entities is not empty %}
+                {% set prix=0 %}
+                {% for e in entities %}
+                    {% set prix=prix+e.prixTotal %}
+                {% endfor %}
+                <b>(Prix total : {{ prix |number_format(2, ',', ' ') }}€)</b>
+            {% endif %}
+        </h3>
+    </div>
+</div>
+
+<div class="g-mb-40">
+    <div class="table-responsive">
+        <table class="js-datatable table table-hover u-table--v3 u-editable-table--v1 g-color-black">
+            <thead class="thead-light">
+            <tr>
+                <th class="g-hidden-xs-up"></th>
+                <th class="g-first-child">
+                    <div class="media">
+                        <div class="d-flex align-self-center">Matériaux</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Longueur des entrevous</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Dimension</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Longueur des poutrelles</div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Prix</div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% if entities is defined and entities is not null %}
+                {% set index = 0 %}
+                {% for entity in entities %}
+                    {% set index = index+1 %}
+                    <tr onmouseover="showGrey({{ entity.id }})" onmouseout="hideGrey({{ entity.id }})" id="champSelect{{ entity.id }}" class="g-bg-gray-light-v8--opacity-0_4--checked">
+                        <td class="g-hidden-xs-up">{{ index }}</td>
+                        <td>
+                            {% if entity.type.nom is defined and entity.type.nom is not null %}
+                            {{ index }}. {{ entity.type.nom }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.longueurEntrevous is defined and entity.longueurEntrevous is not null %}
+                                {{ entity.longueurEntrevous }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.nbM2 is defined and entity.nbM2 is not null and entity.nbM2 is defined and entity.nbM2 is not null %}
+                                {{ entity.nbM2 }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.longueurPoutrelle is defined and entity.longueurPoutrelle is not null %}
+                                {{ entity.longueurPoutrelle }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.calculPrix is defined and entity.calculPrix is not null %}
+                                {{ entity.calculPrix |number_format(2, ',', ' ')}}€
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,115 @@
+<div class="col-lg-9 g-mb-50">
+    <!-- Info -->
+    <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Nom :
+                        <b>
+                            {% if projet.nom is defined and projet.nom is not null %}
+                                {{ projet.nom }}
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Avancement du projet :
+                        <b>
+                            {% if projet.etat is defined and projet.etat is not null %}
+                                {{ projet.etat.nom }}
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Prix du gros oeuvre :
+                        <b>
+                            {% if projet.grosOeuvre is defined and projet.grosOeuvre is not null %}
+                                {{ projet.grosOeuvre.prix|number_format(2, ',', ' ') }} €
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Prix du second oeuvre :
+                        <b>
+                            {% if projet.secondOeuvre is defined and projet.secondOeuvre is not null %}
+                                {{ projet.secondOeuvre.prix|number_format(2, ',', ' ') }} €
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Personnes reliées au projet :
+                        <b>
+                            {% if projet.users is defined and projet.users is not null and projet.users is not empty %}
+                                <ul>
+                                {% for user in projet.users %}
+                                    <li>
+                                        {{ user.name }} {{ user.firstname }} ({{ user.email }})
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
+                                Aucune personne est reliée à ce projet
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Créateur du projet :
+                        <b>
+                            {% if projet.createur is defined and projet.createur is not null %}
+                                {{ projet.createur.name }} {{ projet.createur.firstname }} ({{  projet.createur.email }})
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <span class="d-block">
+                        Date de création :
+                        <b>
+                            {% if projet.dateCreation is defined and projet.dateCreation is not null %}
+                                {{ projet.dateCreation|date('d/m/Y') }}
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </b>
+                    </span>
+            </div>
+        </div>
+        <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+            <b>
+                Prix total : {{  projet.prix|number_format(2, ',', ' ') }} €
+            </b>
+        </div>
+    </div>
+    <!-- End Info -->
+</div>

@@ -1,0 +1,51 @@
+{#{% extends "SymracineMailBundle:Mail:layout.html.twig" %}#}
+
+{% block subject %}Etude du sol pour votre futur maison{% endblock %}
+
+{% block name %}Home-Construct{% endblock %}
+
+{% block body_text %}
+    <h2> Home-Construct - Projet : "{{ projet.nom }}"</h2>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Bonjour {{ client.name }} {{ client.firstname }} ({{ client.username }}) !
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">Les informations sur l'étude du sol de votre projet "{{ projet.nom }}" ont été
+        {% if creation==true %}
+            ajoutées
+        {% else %}
+            modifiées
+        {% endif %}
+         par le professionnel : {{ user.name }} {{ user.firstname }} ({{ user.username }}).
+        <br/>
+        Le prix total estimé de l'étude est de <b>{{ projet.grosOeuvre.etudeSol.prixForfait|number_format(2, ',', ' ') }} € </b>.
+        <br/>
+        {% if projet.grosOeuvre.fondation is defined and projet.grosOeuvre.fondation is not null%}
+            De ce fait l'estimation du prix des fondations a été modifié.
+            Pour aller voir la nouvelle estimation cliquez ce lien suivant :
+            {{ url('home_construct_fondation_profile',{'id':projet.grosOeuvre.fondation.id}) }}.
+            <br/>
+        {% endif %}
+        Le prix du gros oeuvre est passé de <b>{{ prixGOAvantCalcul |number_format(2, ',', ' ') }} €</b> à <b>{{ prixGOApresCalcul|number_format(2, ',', ' ') }} €</b>.
+        <br/>
+        Et le prix total estimé du projet est maintenant de <b>{{ projet.prix|number_format(2, ',', ' ') }} €</b>.
+    </p><br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        <strong>
+            Pour voir les informations ajoutées, cliquez sur le lien ci-dessous :
+        </strong>
+    </p>
+
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+            {{ url('home_construct_etude_sol_profile',{'id':projet.grosOeuvre.etudeSol.id}) }}
+        <br>
+    </p>
+
+
+    <br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+    Cordialement,<br/>
+    L'équipe
+    </p>
+
+
+{% endblock %}

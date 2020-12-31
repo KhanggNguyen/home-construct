@@ -1,0 +1,141 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and grosOeuvre.elevation is defined and grosOeuvre.elevation is not null %}
+            {% set retour = path('home_construct_elevation_profile',{'id':grosOeuvre.elevation.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="col-lg-6 g-mb-50" style="float:right">
+            <div class="block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Données utile
+                </h4>
+                <ul class="liste_variables_estimation">
+                    <li>
+                        <h5 class="titre_sous_entite">
+                            <div class="link_sous_entite">
+                                Informations sur les piéces :
+                            </div>
+                        </h5>
+                    </li>
+                    <li>
+                        {% if grosOeuvre.pieces is defined and grosOeuvre.pieces is not null %}
+
+                        {% set i=0 %}
+                        {% for p in grosOeuvre.pieces %}
+                    <li><i class="fas fa-check-circle variable-presente"></i>
+                        {% set i=i+1 %}
+                        Piéce {{ i }} : <b>{{ p.surface |number_format(2, ',', ' ') }}m&sup2</b></li>
+                    {% endfor %}
+                    {% else %}
+                        <i class="fas fa-times variable-non-presente"></i>
+                        Non renseigné
+
+                    {% endif %}
+                    </li>
+                    <li>
+                        <h5 class="titre_sous_entite">
+                            <div class="link_sous_entite">
+                                Informations sur la maison :
+                            </div>
+                        </h5>
+                    </li>
+                    <li>
+                        {% if grosOeuvre.informationBase.surfaceTotale is defined and grosOeuvre.informationBase.surfaceTotale is not null %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Surface Totale de la Maison :<b> {{ grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }} </b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Non renseigné
+                        {% endif %}
+                    </li>
+                </ul>
+
+                <I> *La longueur des murs des différentes piéces est calculé automatiquement avec leur surface. </I>
+            </div>
+        </div>
+            <div id="block_form_table">
+                {{ form_start(form) }}
+                <div class="col-lg-6 g-mb-50">
+                    <!-- Info -->
+                    <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">{{ form_row(form.qteLintaux) }}</span>
+                            </div>
+                        </div>
+                        <div class="row" id="block_bouton_enregistrer">
+                            <div class="col-12">
+                                <span class="d-block">{{ form_row(form.save) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Info -->
+                </div>
+        {{ form_end(form) }}
+        {% if grosOeuvre.elevation is defined and grosOeuvre.elevation is not null %}
+
+            <div class="col-lg-6 g-mb-50">
+                <div  class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30 ">
+                    {{ form_start(formMur) }}
+                    <div  style="flex: 2 1 0%;">
+                        {{ form_row(formMur.nom) }}
+                    </div>
+                    <div  style="flex: 2 1 0%;">  {{ form_row(formMur.type) }}</div>
+                        {{ form_row(formMur.longueur) }}
+                        {{ form_row(formMur.hauteur) }}
+                    {{ form_end(formMur) }}
+                </div>
+            </div>
+            <div id="table_form_mur" class="col-lg-6 g-mb-50">
+                {{ include('@HomeConstructBuild/Default/complex-table-mur.html.twig') }}
+            </div>
+            <div class="col-lg-6 g-mb-50">
+                <div  class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    {{ form_start(formPoutre) }}
+
+                    {{ form_end(formPoutre) }}
+                </div>
+            </div>
+            <div id="table_form_poutre" class="col-lg-6 g-mb-50">
+                {{ include('@HomeConstructBuild/Default/complex-table-poutre.html.twig') }}
+            </div>
+            <div class="col-lg-6 g-mb-50">
+                <div  class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    {{ form_start(formAppuisFenetre) }}
+
+                    {{ form_end(formAppuisFenetre) }}
+                </div>
+            </div>
+
+            <div id="table_form_appuis_fenetre"class="col-lg-6 g-mb-50">
+                {{ include('@HomeConstructBuild/Default/complex-table-appuisFenetre.html.twig') }}
+            </div>
+            </div>
+            <div class="block_button_backnext" class="media-body align-self-center">
+                <a id="button_back"
+                   class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                   href="{{ path('home_construct_elevation_profile',{'id':elevation.id}) }}" data-speed="350">
+                    <div  class="fas fa-reply"></div>
+                    Terminer
+                </a>
+            </div>
+        {% endif %}
+        </div>
+
+
+    {% endblock sub_content %}
+{% endblock content %}

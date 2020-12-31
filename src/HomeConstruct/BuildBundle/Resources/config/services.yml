@@ -1,0 +1,16 @@
+services:
+#    HomeConstruct_construct.example:
+#        class: HomeConstruct\BuildBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+      HomeConstruct\BuildBundle\DataFixtures\ORM\:
+              resource: '../../DataFixtures/ORM'
+              tags: ['doctrine.fixture.orm']
+
+      homeconstruct_service.pathhelper:
+              class: HomeConstruct\BuildBundle\Service\PathHelper
+
+      #HomeConstruct\BuildBundle\DataFixtures\ORM\GrosOeuvreFixture:
+                      #tags: ['doctrine.fixture.orm']
+
+      #HomeConstruct\UserBundle\DataFixtures\ORM\SecondOeuvreFixture:
+                      #tags: ['doctrine.fixture.orm']

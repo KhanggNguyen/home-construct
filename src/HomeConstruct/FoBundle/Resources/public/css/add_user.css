@@ -1,0 +1,11 @@
+#bouton_ajout_groupe{
+    width: 259px !important;
+    margin: 0;
+    margin-left: 12px !important;
+    padding: 0px;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    font-size: 16px !important;
+    font-weight: bolder;
+    margin-bottom: 18px;
+}

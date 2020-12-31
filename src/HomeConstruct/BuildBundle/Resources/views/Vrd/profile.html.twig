@@ -1,0 +1,245 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+            <div class="col-lg-9 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <h4> Réseau eau potable : </h4>
+                    {% if vrd.reseauEauPotable is not defined or vrd.reseauEauPotable is null %}
+                        Non renseigné
+                    {% else %}
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Distance :
+                                    <b>
+                                        {{ vrd.reseauEauPotable.distance |number_format(2, ',', ' ') }}m
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Taille des tuyaux :
+                                    <b>
+                                        {{ vrd.reseauEauPotable.tailleTuyaux |number_format(2, ',', ' ') }}mm
+                                        </br>
+                                        <I>La taille des tuyaux est modifiable seulement par un professionnel</I>
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <hr>
+                    <h4> Réseau eau usée : </h4>
+                    {% if vrd.reseauEauUsee is not defined or vrd.reseauEauUsee is null %}
+                        Non renseigné
+                    {% else %}
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Présence d'une pompe de relevage :
+                                    <b>
+                                        {% if vrd.reseauEauUsee.pompeRelevage == true %}
+                                            Oui
+                                        {% else %}
+                                            Non
+                                        {% endif %}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Présence d'une fosse septique :
+                                    <b>
+                                        {% if vrd.reseauEauUsee.fosseSeptique == true %}
+                                            Oui
+                                        {% else %}
+                                            Non
+                                        {% endif %}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Présence d'une micro station :
+                                    <b>
+                                        {% if vrd.reseauEauUsee.microstation == true %}
+                                            Oui
+                                        {% else %}
+                                            Non
+                                        {% endif %}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Etude hydrogéologique:
+                                    <b>
+                                        {% if vrd.reseauEauUsee.etudeHydro == true %}
+                                            Oui
+                                        {% else %}
+                                            Non
+                                        {% endif %}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <hr>
+                    <h4> Réseau électrique : </h4>
+                    {% if vrd.reseauElectrique is not defined or vrd.reseauElectrique is null %}
+                        Non renseigné
+                    {% else %}
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">Distance :
+                                    <b>
+                                        {{ vrd.reseauElectrique.distance|number_format(2, ',', ' ') }}m
+                                    </b>
+                                </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <hr>
+                    <h4> Réseau téléphonique : </h4>
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">Prix :
+                                    <b>
+                                        {% if vrd.prixReseauTelephonique is defined and vrd.prixReseauTelephonique is not null %}
+                                            {{ vrd.prixReseauTelephonique |number_format(2, ',', ' ') }}€
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}
+                                    </b>
+                                </span>
+                        </div>
+                    </div>
+                    <hr>
+                    {% if vrd.reseauGazNaturel is defined and vrd.reseauGazNaturel is not null %}
+                        <h4> Réseau gaz naturel : </h4>
+                        <div class="row">
+                            <div class="col-12">
+                                    <span class="d-block">Fournisseur :
+                                        <b>
+                                            {{ vrd.reseauGazNaturel.nom }}
+                                        </b>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                    <span class="d-block">Prix du forfait :
+                                        <b>
+                                            {{ vrd.reseauGazNaturel.prixForfait|number_format(2, ',', ' ') }} €
+                                        </b>
+                                    </span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <h5>Pas de raccordement à un réseau de gaz naturel</h5>
+                    {% endif %}
+
+                    <hr>
+
+                    <div class="text-center">
+                        <a id="button_next"
+                                class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                href="{{ path('home_construct_vrd_edit',{'idVrd':vrd.id}) }}" data-speed="350">
+                            Modifier
+                            <div  class="fas fa-pencil"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End Info -->
+            </div>
+            <div class="block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <li>
+                        <h5 class="titre_sous_entite">
+                            <a class="link_sous_entite" href="{{ path('home_construct_information_base_profile',{'id':vrd.grosOeuvre.informationBase.id}) }}">
+                                Informations de base :
+                            </a>
+                        </h5>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Surface totale de la maison : <b>{{ vrd.grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }}m²</b>
+                    </li>
+                    <li>
+                        <h5 class="titre_sous_entite">
+                            <div class="link_sous_entite">
+                                Informations VRD :
+                            </div>
+                        </h5>
+                        {% if vrd.reseauEauPotable.prix is defined and vrd.reseauEauPotable.prix is not null %}
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Prix eau potable : <b>{{ vrd.reseauEauPotable.prix|number_format(2, ',', ' ') }} €</b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Prix eau potable : <b><I>Non disponible </I></b>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if vrd.reseauEauUsee.prix is defined and vrd.reseauEauUsee.prix is not null %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Prix assainissement : <b>{{ vrd.reseauEauUsee.prix|number_format(2, ',', ' ') }}€</b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Prix assainissement : <b><I>Non disponible </I></b>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if vrd.reseauElectrique.prix is defined and vrd.reseauElectrique.prix is not null %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Prix électricité : <b>{{ vrd.reseauElectrique.prix|number_format(2, ',', ' ') }}€</b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Prix électricité : <b><I>Non disponible </I></b>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if vrd.prixReseauTelephonique is defined and vrd.prixReseauTelephonique is not null %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Prix téléphone : <b>{{ vrd.prixReseauTelephonique|number_format(2, ',', ' ') }}€</b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Prix téléphone : <b><I>Non disponible </I></b>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if vrd.reseauGazNaturel is defined and vrd.reseauGazNaturel is not null %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Prix gaz naturel : <b>{{ vrd.reseauGazNaturel.prixForfait |number_format(2, ',', ' ') }}€</b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Prix gaz naturel : <b><I>Non disponible </I></b>
+                        {% endif %}
+                    </li>
+                </ul>
+                {% if vrd.prixTotal is defined and vrd.prixTotal is not null %}
+                    <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                            {{ vrd.prixTotal |number_format(2, ',', ' ') }}€
+                    </div>
+                    {% else %}
+                    <I>
+                        Pour pouvoir estimer un prix total veuillez ajouter les entités manquantes (marquées d'une croix rouge)
+                    </I>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock sub_content %}
+
+{% endblock content %}
+

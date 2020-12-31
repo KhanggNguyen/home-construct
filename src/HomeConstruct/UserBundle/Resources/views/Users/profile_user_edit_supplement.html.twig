@@ -1,0 +1,84 @@
+{% extends "@HomeConstructUser/Users/profile_user_view.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+
+    {% block contenu_profil %}
+            <div class="col-md-9">
+                <div class="h-100 g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-20--md">
+
+
+
+                    <div id="block_profil_general">
+                        <h2 class="text-uppercase g-font-size-12 g-font-size-default--md g-color-black mb-0 titres_profile">
+                                Modification des informations supplémentaires
+                        </h2>
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-12">
+                            <span class="d-block">
+                                    {{ form_row(form.sexe) }}
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                            <span class="d-block">
+                                    {{ form_row(form.fonction) }}
+                            </span>
+                            </div>
+                        </div>
+                        {% if userModifie is defined and userModifie is not empty %}
+                            {% if 'ROLE_ADMIN' not in userModifie.roles %}
+                                <div class="row">
+                                    <div class="col-12">
+                                    <span class="d-block">
+                                            {{ form_row(form.contenu) }}
+                                    </span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% elseif 'ROLE_SUPER_ADMIN' not in app.user.roles and 'ROLE_ADMIN' not in app.user.roles  %}
+                            <div class="row">
+                                <div class="col-12">
+                                <span class="d-block">
+                                        {{ form_row(form.contenu) }}
+                                </span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+
+                    </div>
+
+                    <div id="block_boutons_cancel_save">
+
+                        <div class="row" id="block_bouton_enregistrer">
+                            <div class="col-12">
+
+                                <span class="d-block">{{ form_row(form.cancel) }}</span>
+                            </div>
+                        </div>
+                        <div class="row" id="block_bouton_enregistrer">
+                            <div class="col-12">
+
+                                <span class="d-block">{{ form_row(form.save) }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                {{ form_end(form) }}
+
+
+
+                </div>
+            </div>
+    {% endblock contenu_profil %}

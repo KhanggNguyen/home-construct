@@ -1,0 +1,175 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and grosOeuvre.excavation is defined and grosOeuvre.excavation is not null %}
+            {% set retour = path('home_construct_excavation_profile',{'id':grosOeuvre.excavation.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+    {% block sub_content %}
+        {{ form_start(form) }}
+        <div class="block_profile_with_estimation">
+            <div class="col-lg-9 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.nbMetresMurPeriph) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.nbMetresMurRefont) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.largeurFouille) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.profondeurFouille) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.fouilleGarage) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.typeTerrassement) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.materiels) }}</span>
+                        </div>
+                    </div>
+                    <div class="block_button_backnext">
+                        <button id="button_next"
+                                class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                href="" data-speed="350">
+                            {% if editMode %}
+                                Enregistrer
+                            {% else %}
+                                Terminé
+                            {% endif %}
+                            <div  class="fas fa-check"></div>
+                        </button>
+                    </div>
+                </div>
+                <!-- End Info -->
+            </div>
+            <div class="block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <h5 class="titre_sous_entite">
+                        <div class="link_sous_entite" href="">
+                            Informations sur l'excavation :
+                        </div>
+                    </h5>
+                    <li>
+                                <span id="block_checked_couverture">
+
+                                </span>
+                        Prix du type de terrassement :
+                        <b id="prix_type_terrassement" class="prixTypeTerrassement">
+
+                        </b>
+                    </li>
+                    <li>
+                                <span id="block_checked_volume">
+                                </span>
+                        Volume Totale : <b id="volume">
+                        </b>
+                    </li>
+                </ul>
+                <div id="prix_calcule" class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+
+                </div>
+                <I id="rappel">
+                </I>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    {% endblock sub_content %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent()}}
+    <script type="text/javascript">
+        var data = {{ typeTerrassement|json_encode|raw }}
+        jQuery(document).ready(function() {
+            $prixEstime = $('#prix_calcule');
+            $prixTotal = 0;
+            $nbMetresMurRefont = $('#homeconstruct_buildbundle_excavation_nbMetresMurRefont');
+            $nbMetresMurPeriph = $('#homeconstruct_buildbundle_excavation_nbMetresMurPeriph');
+            $largeurFouille = $('#homeconstruct_buildbundle_excavation_largeurFouille');
+            $profondeurFouille = $('#homeconstruct_buildbundle_excavation_profondeurFouille');
+            $typeTerrassement = $('#homeconstruct_buildbundle_excavation_typeTerrassement');
+            $prixEstime.html($prixTotal + "€");
+            $prixTypeTerrassement = null;
+            $('#volume').html(calculeVolume($nbMetresMurPeriph, $nbMetresMurRefont , $largeurFouille, $profondeurFouille, $prixTypeTerrassement) + "m³");
+            //cas edit $typeTerrassement est définie
+            if($typeTerrassement.val() != ""){
+                $prixTypeTerrassement = data[$typeTerrassement.val()-1]['prix'];
+                $('#prix_type_terrassement').html($prixTypeTerrassement + "€/m³");
+                $prixTotal = calculPrix($nbMetresMurPeriph, $nbMetresMurRefont, $largeurFouille, $profondeurFouille, $prixTypeTerrassement);
+                $prixEstime.html($prixTotal + "€");
+            }else{
+                $('#prix_type_terrassement').html('0');
+            }
+            //quand on change l'option du select
+            $typeTerrassement.change(function(){
+                $prixTypeTerrassement = data[$(this).val()-1]['prix'];
+                $('#prix_type_terrassement').html($prixTypeTerrassement);
+                $prixTotal = calculPrix($nbMetresMurPeriph, $nbMetresMurRefont, $largeurFouille, $profondeurFouille, $prixTypeTerrassement);
+                $prixEstime.html($prixTotal + "€");
+            });
+
+            //quand on change input des chiffres
+            $('input').on('input', function(){
+                $volume = calculeVolume($nbMetresMurPeriph, $nbMetresMurRefont, $largeurFouille, $profondeurFouille);
+                $prixTotal = calculPrix($nbMetresMurPeriph, $nbMetresMurRefont, $largeurFouille, $profondeurFouille, $prixTypeTerrassement);
+                $('#volume').html($volume + "m³");
+                $prixEstime.html($prixTotal + "€");
+            });
+        });
+
+        function calculeVolume($nbMetresMurPeriph, $nbMetresMurRefont, $largeurFouille, $profondeurFouille){
+            if($nbMetresMurPeriph.val() != "" && $nbMetresMurRefont.val() != "" &&
+                $largeurFouille.val() != "" && $profondeurFouille.val() != ""){
+                $volume = (parseFloat($nbMetresMurPeriph.val()) + parseFloat($nbMetresMurRefont.val())) * $largeurFouille.val() * $profondeurFouille.val();
+                return $volume;
+            }else{
+                return 0;
+            }
+        }
+
+        function calculPrix($nbMetresMurPeriph, $nbMetresMurRefont, $largeurFouille, $profondeurFouille, $prixTypeTerrassement){
+            if($nbMetresMurPeriph.val() != "" && $nbMetresMurRefont.val() != "" &&
+                $largeurFouille.val() != "" && $profondeurFouille.val() != "" && $prixTypeTerrassement != null){
+                $prix = (parseFloat($nbMetresMurPeriph.val()) + parseFloat($nbMetresMurRefont.val())) * $largeurFouille.val() * $profondeurFouille.val() * $prixTypeTerrassement;
+                return $prix;
+            }else{
+                return 0;
+            }
+        }
+    </script>
+{% endblock javascripts %}

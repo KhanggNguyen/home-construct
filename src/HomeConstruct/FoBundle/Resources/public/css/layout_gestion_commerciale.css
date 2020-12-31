@@ -1,0 +1,144 @@
+.titre_systeme{
+    font-size: 28px;
+    margin-left:15px;
+}
+
+.lien_accueil span{
+    margin-left: 11px;
+}
+
+tr th {
+    width : 18% !important;
+}
+
+
+.lien_profil{
+    font-weight: bold;
+    color: black;
+}
+
+#button_add {
+    padding-left:0 !important;
+    width: 30% !important;
+}
+
+#icone_plus_add{
+    margin-right: 5px;
+    margin-left: 8px;
+}
+
+#footer{
+    width: 100%;
+
+}
+
+#block_droits_reserves{
+    margin-left: 387px !important;
+}
+
+
+#logo_oit, #block_logo_site{
+    width:144px;
+    margin-left: 11%;
+}
+
+
+.navbar{
+    background-color: rgba(255,255,255,1);
+}
+
+#username_navbar{
+    color:black;
+}
+
+#username_navbar:hover{
+    color:red;
+}
+
+p{
+    overflow-wrap:break-word;
+}
+
+.lien_mail{
+    color:black;
+}
+
+.bg-client{
+    background-color: green !important;
+}
+
+.bg-afaire{
+    background-color: rgb(47, 197, 255)!important;
+}
+
+.bg-fait{
+    background-color: rgb(21, 195, 0)!important;
+}
+
+.bg-encours{
+    background-color:rgb(255, 191, 47)!important;
+}
+
+.bg-datedepasse{
+    background-color: rgb(255, 74, 74)!important;
+}
+
+.bg-prospect{
+    background-color: red !important;
+}
+
+.bg-fournisseur{
+    background-color: cyan !important;
+}
+
+.bg-institutionnel{
+    background-color: black !important;
+}
+
+.bg-autre{
+    background-color: grey !important;
+}
+
+.bouton_enregistrer{
+    background-color: orangered;
+}
+
+#block_bouton_enregistrer{
+    text-align: center;
+}
+
+.sous_titre{
+    border-bottom: 5px solid rgb(22, 81, 143);
+    margin-bottom:20px;
+}
+
+.fa-user-circle{
+    font-size:43px;
+}
+
+#block_user{
+    padding-top: 8px !important;
+    padding-left: 0px !important;
+}
+
+#profileMenu{
+     width: 172px !important;
+ }
+.icone_menu_lateral{
+    font-size: 33px;
+}
+/*#sideNavMenu{
+    position:fixed;
+    width:250px;
+}
+
+html, body{
+    margin: 0px;
+    padding: 0px;
+    outline: 0px;
+    height: 100%;
+}
+
+.contenu_entier{
+    height:100%;
+}*/

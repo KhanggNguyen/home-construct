@@ -1,0 +1,288 @@
+#oit_crmbundle_contact_adresse2, #contenu_fieldset_autres_infos, #oit_crmbundle_compte_facturation, #oit_crmbundle_compte_livraisons, #oit_crmbundle_compte_adresseAnnexe{
+    display : none;
+}
+
+#oit_crmbundle_contact_adresse, #oit_crmbundle_contact_coordonnee, #oit_crmbundle_compte_coordonnee{
+    display:block;
+}
+
+.sous_block_form_to_display{
+    display: flex;
+}
+
+
+.sous_block_form_to_display .fa-bars, #block_autres_infos .fa-bars{
+    padding-top: 10px;
+    padding-left: 93%;
+    height: 34px;
+    width: 3%;
+}
+
+#block_autres_infos .fa-bars{
+    padding-left:88%;
+}
+.block_form_to_display, #block_autres_infos{
+    background-color: rgba(24, 101, 255, 0.65);;
+    color: white;
+    border-radius: 9px;
+    height: 100%;
+}
+
+#block_titre_icone_autres_infos{
+    display: flex;
+}
+
+#contenu_fieldset_autres_infos .d-block, .block_form_to_display .d-block {
+    width: 100%;
+}
+
+
+#block_autres_infos .form-group {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#block_autres_infos span{
+    width:100%;
+}
+
+.block_cliquable_form{
+    width:100%;
+    position: absolute;
+    height: 52px;
+}
+
+p{
+    overflow-wrap:break-word;
+}
+
+.bouton_enregistrer{
+    background-color: orangered;
+}
+
+.bouton_annuler{
+    background-color:grey;
+}
+
+#block_bouton_enregistrer{
+    text-align: center;
+}
+
+#block_boutons_cancel_save{
+    display:flex;
+    margin-left: 25%;
+    margin-right: 28%;
+}
+
+/* Commun à tous : */
+/* ////////////////////////////////// */
+.block_button_backnext{
+    text-align: center;
+}
+/* Formulaire Menuiserie Exterieure : */
+/* ////////////////////////////////// */
+
+#block_button_next{
+    text-align: center;
+}
+
+/* Formulaire Menuiserie Exterieure et Interieure : */
+#form_menuiserie_exterieure .row, #form_menuiserie_interieure .row{
+    margin-right: 19px !important ;
+}
+
+.block_button_backnext{
+    text-align: center;
+}
+
+#button_back{
+    margin-right:10%;
+}
+
+#button_next{
+    margin-left: 10% !important;
+}
+
+#homeconstruct_buildbundle_menuiserieexterieure_dimension,#homeconstruct_buildbundle_menuiserieinterieure_dimension{
+    display: flex;
+}
+
+#form_menuiserie_exterieure .form-group, #form_menuiserie_interieure .form-group{
+    width:100%;
+}
+
+.title_form{
+    font-size: 25px;
+}
+
+.sub_title_form{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Fin Formulaire Menuiserie Exterieure */
+
+/* Formulaire Information de base (Gros oeuvre) */
+#homeconstruct_buildbundle_grosoeuvre_informationBase_comble, #homeconstruct_buildbundle_grosoeuvre_informationBase_sousSol{
+    display: flex;
+}
+
+#homeconstruct_buildbundle_grosoeuvre_informationBase_comble .radio, #homeconstruct_buildbundle_grosoeuvre_informationBase_sousSol .radio{
+    margin-left: 20px;
+}
+/* Fin Formulaire Information de base */
+
+/* Formulaire Vrd */
+#homeconstruct_buildbundle_vrd_reseauEauUsee_fosseSeptique,#homeconstruct_buildbundle_vrd_reseauEauUsee_microStation,#homeconstruct_buildbundle_vrd_reseauEauUsee_etudeHydro,#homeconstruct_buildbundle_vrd_reseauEauUsee_pompeRelevage{
+    display: flex;
+}
+
+#homeconstruct_buildbundle_vrd_reseauEauUsee_fosseSeptique .radio, #homeconstruct_buildbundle_vrd_reseauEauUsee_microStation .radio, #homeconstruct_buildbundle_vrd_reseauEauUsee_etudeHydro .radio, #homeconstruct_buildbundle_vrd_reseauEauUsee_pompeRelevage .radio{
+    margin-left: 20px;
+}
+/* Fin Formulaire Vrd */
+
+/* Formulaire Toiture */
+#homeconstruct_buildbundle_toiture_expoVent .radio{
+    display: flex;
+}
+#homeconstruct_buildbundle_toiture_expoVent .radio{
+    margin-left: 20px;
+}
+/* Fin Formulaire Toiture */
+
+.form-control{
+    width:auto;
+}
+/* Formulaire Menuiseries Exterieures et Interieures */
+#homeconstruct_buildbundle_menuiserieexterieure_type,
+#homeconstruct_buildbundle_menuiserieexterieure_dimension_longueur,
+#homeconstruct_buildbundle_menuiserieexterieure_dimension_largeur,
+#homeconstruct_buildbundle_menuiserieexterieure_materiaux,
+#homeconstruct_buildbundle_menuiserieexterieure_quantite,
+#homeconstruct_buildbundle_menuiserieinterieure_type,
+#homeconstruct_buildbundle_menuiserieinterieure_dimension_longueur,
+#homeconstruct_buildbundle_menuiserieinterieure_dimension_largeur,
+#homeconstruct_buildbundle_menuiserieinterieure_materiaux,
+#homeconstruct_buildbundle_menuiserieinterieure_quantite{
+    width:60%;
+}
+/* Fin Formulaire Menuiseries Exterieures */
+
+/* ////////////////////////////////////////////////////*/
+/* ////////////////////////////////////////////////////*/
+/* ////////////////////////////////////////////////////*/
+
+/* Pour slider */
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 50%;
+    height: 10px;
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Set a specific slider handle width */
+    height: 20px; /* Slider handle height */
+    background: #0067ff; /* blue background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 10px; /* Set a specific slider handle width */
+    height: 10px; /* Slider handle height */
+    background: #0067ff; /* blue background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+/* ////////////////////////////////////////////////////////////*/
+/* ////////////////////////////////////////////////////////////*/
+/* ////////////////////////////////////////////////////////////*/
+
+/* Formulaire etude sol */
+#recommandation_profondeur{
+    color:red;
+    margin-bottom:20px;
+}
+
+.block_form_with_estimation{
+    display:flex;
+}
+
+.block_form_with_estimation form{
+    width:60%;
+}
+
+.block_estimation_prix_js{
+    width:40%;
+    border: 3px solid;
+    border-color: firebrick;
+    padding: 5px;
+    background-color: rgba(21, 183, 116, 0.18);
+    height: fit-content;
+}
+
+select, input{
+    width: auto;
+}
+
+/* Fin Formulaire Etude Sol */
+
+/* Formulaire Escalier */
+#form_escalier .row{
+    margin-right: 10px !important ;
+}
+
+#form_escalier .form-group{
+    width: auto;
+    margin-right: 8%;
+}
+
+#form_climatisation .row{
+    margin-right: 10px !important ;
+}
+
+#form_climatisation .form-group{
+    width: auto;
+    margin-right: 8%;
+}
+
+#form_chauffage .row{
+    margin-right: 10px !important ;
+}
+
+#form_chauffage .form-group{
+    width: auto;
+    margin-right: 8%;
+}
+
+#form_ventilation .row{
+    margin-right: 10px !important ;
+}
+
+#form_ventilation .form-group{
+    width: auto;
+    margin-right: 8%;
+}
+
+

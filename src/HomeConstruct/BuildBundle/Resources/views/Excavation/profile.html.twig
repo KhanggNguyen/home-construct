@@ -1,0 +1,222 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+            <div class="col-lg-6 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Nombre de mètres des murs périphériques :
+                                <b>
+                                    {% if excavation.nbMetresMurPeriph is defined and excavation.nbMetresMurPeriph is not null %}
+                                        {{ excavation.nbMetresMurPeriph }}m
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Nombre de mètres des murs de refont :
+                                <b>
+                                    {% if excavation.nbMetresMurRefont is defined and excavation.nbMetresMurRefont is not null %}
+                                        {{ excavation.nbMetresMurRefont }}m
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Largeur des fouilles :
+                                <b>
+                                    {% if excavation.largeurFouille is defined and excavation.largeurFouille is not null %}
+                                        {{ excavation.largeurFouille }}m
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Profondeur des fouilles :
+                                <b>
+                                    {% if excavation.profondeurFouille is defined and excavation.profondeurFouille is not null %}
+                                        {{ excavation.profondeurFouille }}m
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Garage plancher ?
+                                <b>
+                                    {% if excavation.fouilleGarage == true %}
+                                        Oui
+                                    {% else %}
+                                        Non
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Type de terrassement :
+                                <b>
+                                    {% if excavation.typeTerrassement is defined and excavation.typeTerrassement is not null %}
+                                        {{ excavation.typeTerrassement.nom }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div><div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Matériels utilisés :
+                                <b>
+                                    {% if excavation.materiels is defined and excavation.materiels is not null %}
+                                        <ul>
+                                        {% for materiel in excavation.materiels %}
+                                            <li>{{ materiel.nom }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Ajouté par :
+                                <b>
+                                    {% if excavation.createur is defined and excavation.createur is not null %}
+                                        {{ excavation.createur.firstname }} {{ excavation.createur.name }}
+                                        (
+                                        <a class="lien_mail" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Envoyer un email" href="mailto:{{ excavation.createur.email }}">
+                                                {{ excavation.createur.email }}
+                                            </a>
+                                        )
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Date d'ajout :
+                                <b>
+                                    {% if excavation.dateCreation is defined and excavation.dateCreation is not null %}
+                                        {{ excavation.dateCreation|date('d/m/Y H:i') }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    {% if excavation.modifieur is defined and excavation.modifieur is not null %}
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Modifié par :
+                                    <b>
+                                        {{ excavation.modifieur.firstname }} {{ excavation.modifieur.name }}
+                                        (
+                                            <a class="lien_mail" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Envoyer un email" href="mailto:{{ excavation.modifieur.email }}">
+                                                {{ excavation.modifieur.email }}
+                                            </a>
+                                        )
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                            <span class="d-block">Date de modification :
+                                <b>
+                                    {% if excavation.dateModification is defined and excavation.dateModification is not null %}
+                                        {{ excavation.dateModification|date('d/m/Y H:i') }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <hr>
+                    {% if "ROLE_SUPER_ADMIN" in app.user.roles or "ROLE_ADMIN" in app.user.roles %}
+                        <div class="text-center">
+                            <a id="button_next"
+                               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                               href="{{ path('home_construct_excavation_edit',{'idExcavation':excavation.id}) }}" data-speed="350">
+                                Modifier
+                                <div  class="fas fa-pencil"></div>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+                <!-- End Info -->
+            <div class="col-lg-6 g-mb-50">
+                <div class="block_estimation_prix">
+                    <h4 class="titre_estimation text-center">
+                        Estimation
+                    </h4>
+                    <h6> <I> Données utilisés : </I></h6>
+                    <ul class="liste_variables_estimation">
+                        <li>
+                            <h5 class="titre_sous_entite">
+                                <div class="link_sous_entite">
+                                    Informations sur l'excavation :
+                                </div>
+                            </h5>
+                        </li>
+                        <li>
+                            {% if excavation.typeTerrassement is defined and excavation.typeTerrassement is not null %}
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Prix du type de terrassement : <b>{{ excavation.typeTerrassement.prix|number_format(2, ',', ' ') }}€/m&sup3</b>
+                            {% else %}
+                                <i class="fas fa-times variable-non-presente"></i>
+                                Non renseigné
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% if excavation.prixTotal is defined and excavation.prixTotal is not null %}
+                        <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                                {{ excavation.prixTotal |number_format(2, ',', ' ') }} €
+                        </div>
+                        {% else %}
+                        <I>
+                            Pour pouvoir estimer un prix total veuillez renseigner les élements manquants.
+                        </I>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% endblock sub_content %}
+
+{% endblock content %}

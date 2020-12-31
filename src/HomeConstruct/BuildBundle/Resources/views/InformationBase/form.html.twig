@@ -1,0 +1,73 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and grosOeuvre.informationBase is defined and grosOeuvre.informationBase is not null %}
+            {% set retour = path('home_construct_information_base_profile',{'id':grosOeuvre.informationBase.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div id="icone_plus_add" class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+    {{ form_start(form) }}
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">{{ form_row(form.surfaceTotale) }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">{{ form_row(form.nbPieces) }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">{{ form_row(form.comble) }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">{{ form_row(form.sousSol) }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">{{ form_row(form.assainissement) }}</span>
+                </div>
+            </div>
+            <div class="block_button_backnext">
+                <button id="button_next"
+                        class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                        href="" data-speed="350">
+                    {% if editMode %}
+                        Enregistrer
+                    {% else %}
+                        Terminé
+                    {% endif %}
+                    <div id="icone_plus_add" class="fas fa-share"></div>
+                </button>
+            </div>
+        </div>
+        <!-- End Info -->
+
+    </div>
+
+
+    {{ form_end(form) }}
+
+    {% endblock sub_content %}
+{% endblock content %}
+

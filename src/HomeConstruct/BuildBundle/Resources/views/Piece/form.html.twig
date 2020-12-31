@@ -1,0 +1,213 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+
+{% block body_attributs %}
+    onload="updateInputRequiredChauffage(),updateInputRequiredClimatisation(),updateInputRequiredVentilation(),updateInputRequiredRevetementSol()"
+{% endblock body_attributs %}
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and grosOeuvre.pieces is defined and grosOeuvre.pieces is not null %}
+            {% set retour = path('home_construct_piece_profile',{'idGrosOeuvre':grosOeuvre.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        {{ form_start(form) }}
+            <div class="col-lg-9 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.nom) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.surface) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.salleDeau) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.cloison) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.cloisonAmovible) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.isolation) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.chauffage) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.ventilation) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.climatisation) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">
+                                {{ form_row(form.revetementSol) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="block_button_backnext">
+                        <button id="button_next"
+                                class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                href="" data-speed="350">
+                            {% if editMode %}
+                                Enregistrer
+                            {% else %}
+                                Terminé
+                            {% endif %}
+                            <div class="fas fa-check"></div>
+                        </button>
+                    </div>
+                </div>
+                <!-- End Info -->
+            </div>
+
+
+        {{ form_end(form) }}
+
+    {% endblock sub_content %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function updateInputRequiredChauffage(){
+            var inputType=document.getElementById('homeconstruct_buildbundle_piece_chauffage_type');
+            var inputQuantite=document.getElementById('homeconstruct_buildbundle_piece_chauffage_quantite');
+            var block=document.getElementById('homeconstruct_buildbundle_piece_chauffage');
+            var label=document.getElementById('label_chauffage');
+            update(inputType,inputQuantite,block,label);
+        }
+        function updateInputRequiredClimatisation(){
+            var inputType=document.getElementById('homeconstruct_buildbundle_piece_climatisation_type');
+            var inputQuantite=document.getElementById('homeconstruct_buildbundle_piece_climatisation_quantite');
+            var block=document.getElementById('homeconstruct_buildbundle_piece_climatisation');
+            var label=document.getElementById('label_climatisation');
+            update(inputType,inputQuantite,block,label);
+        }
+        function updateInputRequiredVentilation(){
+            var inputType=document.getElementById('homeconstruct_buildbundle_piece_ventilation_type');
+            var inputQuantite=document.getElementById('homeconstruct_buildbundle_piece_ventilation_quantite');
+            var block=document.getElementById('homeconstruct_buildbundle_piece_ventilation');
+            var label=document.getElementById('label_ventilation');
+            update(inputType,inputQuantite,block,label);
+        }
+        function updateInputRequiredRevetementSol(){
+            var inputType=document.getElementById('homeconstruct_buildbundle_piece_revetementSol_type');
+            var inputQuantite=document.getElementById('homeconstruct_buildbundle_piece_revetementSol_quantiteM2');
+            var block=document.getElementById('homeconstruct_buildbundle_piece_revetementSol');
+            var label=document.getElementById('label_revetementSol');
+            update(inputType,inputQuantite,block,label);
+        }
+        function update(inputType, inputQuantite, block, label){
+            label.style.color="white";
+            if(inputType.value<1){
+                if(inputQuantite.value=="") {
+                    inputQuantite.required=false;
+                    inputType.required=false;
+                    block.style.display="none";
+                    label.style.backgroundColor="#585f69";
+                }else{
+                    inputQuantite.required=true;
+                    inputType.required=true;
+                    block.style.display="block";
+                    label.style.backgroundColor="#18ba24";
+                }
+            }else {
+                inputQuantite.required = true;
+                inputType.required = true;
+                block.style.display = "block";
+                label.style.backgroundColor = "#18ba24";
+            }
+        }
+        function showBlockChauffage(){
+            var element=document.getElementById('homeconstruct_buildbundle_piece_chauffage_type').value;
+            var block=document.getElementById('homeconstruct_buildbundle_piece_chauffage');
+            if(block.style.display=="block"){
+                block.style.display="none";
+            }else{
+                block.style.display="block";
+            }
+
+        }
+        function showBlockVentilation(){
+            var element=document.getElementById('homeconstruct_buildbundle_piece_ventilation_type').value;
+            var block=document.getElementById('homeconstruct_buildbundle_piece_ventilation');
+            if(block.style.display=="block"){
+                block.style.display="none";
+            }else{
+                block.style.display="block";
+            }
+        }
+        function showBlockClimatisation(){
+            var element=document.getElementById('homeconstruct_buildbundle_piece_climatisation_type').value;
+            var block=document.getElementById('homeconstruct_buildbundle_piece_climatisation');
+            if(block.style.display=="block"){
+                block.style.display="none";
+            }else{
+                block.style.display="block";
+            }
+        }
+        function showBlockRevetementSol(){
+            var element=document.getElementById('homeconstruct_buildbundle_piece_revetementSol_type').value;
+            var block=document.getElementById('homeconstruct_buildbundle_piece_revetementSol');
+            if(block.style.display=="block"){
+                block.style.display="none";
+            }else{
+                block.style.display="block";
+            }
+        }
+    </script>
+
+{% endblock javascripts %}
+

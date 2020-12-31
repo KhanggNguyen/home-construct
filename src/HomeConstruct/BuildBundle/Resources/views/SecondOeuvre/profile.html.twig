@@ -1,0 +1,622 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+{% block title %}
+    {{ titreOnglet }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/affichage_liste.css'
+        'bundles/homeconstructfo/css/administration.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+    {% set index = 1 %}
+    <div class="row g-mb-35">
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_domotique_list',{'idSecondOeuvre':idSecondOeuvre}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-electronics-098 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Domotiques
+                                        {% if secondOeuvre.domotiques is defined and secondOeuvre.domotiques is not null %}
+                                            {% if secondOeuvre.domotiques | length >0 %}
+                                                <b>({{ secondOeuvre.domotiques | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.domotiques is defined and secondOeuvre.domotiques is not null and secondOeuvre.domotiques is not empty %}
+                                        {% if secondOeuvre.calculPrixDomotiques is defined and secondOeuvre.calculPrixDomotiques is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixDomotiques |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.domotiques is defined and secondOeuvre.domotiques is not null and secondOeuvre.domotiques is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_domotique_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_domotique_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les domotiques ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{ index }}" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if secondOeuvre.isolation is defined and secondOeuvre.isolation is not null %}
+                                                {{ path('home_construct_isolation_profile',{'id':secondOeuvre.isolation.id}) }}
+                                             {% else %}
+                                                {{ path('home_construct_isolation_creation',{'idSecondOeuvre':secondOeuvre.id}) }}
+                                             {% endif %}
+                                    ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-orange g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-real-estate-001 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                        <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                            Isolation
+                                        </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                        </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.isolation.prixTotal is defined and secondOeuvre.isolation.prixTotal is not null %}
+                                        Estimation : {{ secondOeuvre.isolation.prixTotal |number_format(2, ',', ' ') }} €
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.isolation is defined and secondOeuvre.isolation is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_isolation_edit',{'idIsolation':secondOeuvre.isolation.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_isolation_delete',{'id':secondOeuvre.isolation.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur l\'isolation ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if secondOeuvre.enduitExterieur is defined and secondOeuvre.enduitExterieur is not null %}
+                            {{ path('home_construct_enduit_exterieur_profile',{'id':secondOeuvre.enduitExterieur.id}) }}
+                         {% else %}
+                            {{ path('home_construct_enduit_exterieur_creation',{'idSecondOeuvre':secondOeuvre.id}) }}
+                         {% endif %}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-brown g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-finance-174 g-absolute-centered"></i>
+                                </div>
+                            </div>
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Enduit de façade
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.enduitExterieur is defined and secondOeuvre.enduitExterieur is not null %}
+                                        {% if secondOeuvre.enduitExterieur.prixTotal is defined and secondOeuvre.enduitExterieur.prixTotal is not null %}
+                                            Estimation : {{ secondOeuvre.enduitExterieur.prixTotal |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.enduitExterieur is defined and secondOeuvre.enduitExterieur is not null %}
+                            <div class="media-body text-right">
+                                <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                   href="{{ path('home_construct_enduit_exterieur_edit',{'idEnduitExterieur':secondOeuvre.enduitExterieur.id}) }}">
+                                    <i class="hs-admin-pencil g-font-size-24"></i>
+                                </a>
+                                <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                   href="{{ path('home_construct_enduit_exterieur_delete',{'id':secondOeuvre.enduitExterieur.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur l\'enduit façade ? Attention cette action sera irréversible !')">
+                                    <i class="hs-admin-trash g-font-size-24"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_menuiserie_interieure_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-gray-dark-v10 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class=" icon-furniture-034 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Menuiseries Intérieures
+                                        {% if secondOeuvre.menuiseriesInterieures is defined and secondOeuvre.menuiseriesInterieures is not null %}
+                                            {% if secondOeuvre.menuiseriesInterieures | length >0 %}
+                                                <b>({{ secondOeuvre.menuiseriesInterieures | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.menuiseriesInterieures is defined and secondOeuvre.menuiseriesInterieures is not null %}
+                                        {% if secondOeuvre.calculPrixMenuiseriesInterieures is defined and secondOeuvre.calculPrixMenuiseriesInterieures is not null and secondOeuvre.menuiseriesInterieures is not empty %}
+                                            Estimation : {{ secondOeuvre.calculPrixMenuiseriesInterieures |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.menuiseriesInterieures is defined and secondOeuvre.menuiseriesInterieures is not null and secondOeuvre.menuiseriesInterieures is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_menuiserie_interieure_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_menuiserie_interieure_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les menuiseries intérieures ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_escalier_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-black g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class=" icon-furniture-094 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Escaliers
+                                        {% if secondOeuvre.escaliers is defined and secondOeuvre.escaliers is not null %}
+                                            {% if secondOeuvre.escaliers | length >0 %}
+                                                <b>({{ secondOeuvre.escaliers | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.escaliers is defined and secondOeuvre.escaliers is not null %}
+                                        {% if secondOeuvre.calculPrixEscaliers is defined and secondOeuvre.calculPrixEscaliers is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixEscaliers |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.escaliers is defined and secondOeuvre.escaliers is not null and secondOeuvre.escaliers is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_escalier_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_escalier_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les escaliers ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_climatisation_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-cyan g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-electronics-096 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Climatisation
+                                        {% if secondOeuvre.climatisation is defined and secondOeuvre.climatisation is not null %}
+                                            {% if secondOeuvre.climatisation | length >0 %}
+                                                <b>({{ secondOeuvre.climatisation | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.climatisation is defined and secondOeuvre.climatisation is not null %}
+                                        {% if secondOeuvre.calculPrixClimatisations is defined and secondOeuvre.calculPrixClimatisations is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixClimatisations |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.climatisation is defined and secondOeuvre.climatisation is not null and secondOeuvre.climatisation is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_climatisation_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_climatisation_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les climatisations ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_chauffage_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-red g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class=" icon-electronics-054 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Chauffage
+                                        {% if secondOeuvre.chauffage is defined and secondOeuvre.chauffage is not null %}
+                                            {% if secondOeuvre.chauffage | length >0 %}
+                                                <b>({{ secondOeuvre.chauffage | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.chauffage is defined and secondOeuvre.chauffage is not null %}
+                                        {% if secondOeuvre.calculPrixChauffages is defined and secondOeuvre.calculPrixChauffages is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixChauffages |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.chauffage is defined and secondOeuvre.chauffage is not null and secondOeuvre.chauffage is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_chauffage_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_chauffage_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les chauffages ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_revetement_sol_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-yellow g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class=" icon-real-estate-068 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Revêtements des sols
+                                        {% if secondOeuvre.revetementSol is defined and secondOeuvre.revetementSol is not null %}
+                                            {% if secondOeuvre.revetementSol | length >0 %}
+                                                <b>({{ secondOeuvre.revetementSol | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.revetementSol is defined and secondOeuvre.revetementSol is not null %}
+                                        {% if secondOeuvre.calculPrixRevetementSol is defined and secondOeuvre.calculPrixRevetementSol is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixRevetementSol |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.revetementSol is defined and secondOeuvre.revetementSol is not null and secondOeuvre.revetementSol is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_revetement_sol_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_revetement_sol_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les revêtements de sol ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_ventilation_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-cyan g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class=" icon-electronics-025 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Ventilations
+                                        {% if secondOeuvre.ventilations is defined and secondOeuvre.ventilations is not null %}
+                                            {% if secondOeuvre.ventilations | length >0 %}
+                                                <b>({{ secondOeuvre.ventilations | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.ventilations is defined and secondOeuvre.ventilations is not null %}
+                                        {% if secondOeuvre.calculPrixVentilations is defined and secondOeuvre.calculPrixVentilations is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixVentilations |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.ventilations is defined and secondOeuvre.ventilations is not null and secondOeuvre.ventilations is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_ventilation_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_ventilation_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les ventilations ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_evacuation_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-lightblue-v1 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-hotel-restaurant-018 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Évacuations
+                                        {% if secondOeuvre.evacuations is defined and secondOeuvre.evacuations is not null %}
+                                            {% if secondOeuvre.evacuations | length >0 %}
+                                                <b>({{ secondOeuvre.evacuations | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.evacuations is defined and secondOeuvre.evacuations is not null %}
+                                        {% if secondOeuvre.calculPrixEvacuations is defined and secondOeuvre.calculPrixEvacuations is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixEvacuations|number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.evacuations is defined and secondOeuvre.evacuations is not null and secondOeuvre.evacuations is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_evacuation_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_evacuation_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les évacuations ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_plomberie_list',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-gray-dark-v10 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-furniture-039 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Plomberie
+                                        {% if secondOeuvre.plomberies is defined and secondOeuvre.plomberies is not null %}
+                                            {% if secondOeuvre.plomberies | length >0 %}
+                                                <b>({{ secondOeuvre.plomberies | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if secondOeuvre.plomberies is defined and secondOeuvre.plomberies is not null %}
+                                        {% if secondOeuvre.calculPrixPlomberies is defined and secondOeuvre.calculPrixPlomberies is not null %}
+                                            Estimation : {{ secondOeuvre.calculPrixPlomberies |number_format(2, ',', ' ') }} €
+                                        {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if secondOeuvre.plomberies is defined and secondOeuvre.plomberies is not null and secondOeuvre.plomberies is not empty %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_plomberie_creation',{'idSecondOeuvre':secondOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_plomberie_deleteall',{'idSecondOeuvre':secondOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les plomberies ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+
+    </div>
+
+{% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function select(id){
+            document.getElementById(id).style.backgroundColor = "orange";
+        }
+        function deselection(id){
+            document.getElementById(id).style.backgroundColor = "white";
+        }
+    </script>
+{% endblock javascripts%}

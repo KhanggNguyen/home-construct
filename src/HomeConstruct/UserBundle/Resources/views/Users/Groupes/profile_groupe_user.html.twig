@@ -1,0 +1,41 @@
+{% extends "@HomeConstructCrm/layout.html.twig" %}
+{% block title %}
+    {{ titreOnglet }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+        'bundles/homeconstructfo/css/add_tache.css'
+        'bundles/homeconstructfo/css/profile_group.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+            <div class="row">
+                <div class="col-12">
+
+                    <h2>{{ groupe.name }}</h2>
+                </div>
+            </div>
+            <div id="block_description" class="row">
+                <div class="col-12">
+                    <h4>Description : {{ groupe.description }}</h4>
+                </div>
+            </div>
+
+        </div>
+        <!-- End Info -->
+    </div>
+
+{% endblock content %}
+

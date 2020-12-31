@@ -1,0 +1,152 @@
+<h3>
+    Informations sur la préparation d'accès au terrain
+</h3>
+<div class="block_profile_with_estimation">
+
+    <div class="col-lg-6 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">Surface totale du terrain :
+                        {% if prepaAccesTerrain.surfaceTerrain is defined and prepaAccesTerrain.surfaceTerrain is not null %}
+                            <b> {{ prepaAccesTerrain.surfaceTerrain|number_format(2, ',', ' ') }}m²</b>
+                                   {% else %}
+                                        <b><I>Non définie</I></b>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">Surface totale de la maison :
+                        <b>{{ prepaAccesTerrain.grosOeuvre.informationBase.surfaceTotale }}m²</b>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">
+                        <h5>Liste des arbres :</h5>
+                        {% if arbres is defined and arbres is not null and arbres is not empty %}
+                            <ul>
+                                {% set index=1 %}
+                                {% for arbre in arbres %}
+                                    <b>Arbre n°{{ index }} :</b>
+                                    <li>Type de l'arbre : <b>{{ arbre.typeArbre.nom }}, {{ arbre.typeArbre.prix|number_format(2, ',', ' ') }}€/m3</b></li>
+                                    <li>Taille de l'arbre : <b>{{ arbre.tailleArbre.nom }}</b></li>
+                                    <li>Quantité : <b>{{ arbre.quantite }}</b></li>
+                                    <br>
+                                    {% set index=index+1 %}
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <b><I>Non définie pour le moment</I></b>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">
+                        <h5>Caractéristique du terrassement :</h5>
+                        {% if terrassements is defined and terrassements is not null and terrassements is not empty %}
+                            <ul>
+                                {% set index=1 %}
+                                {% for terrassement in terrassements %}
+                                    <b>Terrassement n°{{ index }} :</b>
+                                    <li>Longueur :<b> {{ terrassement.longueur }}</b></li>
+                                    <li>Largeur : <b> {{ terrassement.largeur }}</b></li>
+                                    <li>Profondeur : <b>{{ terrassement.profondeur }}m</b></li>
+                                    <li>Altimetrie : <b>{{ terrassement.altimetrie }}m</b></li>
+                                    <li>Type d'evacuation : <b>{{ terrassement.evacuation }}</b></li>
+                                    <li>Type de travaux : <b>{{ terrassement.travaux }} </b></li>
+                                    <br>
+                                    {% set index=index+1 %}
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <b>
+                                <I>
+                                    Non définies pour le moment
+                                </I>
+                            </b>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- End Info -->
+
+    </div>
+
+    <div class="col-lg-6 g-mb-50">
+        <div class="block_estimation_prix">
+            <h4 class="titre_estimation text-center">
+                Estimation
+            </h4>
+            <h6> <I> Données utilisés : </I></h6>
+            <ul class="liste_variables_estimation">
+                <li>
+                    <h5 class="titre_sous_entite">
+                        <div class="link_sous_entite">
+                            Informations de base :
+                        </div>
+                    </h5>
+                    <i class="fas fa-check-circle variable-presente"></i>
+                    Surface totale de la maison :
+                    <b>
+                        {{ prepaAccesTerrain.grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }}m²
+                    </b>
+                </li>
+                <li>
+                    <h5 class="titre_sous_entite">
+                        <div class="link_sous_entite">
+                            Informations sur préparation d'accès au terrain :
+                        </div>
+                    </h5>
+                </li>
+                <li>
+                    {% if prepaAccesTerrain.prixAcces is defined and prepaAccesTerrain.prixAcces is not null%}
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Prix d'accès : <b>{{  prepaAccesTerrain.prixAcces |number_format(2, ',', ' ') }} €</b>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if arbres is defined and arbres is not null and arbres is not empty %}
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Prix total de l'élagage des arbres : <b> {{ prepaAccesTerrain.elagageArbre.calculPrix |number_format(2, ',', ' ') }} €</b>
+                    {% else %}
+                        <i class="fas fa-times variable-non-presente"></i>
+                        Prix total de l'élagage des arbres : <b><I>Non calculable pour le moment</I></b>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if terrassements is defined and terrassements is not null and terrassements is not empty %}
+                <li><i class="fas fa-check-circle variable-presente"></i>Prix de location des moyens : <b>1000€</b> </li>
+
+                <li><i class="fas fa-check-circle variable-presente"></i>Prix total des terrassements : <b>{{ prepaAccesTerrain.calculPrixTerrassements |number_format(2, ',', ' ') }} €</b></li>
+                {% else %}
+                    <i class="fas fa-times variable-non-presente"></i>
+                    <b>
+                        <I>
+                            Les caractéristiques du terrassement n'ont pas encore été définies
+                        </I>
+                    </b>
+                {% endif %}
+                </li>
+            </ul>
+            {% if prepaAccesTerrain.prixTotal is defined and prepaAccesTerrain.prixTotal is not null %}
+                <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                    <b>
+                        {{  prepaAccesTerrain.prixTotal |number_format(2, ',', ' ') }} €
+                    </b>
+                </div>
+            {% else %}
+                <I>
+                    Pour pouvoir estimer un prix total veuillez renseigner les éléments manquants
+                </I>
+            {% endif %}
+        </div>
+    </div>
+</div>

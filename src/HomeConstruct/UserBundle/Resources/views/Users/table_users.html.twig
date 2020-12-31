@@ -1,0 +1,221 @@
+<div class="media-md align-items-center g-mb-30">
+    <div class="d-flex g-mb-15 g-mb-0--md">
+        {% if (page.sub_title is defined and page.sub_title is not null and page.sub_title=="Liste des personnes liés au projet") %}
+            <a id="button_back"
+               class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ path('home_construct_projet_form_ajout_personne',{'id':projet.id}) }}" data-speed="350">
+                <div  class="fas fa-plus"></div>
+                Ajouter
+            </a>
+        {% endif %}
+        {% if (page.sub_title is defined and page.sub_title is not null and page.sub_title=="Liste des utilisateurs") and ('SUPER ADMIN' in app.user.groups) %}
+            <a id="button_back"
+               class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ path('home_construct_user_ajout') }}" data-speed="350">
+                <div  class="fas fa-plus"></div>
+                Créer
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="media d-md-flex align-items-center ml-auto">
+
+        <div class="d-flex g-ml-15 g-ml-55--md">
+            <div class="input-group g-pos-rel g-width-320--md">
+                <input id="datatableSearch3" class="form-control g-font-size-default g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-rounded-20 g-pl-20 g-pr-50 g-py-10" type="text" placeholder="Recherche par mail, nom, groupe..">
+                <button class="btn g-pos-abs g-top-0 g-right-0 g-z-index-2 g-width-60 h-100 g-bg-transparent g-font-size-16 g-color-lightred-v2 g-color-lightblue-v3--hover rounded-0" type="submit">
+                    <i class="hs-admin-search g-absolute-centered"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="g-mb-40">
+    <div class="table-responsive">
+        <table class="js-datatable table table-hover u-table--v3 u-editable-table--v1 g-color-black" data-dt-info="#datatableInfo3" data-dt-search="#datatableSearch3" data-dt-pagination="datatablePagination3" data-dt-page-length="5" data-dt-is-responsive="false"
+               data-dt-pagination-classes="list-inline text-right mb-0" data-dt-pagination-items-classes="list-inline-item g-hidden-sm-down" data-dt-pagination-links-classes="u-pagination-v1__item u-pagination-v1-2 g-bg-lightblue-v3--active g-color-white--active g-brd-gray-light-v7 g-brd-lightblue-v3--hover g-brd-lightblue-v3--active g-rounded-4 g-py-8 g-px-15"
+               data-dt-pagination-next-classes="list-inline-item" data-dt-pagination-next-link-classes="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-lightblue-v3--hover g-rounded-4 g-py-8 g-px-12" data-dt-pagination-next-link-markup='<span class="g-line-height-1 g-valign-middle" aria-hidden="true"><i class="hs-admin-angle-right"></i></span><span class="sr-only">Next</span>'
+               data-dt-pagination-prev-classes="list-inline-item" data-dt-pagination-prev-link-classes="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-lightblue-v3--hover g-rounded-4 g-py-8 g-px-12" data-dt-pagination-prev-link-markup='<span class="g-line-height-1 g-valign-middle" aria-hidden="true"><i class="hs-admin-angle-left"></i></span><span class="sr-only">Prev</span>'
+               data-dt-is-selectable="true">
+            <thead class="thead-light">
+            <tr>
+                <th class="g-hidden-xs-up"></th>
+                <th class="g-first-child">
+                    <div class="media">
+                        <div class="d-flex align-self-center">Mail</div>
+
+                        <div class="d-flex align-self-center ml-auto">
+                            <span class="d-inline-block g-width-10 g-line-height-1 g-font-size-10">
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-up"></i>
+                            </a>
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-down"></i>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Prénom</div>
+
+                        <div class="d-flex align-self-center ml-auto">
+                            <span class="d-inline-block g-width-10 g-line-height-1 g-font-size-10">
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-up"></i>
+                            </a>
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-down"></i>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Nom</div>
+
+                        <div class="d-flex align-self-center ml-auto">
+                            <span class="d-inline-block g-width-10 g-line-height-1 g-font-size-10">
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-up"></i>
+                            </a>
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-down"></i>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Groupe</div>
+
+                        <div class="d-flex align-self-center ml-auto">
+                            <span class="d-inline-block g-width-10 g-line-height-1 g-font-size-10">
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-up"></i>
+                            </a>
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-down"></i>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+                </th>
+                {% if 'SUPER ADMIN' in app.user.groups %}
+                <th>
+                    <div class="media">
+                        <div class="d-flex align-self-center">Première connexion</div>
+
+                        <div class="d-flex align-self-center ml-auto">
+                            <span class="d-inline-block g-width-10 g-line-height-1 g-font-size-10">
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-up"></i>
+                            </a>
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-down"></i>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+                </th>
+                {% endif %}
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% if entities is defined and entities is not null %}
+                {% set index =0 %}
+                {% for entity in entities %}
+                    {% set index = index+1 %}
+                    <tr onmouseover="showGrey({{ entity.id }})" onmouseout="hideGrey({{ entity.id }})" id="champSelect{{ entity.id }}" class="g-bg-gray-light-v8--opacity-0_4--checked">
+                        <td class="g-hidden-xs-up">{{ index }}</td>
+                        <td class="js-select text-left g-first-child">
+                                {% if entity.email is defined and entity.email is not null %}
+                                    <b>
+                                        <a class="lien_mail" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Envoyer un email" href="mailto:{{ entity.email }}">
+                                            {{ entity.email }}
+                                        </a>
+                                    </b>
+                                {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.firstname is defined and entity.firstname is not null %}
+                                {{ entity.firstname }}
+                            {% endif %}
+                        </td>
+                        <td>
+
+                            {% if entity.name is defined and entity.name is not null %}
+                                {{ entity.name }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.groups is defined and entity.groups is not null %}
+                                {% if 'SUPER ADMIN' in entity.groups %}
+                                    SUPER ADMIN
+                                {% elseif 'PROFESSIONNEL' in entity.groups %}
+                                    PROFESSIONNEL
+                                {% elseif 'CLIENT' in entity.groups %}
+                                    CLIENT
+                                {% else %}
+                                <I> Non renseigné</I>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        {% if 'SUPER ADMIN' in app.user.groups %}
+                            <td>
+                                {% if entity.firstLogin is defined and entity.firstLogin is not null %}
+                                    {{ entity.firstLogin | date('d/m/Y') }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                        {% if (page.sub_title is defined and page.sub_title is not null and page.sub_title=="Liste des personnes liés au projet") %}
+                            {% if projet.createur.username != entity.username and ('SUPER ADMIN' in app.user.groups or projet.createur.username == app.user.username) and "SUPER ADMIN" not in entity.groups%}
+                                <td class="text-right">
+                                    <div class="g-pos-rel g-top-3 d-inline-block">
+                                        <div class="block_modif_suppr">
+                                            <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover" data-toggle="tooltip" data-placement="left" data-html="true" title="Enlever cet utilisateur de ce projet"
+                                               href="{{ path('home_construct_projet_suppr_personne',{'idProjet':projet.id,'idUsers':entity.id}) }}" onclick="return confirm('Voulez-vous vraiment enlever cet utilisateur de ce projet ? Attention cette action sera irréversible !')">
+                                                <i class="hs-admin-close g-font-size-18"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                {% else %}
+                                    <td></td>
+                            {% endif %}
+                        {% elseif (page.sub_title is defined and page.sub_title is not null and page.sub_title=="Liste des utilisateurs") %}
+                            {% if ('SUPER ADMIN' in app.user.groups) %}
+                                <td class="text-right">
+                                    <div class="g-pos-rel g-top-3 d-inline-block">
+                                        <div class="block_modif_suppr">
+                                            <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                               href="{{ path('home_construct_user_delete_direct',{'id':entity.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ? Attention cette action sera irréversible !')">
+                                                <i class="hs-admin-trash g-font-size-18"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                            {% else %}
+                                <td></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="media justify-content-left g-mb-45">
+    <nav id="datatablePagination3" class="d-flex" aria-label="Page Navigation"></nav>
+</div>
+

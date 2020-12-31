@@ -1,0 +1,258 @@
+.table-responsive{
+    overflow-x: auto!important;
+}
+
+#block_mysubmenu{
+    margin-left: 0px !important;
+}
+
+.lien_accueil span{
+    margin-left: 11px;
+}
+
+tr th {
+    width : 18% !important;
+}
+
+
+.lien_profil{
+    font-weight: bold;
+    color: black;
+}
+
+#button_add {
+    padding-left:0 !important;
+    width: 30% !important;
+}
+
+#icone_plus_add{
+    margin-right: 5px;
+    margin-left: 8px;
+}
+
+#footer{
+    width: 100%;
+
+}
+
+#block_droits_reserves{
+    margin-left: 387px !important;
+}
+
+#logo_oit, #block_logo_site{
+    width:144px;
+    margin-left:25%;
+}
+
+.navbar{
+    background-color: rgba(255,255,255,1);
+}
+
+#username_navbar{
+    color:black;
+}
+
+#username_navbar:hover{
+    color:red;
+}
+
+p{
+    overflow-wrap:break-word;
+}
+
+.lien_mail{
+    color:black;
+}
+
+.bg-client{
+    background-color: green !important;
+}
+
+.bg-afaire{
+    background-color: rgb(47, 197, 255)!important;
+}
+
+.bg-fait{
+    background-color: rgb(21, 195, 0)!important;
+}
+
+.bg-encours{
+    background-color:rgb(255, 191, 47)!important;
+}
+
+.bg-datedepasse{
+    background-color: rgb(255, 74, 74)!important;
+}
+
+.bg-prospect{
+    background-color: red !important;
+}
+
+.bg-fournisseur{
+    background-color: cyan !important;
+}
+
+.bg-institutionnel{
+    background-color: black !important;
+}
+
+.bg-autre{
+    background-color: grey !important;
+}
+
+.bouton_enregistrer{
+    background-color: orangered;
+}
+
+#block_bouton_enregistrer{
+    text-align: center;
+}
+
+.sous_titre{
+    border-bottom: 5px solid rgb(22, 81, 143);
+    margin-bottom:20px;
+}
+
+.fa-user-circle{
+    font-size:43px;
+}
+
+#block_user{
+    padding-top: 8px !important;
+    padding-left: 0px !important;
+}
+
+#profileMenu{
+     width: 172px !important;
+ }
+
+.icone_menu_lateral{
+    font-size: 33px;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1076px) {
+    #block_logo_site {
+        margin-left: 10%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    #block_user {
+        padding-left: 7px !important;
+    }
+}
+
+@media screen and (min-width: 380px) and (max-width: 767px) {
+    .icone_profil {
+        width: 37%;
+    }
+}
+
+@media screen and (max-width: 474px) {
+#block_mysubmenu,.titre_systeme, #block_logo_site, #logo_oit {
+    margin-left: 0px !important;
+}
+}
+
+@media screen and (max-width: 342px) {
+    .titre_systeme{
+        display:none;
+    }
+}
+
+h2{
+    word-wrap: break-word;
+}
+
+@media screen and (max-width: 500px){
+    #block_boutons_cancel_save{
+        display:block !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .titre_systeme {
+        font-size: 18px !important;
+    }
+}
+
+#block_erreur{
+    color:red;
+}
+
+.block_button_back{
+    margin-bottom: 20px;
+}
+
+.titre_systeme{
+    font-size: 28px;
+    margin-left:15px;
+    color:#33659c;
+    text-shadow: 0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+}
+
+.block_element{
+    padding-right: 0px !important;
+    padding-ledt: 0px !important;
+}
+
+.block_choix{
+    margin-right: 4px;
+}
+
+#prix_grosOeuvre,#prix_secondOeuvre{
+    padding-top: 0px !important;
+    font-size: 23px !important;
+    width: auto !important;
+    margin-left: 33px;
+}
+
+#badge_etat{
+    opacity: 1 !important;
+}
+
+#button_add_user_projet{
+    visibility: hidden;
+}
+
+#txt_account_confirmed{
+    white-space: normal !important;
+}
+
+#button_liste_personnes{
+    width: 100%;
+}
+
+#block_button_persRelies{
+    padding-left: 20px !important;
+    padding-bottom: 13px;
+    padding-right: 11px !important;
+}
+/*#sideNavMenu{
+    position:fixed;
+    width:250px;
+}
+
+html, body{
+    margin: 0px;
+    padding: 0px;
+    outline: 0px;
+    height: 100%;
+}
+
+.contenu_entier{
+    height:100%;
+}*/

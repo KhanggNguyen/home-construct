@@ -1,0 +1,61 @@
+#block_connexion, #block_inscription{
+    width: auto;
+    flex: auto !important;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 11px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+#block_connexion{
+    margin-right: 4%;
+}
+
+#liste_avantages{
+    list-style: none;
+}
+
+#block_connexion_inscription{
+    display: flex;
+}
+
+@media screen and (max-width: 800px){
+    #block_connexion_inscription{
+        display: block;
+    }
+    .col-6{
+        max-width: 100%;
+    }
+}
+
+body{
+    background-image: url("../img/maison.jpg");
+    background-position: right;
+    background-size: cover;
+}
+
+form{
+    text-align: -webkit-center;
+}
+
+#block_mdp_oublie{
+    margin-left:20%;
+}
+
+#block_contenu_inscription{
+    text-align: start;
+}
+
+#bouton_cree{
+    margin-left: 25%;
+}
+
+.alert{
+    width: auto !important;
+    margin-top: 1%;
+    margin-bottom: 0;
+    margin-left: 0 !important;
+    border-radius: 9px !important;
+}
+

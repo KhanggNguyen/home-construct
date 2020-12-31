@@ -1,0 +1,25 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div id="block_reset_mdp" class="container g-pb-30 block_non_connecte">
+    <div class="g-max-width-645 text-center g-pt-15 mx-auto g-mb-15">
+        <h1 class="mb-0">Réinitialisation du mot de passe</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-8 text-center">
+            <!-- Login Form -->
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request g-mb-30">
+                <div class="g-mb-30">
+                    <label for="username">Votre adresse email :</label>
+                    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded-0 g-py-13 g-px-15" type="text" id="username" name="username" required="required" />
+                </div>
+                <div>
+                    <button class="btn btn-block g-width-50x u-btn-primary g-color-white g-bg-primary-dark-v1--hover g-font-weight-600 g-font-size-12 text-uppercase rounded-0 g-px-25 g-py-15"
+                            type="submit" value="{{ 'resetting.request.submit'|trans }}" >Valider
+                    </button>
+                </div>
+            </form>
+            <!-- End Login Form -->
+        </div>
+    </div>
+</div>
+

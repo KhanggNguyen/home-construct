@@ -1,0 +1,38 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}
+    Confirmation d'inscription
+{% endblock %}
+
+{% block pageTitle %}
+    Confirmation d'inscription
+{% endblock pageTitle %}
+
+{% block content %}
+    <div class="container g-pt-35 g-pb-30">
+        <div class="row justify-content-center">
+            <a href="{{ path('home_construct_accueil') }}"
+               class="col-md-12 col-lg-8 g-mb-20 text-center g-width-auto g-font-size-20 rounded btn btn-xl u-btn-outline-teal g-width-auto g-font-size-30">
+                <i class="fas fa-check g-font-size-40"></i>
+                <p id="txt_account_confirmed" class="">
+                    Félicitations {{ user.username }}, votre compte est maintenant activé
+                </p>
+                {% if targetUrl is defined and targetUrl is not null %}
+                    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+                {% endif %}
+
+            </a>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-xl u-btn-indigo g-width-220--md g-font-size-30"
+               href="{{ path('home_construct_accueil') }}" data-speed="350">
+                <div class="fas fa-home"></div>
+                Accueil
+            </a>
+        </div>
+    </div>
+    {{ parent() }}
+{% endblock content %}
+

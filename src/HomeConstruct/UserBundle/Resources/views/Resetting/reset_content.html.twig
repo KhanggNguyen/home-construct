@@ -1,0 +1,20 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="container g-pb-30 block_non_connecte">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-8 text-center g-mb-70">
+            {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+                {{ form_widget(form) }}
+                <input id="show_mdp" type="checkbox" onclick="showPwd()">
+                <label for="show_mdp">
+                    Montrer le mot de passe
+                </label>
+                <div>
+                    <button class="btn btn-block u-btn-primary g-color-white g-bg-primary-dark-v1--hover g-font-weight-600 g-font-size-12 text-uppercase rounded-0 g-px-25 g-py-15"
+                            type="submit">Enregistrer
+                    </button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

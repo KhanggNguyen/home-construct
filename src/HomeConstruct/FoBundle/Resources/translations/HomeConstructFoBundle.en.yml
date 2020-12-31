@@ -1,0 +1,11 @@
+contact:
+    lastname: 'Lastname'
+    name: 'Name'
+    email: 'Email'
+    phone: 'Phone'
+    subject: 'Subjet'
+    message: 'Message'
+    save: 'Send'
+    confirm: 'Your message has been sent'
+    error: "An error occurre."
+    bad_recaptcha: "Wrong reCAPTCHA"

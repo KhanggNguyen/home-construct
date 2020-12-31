@@ -1,0 +1,108 @@
+{% extends "@HomeConstructFo/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+        'bundles/homeconstructfo/css/add_user.css'
+        'bundles/homeconstructfo/css/inscription.css'
+    %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block body_attributs %}
+	onload="test()"
+{% endblock %}
+{% block title %}
+	Inscription
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+	{{ form_start(form,{'attr': {'class': 'g-mb-30'}}) }}
+		<!-- Info -->
+		<div id="block_champs_form" class="g-brd-around rounded">
+			<h1 class="g-color-white">Crée un compte</h1>
+			<div class="row">
+				<div class="col-12">
+					<span class="d-block">
+						{{ form_row(form.firstname) }}
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<span class="d-block">
+						{{ form_row(form.name) }}
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<span class="d-block">
+						{{ form_row(form.email) }}
+					</span>
+				</div>
+			</div>
+			{#
+				<div class="row">
+					<div class="col-12">						<span class="d-block">
+							{{ formrow(form.groups,{'attr': {'onchange': 'champsFormulaire()'}}) }}
+						</span
+					</div
+				</div
+			#}
+			{% if app.user is not defined or app.user is null %}
+				<div class="row">
+					<div class="col-12">
+						<span class="d-block">
+							{{ form_row(form.plainPassword) }}
+							<input id="show_mdp" type="checkbox" onclick="showPwd()">
+							<label for="show_mdp">
+								Montrer le mot de passe
+							</label>
+						</span>
+					</div>
+				</div>
+			{% endif %}
+			<div id="block_boutons_cancel_save">
+				<div class="row" id="block_bouton_enregistrer">
+					<div class="col-12">
+						<span class="d-block">{{ form_row(form.save) }}</span>
+					</div>
+				</div>
+				<div class="row" id="block_bouton_enregistrer">
+					<div class="col-12">
+						<span class="d-block">{{ form_row(form.cancel) }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{ form_end(form) }}
+
+
+{% endblock content %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+        function showPwd() {
+            var x = document.getElementById("users_plainPassword_first");
+            var y = document.getElementById("users_plainPassword_second");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            if(y.type==="password"){
+                y.type="text";
+			}else {
+                y.type = "password";
+            }
+        }
+	</script>
+{% endblock javascripts %}
+
+
+

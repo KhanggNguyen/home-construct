@@ -1,0 +1,94 @@
+<div class="media-md align-items-center g-mb-30">
+    <div class="d-flex g-mb-15 g-mb-0--md">
+        <h3 class="g-font-weight-400 g-font-size-16 g-color-black mb-0">
+            Liste des types
+        </h3>
+    </div>
+
+    <div class="media d-md-flex align-items-center ml-auto">
+
+        <div class="d-flex g-ml-15 g-ml-55--md">
+            <div class="input-group g-pos-rel g-width-320--md">
+                <input id="datatableSearch3" class="form-control g-font-size-default g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-rounded-20 g-pl-20 g-pr-50 g-py-10" type="text" placeholder="Search for name, position">
+                <button class="btn g-pos-abs g-top-0 g-right-0 g-z-index-2 g-width-60 h-100 g-bg-transparent g-font-size-16 g-color-lightred-v2 g-color-lightblue-v3--hover rounded-0" type="submit">
+                    <i class="hs-admin-search g-absolute-centered"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="g-mb-40">
+    <div class="table-responsive">
+        <table class="js-datatable table table-hover u-table--v3 u-editable-table--v1 g-color-black" data-dt-info="#datatableInfo3" data-dt-search="#datatableSearch3" data-dt-pagination="datatablePagination3" data-dt-page-length="5" data-dt-is-responsive="false"
+               data-dt-pagination-classes="list-inline text-right mb-0" data-dt-pagination-items-classes="list-inline-item g-hidden-sm-down" data-dt-pagination-links-classes="u-pagination-v1__item u-pagination-v1-2 g-bg-lightblue-v3--active g-color-white--active g-brd-gray-light-v7 g-brd-lightblue-v3--hover g-brd-lightblue-v3--active g-rounded-4 g-py-8 g-px-15"
+               data-dt-pagination-next-classes="list-inline-item" data-dt-pagination-next-link-classes="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-lightblue-v3--hover g-rounded-4 g-py-8 g-px-12" data-dt-pagination-next-link-markup='<span class="g-line-height-1 g-valign-middle" aria-hidden="true"><i class="hs-admin-angle-right"></i></span><span class="sr-only">Next</span>'
+               data-dt-pagination-prev-classes="list-inline-item" data-dt-pagination-prev-link-classes="u-pagination-v1__item u-pagination-v1-2 g-brd-gray-light-v7 g-brd-lightblue-v3--hover g-rounded-4 g-py-8 g-px-12" data-dt-pagination-prev-link-markup='<span class="g-line-height-1 g-valign-middle" aria-hidden="true"><i class="hs-admin-angle-left"></i></span><span class="sr-only">Prev</span>'
+               data-dt-is-selectable="true">
+            <thead class="thead-light">
+            <tr>
+                <th class="g-hidden-xs-up"></th>
+                <th class="g-first-child">
+                    <div class="media">
+                        <div class="d-flex align-self-center">Type</div>
+
+                        <div class="d-flex align-self-center ml-auto">
+                            <span class="d-inline-block g-width-10 g-line-height-1 g-font-size-10">
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-up"></i>
+                            </a>
+                            <a class="g-color-gray-light-v6 g-color-lightblue-v3--hover g-text-underline--none--hover" href="#!">
+                              <i class="hs-admin-angle-down"></i>
+                            </a>
+                          </span>
+                        </div>
+                    </div>
+                </th>
+
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% if entities is defined and entities is not null %}
+                {% set index =0 %}
+                {% for entity in entities %}
+                    {% set index = index+1 %}
+                    <tr onmouseover="showGrey({{ entity.id }})" onmouseout="hideGrey({{ entity.id }})" id="champSelect{{ entity.id }}" class="g-bg-gray-light-v8--opacity-0_4--checked">
+                        <td class="g-hidden-xs-up">{{ index }}</td>
+                        <td class="js-select text-left g-first-child">
+                            <label class="form-check-inline u-check g-pl-45 mb-0 mr-0">
+                                <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
+                                <div class="u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0 g-bg-lightblue-v3--checked g-brd-lightblue-v3--checked">
+                                    <i class="fa" data-check-icon="&#xf00c"></i>
+                                </div>
+                                {% if entity.nom is defined and entity.nom is not null %}
+                                    {{ entity.nom }}
+                                {% endif %}
+                            </label>
+                        </td>
+
+
+                        <td class="text-right">
+                            <div class="g-pos-rel g-top-3 d-inline-block">
+                                <div class="block_modif_suppr">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_type_fondation_edit',{'idTypeFondation':entity.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-18"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="media justify-content-left g-mb-45">
+    <nav id="datatablePagination3" class="d-flex" aria-label="Page Navigation"></nav>
+</div>
+

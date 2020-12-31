@@ -1,0 +1,120 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+
+            <div class="col-lg-9 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Type :
+                                <b>
+                                    {% if soubassement.type is defined and soubassement.type is not null %}
+                                        {{ soubassement.type.nom }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Prix du forfait par rapport au type :
+                            <b>
+                                    {% if soubassement.type is defined and soubassement.type is not null %}
+                                        {{ soubassement.type.prixForfait|number_format(2, ',', ' ') }} €/m3
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a id="button_next"
+                                class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                href="{{ path('home_construct_soubassement_edit',{'idSoubassement':soubassement.id}) }}" data-speed="350">
+                            Modifier
+                            <div  class="fas fa-pencil"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End Info -->
+
+            </div>
+            <div class="block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <h5 class="titre_sous_entite">
+                        <a class="link_sous_entite" href="{{ path('home_construct_information_base_profile',{'id':soubassement.grosOeuvre.informationBase.id}) }}">
+                            Informations de base :
+                        </a>
+                    </h5>
+                    <li>
+                        {% if soubassement.grosOeuvre.informationBase.surfaceTotale is defined and soubassement.grosOeuvre.informationBase.surfaceTotale is not null %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Surface totale de la maison : <b>{{ soubassement.grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }}m²</b>
+                       {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                           Surface totale de la maison
+                        {% endif %}
+
+                    </li>
+                    <h5 class="titre_sous_entite">
+                        <a class="link_sous_entite" href="{% if soubassement.grosOeuvre.etudeSol is defined and soubassement.grosOeuvre.etudeSol is not null %}
+                                {{ path('home_construct_etude_sol_profile',{'id':soubassement.grosOeuvre.etudeSol.id}) }}
+                            {% else %}
+                                {{ path('home_construct_etude_sol_creation',{'idGrosOeuvre':soubassement.grosOeuvre.id}) }}
+                                {% endif %}
+                                ">
+                            Informations Etude du sol :
+                        </a>
+                    </h5>
+                    <li>
+                        {% if soubassement.grosOeuvre.etudeSol is defined and soubassement.grosOeuvre.etudeSol is not null %}
+                            {% if soubassement.grosOeuvre.etudeSol.profondeurChoisie is defined and soubassement.grosOeuvre.etudeSol.profondeurChoisie is not null %}
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Profondeur (Etude du sol) : <b>{{ soubassement.grosOeuvre.etudeSol.profondeurChoisie }}m</b>
+                            {% endif %}
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Profondeur : <I> Non renseigné</I>
+                        {% endif %}
+
+                    </li>
+                    <h5 class="titre_sous_entite">
+                        <a class="link_sous_entite" href="{{ path('home_construct_soubassement_profile',{'id':soubassement.id}) }}">
+                            Informations Soubassement :
+                        </a>
+                    </h5>
+                    <li>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Prix du type de soubassement : <b>{{ soubassement.type.prixForfait }}€/m3</b>
+                    </li>
+                </ul>
+                {% if soubassement.prixTotal is defined and soubassement.prixTotal is not null %}
+                <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                    {{ soubassement.prixTotal|number_format(2, ',', ' ') }} €
+                </div>
+                {% else %}
+                    <I>
+                        Pour pouvoir estimer le prix total veuillez renseigner les données manquantes (marquées d'une croix rouge)
+                    </I>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock sub_content %}
+
+{% endblock content %}
+

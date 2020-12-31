@@ -1,0 +1,161 @@
+.block_pre_contenu_tache{
+    display: flex;
+    padding-top: 7px !important;
+    height: auto;
+    font-size: 16px;
+}
+
+.block_pre_contenu_tache .fas{
+    padding-top: 4px;
+    width: 2%;
+    margin-left: 13px;
+}
+
+.block_contenu_tache{
+    display:none;
+}
+
+.titre_tache{
+    margin-left: 26px;
+    width: 55%;
+
+}
+
+.date_tache{
+    margin-left: 16px;
+    width: 34%;
+}
+
+#bg-client{
+    background-color: green !important;
+}
+
+#bg-prospect{
+    background-color: red !important;
+}
+
+#bg-fournisseur{
+    background-color: blue !important;
+}
+
+#bg-institutionnel{
+    background-color: black !important;
+}
+
+#bg-autre{
+    background-color: grey !important;
+}
+
+p{
+    overflow-wrap:break-word;
+}
+
+.nb-entites{
+    width: 8% !important;
+    position: absolute;
+    /* height: 30%; */
+    right: 13%;
+    padding: 0;
+}
+
+.nb-taches-contact{
+    width: 8% !important;
+    position: absolute;
+    /* height: 30%; */
+    right: 23%;
+    padding: 0;
+}
+
+#boutons_modif_modifmdp{
+    display: flex;
+}
+
+#bouton_modif_mdp{
+    width: 180px !important;
+    padding: 14px !important;
+}
+
+#block_retour_add{
+    margin-bottom: 20px;
+    display: flex;
+}
+/* Profile Piece */
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 105px;
+    right: 76px;
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: rgba(144, 144, 144, 0.48); /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+/* /////////////////////////////////// */
+/* Commun à tous */
+.block_profile_with_estimation{
+    display: flex;
+}
+
+.block_estimation_prix{
+    border: 3px solid;
+    border-color: firebrick;
+    padding: 5px;
+    background-color: rgba(21, 183, 116, 0.18);
+    width: 100%;
+    height: fit-content;
+}
+
+.variable-presente{
+    font-size: 22px;
+    color: green;
+}
+
+.variable-non-presente{
+    font-size: 22px;
+    color: red;
+}
+
+.liste_variables_estimation{
+    list-style: none;
+    padding-inline-start: 5px !important;
+}
+
+.block_affichage_prix{
+    background-color: white;
+    border-radius: 23px;
+}
+
+.titre_estimation{
+    border: solid 1px;
+    border-color: black;
+    border-radius: 8px;
+}
+
+.titre_sous_entite{
+    text-decoration: underline;
+}
+
+.link_sous_entite{
+    color: #007bff;
+}
+
+.link_sous_entite:hover{
+    color:red;
+}
+
+.col-lg-9{
+    max-width: 100%;
+}
+
+#block_infos_profile{
+    width:60%;
+}

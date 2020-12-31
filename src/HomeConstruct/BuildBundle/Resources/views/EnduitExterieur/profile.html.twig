@@ -1,0 +1,90 @@
+{% extends "@HomeConstructBuild/SecondOeuvre/base-forms-profiles-secondOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+            <div class="col-lg-6 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Total surface des murs :
+                                <b>
+                                    {% if enduitExterieur.surfaceMur is defined and enduitExterieur.surfaceMur is not null %}
+                                        {{ enduitExterieur.surfaceMur }}m2
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Prix du type :
+                                <b>
+                                    {% if enduitExterieur.typeEnduit is defined and enduitExterieur.typeEnduit is not null %}
+                                        {{ enduitExterieur.typeEnduit.nom }}
+                                    {% else %}
+                                        Non renseigné
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a id="button_next"
+                           class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                           href="{{ path('home_construct_enduit_exterieur_edit',{'idEnduitExterieur':enduitExterieur.id}) }}" data-speed="350">
+                            Modifier
+                            <div id="icone_plus_add" class="fas fa-pencil"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Info -->
+            <div class="col-lg-6 g-mb-50">
+                <div class="block_estimation_prix">
+                    <h4 class="titre_estimation text-center">
+                        Estimation
+                    </h4>
+                    <h6> <I> Données utilisés : </I></h6>
+                    <ul class="liste_variables_estimation">
+                        <li>
+                            <h5 class="titre_sous_entite">
+                                <a class="link_sous_entite" href="{{ path('home_construct_enduit_exterieur_profile',{'id':enduitExterieur.id}) }}">
+                                    Informations sur l'enduit extérieur :
+                                </a>
+                            </h5>
+                        </li>
+                        <li>
+                            {% if enduitExterieur.typeEnduit is defined and enduitExterieur.typeEnduit is not null %}
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Type d'enduit façade : <b>{{ enduitExterieur.typeEnduit.prix|number_format(2, ',', ' ') }}€/m&sup2</b>
+                            {% else %}
+                                <i class="fas fa-times variable-non-presente"></i>
+                                Non renseigné
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% if enduitExterieur.prixTotal is defined and enduitExterieur.prixTotal is not null %}
+                        <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                            {{ enduitExterieur.prixTotal |number_format(2, ',', ' ') }} €
+                        </div>
+                    {% else %}
+                        <I>
+                            Pour pouvoir estimer un prix total veuillez renseigner les élements manquants.
+                        </I>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% endblock sub_content %}
+
+{% endblock content %}

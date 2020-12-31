@@ -1,0 +1,45 @@
+{#{% extends "SymracineMailBundle:Mail:layout.html.twig" %}#}
+
+{% block subject %}Préparation d'accès au terrain de votre futur maison{% endblock %}
+
+{% block name %}Home-Construct{% endblock %}
+
+{% block body_text %}
+    <h2> Home-Construct - Projet : "{{ projet.nom }}"</h2>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Bonjour {{ client.name }} {{ client.firstname }} ({{ client.username }}) !
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">Les informations sur la préparation d'accès au terrain de votre projet <b>"{{ projet.nom }}"</b> ont été
+        {% if creation==true %}
+            ajoutées
+        {% else %}
+            modifiées
+        {% endif %}
+         par le professionnel : {{ user.name }} {{ user.firstname }} ({{ user.username }}).
+        <br/>
+        Le prix total estimé de la préparation d'accès au terrain est de <b>{{ projet.grosOeuvre.prepaAccesTerrain.prixTotal|number_format(2, ',', ' ') }} € </b>.
+        <br/>
+        Le prix du gros oeuvre est passé de <b>{{ prixGOAvantCalcul |number_format(2, ',', ' ') }} €</b> à <b>{{ prixGOApresCalcul|number_format(2, ',', ' ') }} €</b>.
+        <br/>
+        Et le prix total estimé du projet est maintenant de <b>{{ projet.prix|number_format(2, ',', ' ') }} €</b>.
+    </p><br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        <strong>
+            Pour voir les informations ajoutées, cliquez sur le lien ci-dessous :
+        </strong>
+    </p>
+
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+            {{ url('home_construct_prepa_acces_terrain_profile',{'id':projet.grosOeuvre.prepaAccesTerrain.id}) }}
+        <br>
+    </p>
+
+
+    <br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+    Cordialement,<br/>
+    L'équipe
+    </p>
+
+
+{% endblock %}

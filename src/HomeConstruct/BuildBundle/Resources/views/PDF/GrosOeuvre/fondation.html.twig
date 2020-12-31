@@ -1,0 +1,170 @@
+<h3>
+    Informations sur les fondations
+</h3>
+<div class="block_profile_with_estimation">
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Type :
+                                    <b>
+                                        {% if fondation.type is defined and fondation.type is not null %}
+                                            {{ fondation.type.nom }}
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}
+                                    </b>
+                                </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Prix de la main d'oeuvre :
+                                <b>
+                                        {% if fondation.prixMainDoeuvre is defined and fondation.prixMainDoeuvre is not null %}
+                                            {{ fondation.prixMainDoeuvre |number_format(2, ',', ' ') }} €
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}
+                                    </b>
+                                </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Type de ferraillage :
+                                <b>
+                                        {% if fondation.ferraillage.type.nom is defined and fondation.ferraillage.type.nom is not null %}
+                                            {{ fondation.ferraillage.type.nom }}
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}
+                                    </b>
+                                </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Quantité de ferraillage :
+                                <b>
+                                        {% if fondation.ferraillage.quantite is defined and fondation.ferraillage.quantite is not null %}
+                                            {{ fondation.ferraillage.quantite }}m²
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}
+                                    </b>
+                                </span>
+                </div>
+            </div>
+        </div>
+        <!-- End Info -->
+    </div>
+    <div class="block_estimation_prix">
+        <h4 class="titre_estimation text-center">
+            Estimation
+        </h4>
+        <h6> <I> Données utilisées : </I></h6>
+        <ul class="liste_variables_estimation">
+            <h5 class="titre_sous_entite">
+                <div class="link_sous_entite">
+                    Informations de base :
+                </div>
+            </h5>
+            <li>
+                <i class="fas fa-check-circle variable-presente"></i>
+                Surface totale de la maison : <b>{{ fondation.grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }}m²</b>
+            </li>
+            <h5 class="titre_sous_entite">
+                <div class="link_sous_entite">
+                    Informations sur l'etude du sol :
+                </div>
+            </h5>
+            <li>
+                {% if fondation.grosOeuvre.etudeSol is defined and fondation.grosOeuvre.etudeSol is not null %}
+                    <i class="fas fa-check-circle variable-presente"></i>
+                    Type de sol : <b>{{ fondation.grosOeuvre.etudeSol.type.nom }}</b>
+                {% else %}
+                    <i class="fas fa-times variable-non-presente"></i>
+                    Type de sol : <b><I> Non renseigné </I></b>
+                {% endif %}
+            </li>
+            <li>
+                {% if fondation.grosOeuvre.etudeSol is defined and fondation.grosOeuvre.etudeSol is not null %}
+                    <i class="fas fa-check-circle variable-presente"></i>
+                    Profondeur du sol choisie : <b>{{ fondation.grosOeuvre.etudeSol.profondeurChoisie |number_format(2, ',', ' ') }} m</b>
+                {% else %}
+                    <i class="fas fa-times variable-non-presente"></i>
+                    Profondeur du sol : <b><I> Non renseigné </I></b>
+                {% endif %}
+            </li>
+            <h5 class="titre_sous_entite">
+                <div class="link_sous_entite">
+                    Informations sur le soubassement :
+                </div>
+            </h5>
+            <li>
+                {% if fondation.grosOeuvre.soubassement is defined and fondation.grosOeuvre.soubassement is not null %}
+                    <i class="fas fa-check-circle variable-presente"></i>
+                    Type de soubassement : <b>{{ fondation.grosOeuvre.soubassement.type.nom }}</b>
+                {% else %}
+                    <i class="fas fa-times variable-non-presente"></i>
+                    Type de soubassement : <b><I>Non renseigné</I></b>
+                {% endif %}
+            </li>
+            <h5 class="titre_sous_entite">
+                Résultat :
+            </h5>
+            <li>
+                <i class="fas fa-check-circle variable-presente"></i>
+                Tarif ferraillage :
+                <b>
+                    {% if fondation.tarifFerraillage is not null %}
+                        {{ fondation.tarifFerraillage |number_format(2, ',', ' ') }} €
+                    {% else %}
+                        <I>Non calculable pour le moment</I>
+                    {% endif %}
+                </b>
+            </li>
+            <li>
+                <i class="fas fa-check-circle variable-presente"></i>
+                Tarif beton :
+                <b>
+                    {% if fondation.tarifBeton is not null %}
+                        {{ fondation.tarifBeton |number_format(2, ',', ' ') }} €
+                    {% else %}
+                        <I>Non calculable pour le moment</I>
+                    {% endif %}
+                </b>
+            </li>
+            <li>
+                <i class="fas fa-check-circle variable-presente"></i>
+                Tarif sol :
+                <b>
+                    {% if fondation.tarifSol is not null %}
+                        {{ fondation.tarifSol |number_format(2, ',', ' ') }} €
+                    {% else %}
+                        <I>Non calculable pour le moment</I>
+                    {% endif %}
+                </b>
+            </li>
+            <li>
+                <i class="fas fa-check-circle variable-presente"></i>
+                Prix total main d'oeuvre :
+                <b>
+                    {{ fondation.prixTotalMainDoeuvre |number_format(2, ',', ' ') }} €
+                </b>
+            </li>
+        </ul>
+        {% if fondation.prix is defined and fondation.prix is not null %}
+            <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                {{ fondation.prix |number_format(2, ',', ' ') }} €
+            </div>
+        {% else %}
+            <I>
+                Pour pouvoir estimer un prix total veuillez ajouter les entités manquantes (marquées d'une croix rouge)
+            </I>
+        {% endif %}
+    </div>
+</div>

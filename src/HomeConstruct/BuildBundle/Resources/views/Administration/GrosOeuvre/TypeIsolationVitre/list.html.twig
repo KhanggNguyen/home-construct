@@ -1,0 +1,48 @@
+{% extends "@HomeConstructBuild/Administration/base-forms-profiles-grosOeuvre-administration.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {% set retour = path('home_construct_administration_grosOeuvre_profile') %}
+        <div id="block_retour_add">
+            <div class="block_button_back">
+                <a id="button_back"
+                   class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                   href="{{ retour }}" data-speed="350">
+                    <div  class="fas fa-reply"></div>
+                    Retour
+                </a>
+            </div>
+            <div class="media-body align-self-center text-right">
+                <a id="button_add"
+                   class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                   href="{{ path('home_construct_type_isolationVitre_creation') }}" data-speed="350">
+                    <div  class="fas fa-plus"></div>
+                    Ajouter
+                </a>
+            </div>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div id="table_form_type_isolationVitre">
+            {{ include('@HomeConstructBuild/Administration/GrosOeuvre/TypeIsolationVitre/complex-table-type-IsolationVitre.html.twig') }}
+        </div>
+    {% endblock sub_content %}
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function showGrey(id) {
+            var item = 'champSelect' + id;
+            document.getElementById(item).style.backgroundColor = "rgba(142, 142, 142, 0.4)";
+        }
+
+        function hideGrey(id) {
+            var item = 'champSelect' + id;
+            document.getElementById(item).style.backgroundColor = "white";
+        }
+
+    </script>
+{% endblock javascripts %}

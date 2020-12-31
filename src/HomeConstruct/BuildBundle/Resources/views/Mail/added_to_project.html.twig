@@ -1,0 +1,30 @@
+{#{% extends "SymracineMailBundle:Mail:layout.html.twig" %}#}
+
+{% block subject %}Ajout à un projet{% endblock %}
+
+{% block name %}Home-Construct{% endblock %}
+
+{% block body_text %}
+    <h2> Home-Construct - Projet</h2>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Bonjour {{ user.name }} {{ user.firstname }} ({{ user.username }}) !
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;Vous avez été ajouté au projet "{{ projet.nom }}" par {{ inviteur.username }}.
+    </p><br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        <strong>Allez voir son avancée sur le site de Home-Construct :</strong>
+    </p>
+
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+            {{ url('home_construct_projet_profile',{'id':projet.id}) }} <br>
+    </p>
+
+
+    <br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+    Cordialement,<br/>
+    L'équipe
+    </p>
+
+
+{% endblock %}

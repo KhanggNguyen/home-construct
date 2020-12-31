@@ -1,0 +1,31 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+<div class="block_button_backnext" class="media-body align-self-center">
+        <div class="row">
+            <div class="col-12">
+                <span class="d-block">Il n'existe pas encore de pièce</span>
+            </div>
+        </div>
+        <a id="button_back"
+           class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+           href="{{ path('home_construct_second_oeuvre_modification',{'id': idSecondOeuvre }) }}" data-speed="350">
+            <div id="icone_plus_add" class="fas fa-reply"></div>
+            Précédent
+        </a>
+        <a id="button_next"
+           class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+           href="{{ path('home_construct_menuiserie_interieure_creation',{'idSecondOeuvre':idSecondOeuvre}) }}" data-speed="350">
+            Suivant
+            <div id="icone_plus_add" class="fas fa-share"></div>
+        </a>
+    </div>
+{% endblock content %}

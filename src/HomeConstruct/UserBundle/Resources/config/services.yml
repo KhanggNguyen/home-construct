@@ -1,0 +1,22 @@
+services:
+#    home_construct_user.example:
+#        class: HomeConstruct\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    HomeConstruct\UserBundle\DataFixtures\ORM\GroupeFixture:
+                    tags: ['doctrine.fixture.orm']
+
+    HomeConstruct\UserBundle\DataFixtures\ORM\UsersFixture:
+                        tags: ['doctrine.fixture.orm']
+
+    home_construct_user.form.registration:
+            class: HomeConstruct\UserBundle\Form\RegistrationType
+            tags:
+                - { name: form.type, alias: home_construct_user_registration }
+
+    login_listener:
+            class: 'HomeConstruct\UserBundle\Listener\LoginListener'
+            arguments: ['@fos_user.user_manager']
+            tags:
+                - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+                - { name: 'kernel.listener', event: 'fos_user.security.implicit_login' }

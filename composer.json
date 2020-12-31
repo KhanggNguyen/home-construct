@@ -1,0 +1,117 @@
+{
+    "name": "killianweid/home-construct",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": { "": "src/" ,
+          "HomeConstruct\\": "src/HomeConstruct/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Symracine/BoBundle"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/Symracine/FoBundle"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/Symracine/MailBundle"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/Symracine/MaintenanceBundle"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/Symracine/TemplateBundle"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/Symracine/EntityExtendBundle"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.0",
+        "coresphere/console-bundle": "^0.5.0",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "doctrine/doctrine-migrations-bundle": "^2.0",
+        "doctrine/orm": "^2.5",
+        "friendsofsymfony/user-bundle": "dev-master",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.4",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "knplabs/knp-menu-bundle": "^2.2",
+        "knplabs/knp-snappy-bundle": "^1.6",
+        "leafo/scssphp": "~0.6",
+        "paragonie/random_compat": "^2",
+        "patchwork/jsqueeze": "~2.0",
+        "rollerworks/password-strength-bundle": "^2.0",
+        "sensio/distribution-bundle": "^5.0.19",
+        "sensio/framework-extra-bundle": "^5.0.0",
+        "symfony/assetic-bundle": "^2.8",
+        "symfony/maker-bundle": "^1.11",
+        "symfony/monolog-bundle": "^3.1.0",
+        "symfony/polyfill-apcu": "^1.0",
+        "symfony/swiftmailer-bundle": "^2.6.4",
+        "symfony/symfony": "3.4.*",
+        "symfony/twig-bundle": "^3.0",
+        "symfony/validator": "^3.0",
+        "symracine/fo-bundle": "dev-master",
+        "symracine/mail-bundle": "dev-master",
+        "symracine/maintenance-bundle": "dev-master",
+        "symracine/template-bundle": "dev-master",
+        "twig/extensions": "^1.5",
+        "twig/twig": "^1.0||^2.0"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0"
+    },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": null
+    }
+}

@@ -1,0 +1,212 @@
+{% extends "@HomeConstructBuild/SecondOeuvre/base-forms-profiles-secondOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+            <div class="col-lg-7 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                                    <span class="d-block">Type d'isolation :
+                                        <b>
+                                            {{ isolation.typeIsolation }}
+                                        </b>
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Surface des murs intérieurs :
+                                <b>
+                                    {{ isolation.surfaceMursInterieur }}m²
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Surface des murs extérieurs :
+                                <b>
+                                    {{ isolation.surfaceMursExterieur }}m²
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Surface du plafond :
+                                <b>
+                                    {{ isolation.surfacePlafond }}m²
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">Surface du sol :
+                                <b>
+                                    {{ isolation.surfaceSol }}m²
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    {% if isolation.typeIsolation == "phonique" %}
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Surface des vitres :
+                                    <b>
+                                            {{ isolation.surfaceVitre }} m²
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Type d'isolation des murs :
+                                    <b>
+                                        {{ isolation.typeIsolationMur }}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Type d'isolation du plafond :
+                                    <b>
+                                        {{ isolation.typeIsolationPlafond }}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Type d'isolation du sol :
+                                    <b>
+                                        {{ isolation.typeIsolationPlancher }}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="d-block">Type d'isolation des vitres :
+                                    <b>
+                                        {{ isolation.typeIsolationVitre }}
+                                    </b>
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="text-center">
+                            <a id="button_next"
+                               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                               href="{{ path('home_construct_isolation_edit',{'idIsolation':isolation.id}) }}" data-speed="350">
+                                Modifier
+                                <div  class="fas fa-pencil"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!-- End Info -->
+    <div class="col-lg-5 g-mb-50">
+        <div class="block_estimation_prix">
+            <h4 class="titre_estimation text-center">
+                Estimation
+            </h4>
+            <h6> <I> Données utilisés : </I></h6>
+            <ul class="liste_variables_estimation">
+                <li>
+                    <h5 class="titre_sous_entite">
+                        <a class="link_sous_entite" href="{{ path('home_construct_isolation_profile',{'id':isolation.id}) }}">Informations sur l'isolation  :
+                        </a>
+                    </h5>
+                </li>
+                {% if isolation.typeIsolation is defined and isolation.typeIsolation is not null %}
+                    {% if isolation.typeIsolation== "thermique" %}
+                        <li>
+                            Prix des murs intérieurs :
+                            <b>
+                                {% if isolation.surfaceMursInterieur is not null %} {{ isolation.surfaceMursInterieur * 45 }}€ {% else %} Non renseigné {% endif %}
+                            </b>
+                        </li>
+                        <li>
+                            Prix des murs extérieurs :
+                            <b>
+                                {% if isolation.surfaceMursEXterieur is not null %} {{ isolation.surfaceMursExterieur * 95 }}€ {% else %} Non renseigné {% endif %}
+                            </b>
+                        </li>
+                        <li>
+                            Prix de plafond :
+                            <b>
+                                {% if isolation.surfacePlafond is not null %} {{ isolation.surfacePlafond * 30 }}€ {% else %} Non renseigné {% endif %}
+                            </b>
+                        </li>
+                        <li>
+                            Prix de sol :
+                            <b>
+                                {% if isolation.surfaceSol is not null %} {{ isolation.surfaceSol * 20 }}€ {% else %} Non renseigné {% endif %}
+                            </b>
+                        </li>
+                    {% else %}
+                        <li>
+                            Prix d'isolations des murs:
+                            <b>
+                                {% if isolation.surfaceMursInterieur is not null and isolation.surfaceMursExterieur is not null and isolation.typeIsolationMur is not null %}
+                                    {{ (isolation.surfaceMursInterieur + isolation.surfaceMursExterieur) * isolation.typeIsolationMur.prix |number_format(2, ',', ' ')}}€
+                                {% else %}
+                                    Manque d'information nécessaires pour calculer
+                                {% endif %}
+                            </b>
+                        </li>
+                        <li>
+                            Prix d'isolations du sol :
+                            <b>
+                                {% if isolation.surfaceSol is not null and isolation.typeIsolationPlancher is not null %}
+                                    {{ isolation.surfaceSol * isolation.typeIsolationPlancher.prix |number_format(2, ',', ' ')}}€
+                                {% else %}
+                                    Manque d'information nécessaires pour calculer
+                                {% endif %}
+                            </b>
+                        </li>
+                        <li>
+                            Prix d'isolations du plafond :
+                            <b>
+                                {% if isolation.surfacePlafond is not null and isolation.typeIsolationPlafond is not null %}
+                                    {{ isolation.surfacePlafond * isolation.typeIsolationPlafond.prix |number_format(2, ',', ' ')}}€
+                                {% else %}
+                                    Manque d'information nécessaires pour calculer
+                                {% endif %}
+                            </b>
+                        </li>
+                        <li>
+                            Prix d'isolations des vitres :
+                            <b>
+                                {% if isolation.surfaceVitre is not null and isolation.typeIsolationVitre is not null %}
+                                    {{ isolation.surfaceVitre * isolation.typeIsolationVitre.prix |number_format(2, ',', ' ')}}€
+                                {% else %}
+                                    Manque d'information nécessaires pour calculer
+                                {% endif %}
+                            </b>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+            {% if isolation.prixTotal is defined and isolation.prixTotal is not null %}
+                <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                    {{ isolation.prixTotal |number_format(2, ',', ' ') }} €
+                </div>
+            {% endif %}
+            </div>
+        </div>
+        </div>
+    {% endblock sub_content %}
+
+{% endblock content %}

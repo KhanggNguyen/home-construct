@@ -1,0 +1,37 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/profile_view.css'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block linkPageTitle %}
+    {{ path('home_construct_gros_oeuvre_profile',{'id': grosOeuvre.id }) }}
+{% endblock linkPageTitle %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true %}
+            {% set retour = path('home_construct_gros_oeuvre_profile',{'id':grosOeuvre.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+    {% block sub_content %}
+
+    {% endblock sub_content %}
+
+{% endblock content %}

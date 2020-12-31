@@ -1,0 +1,19 @@
+{% extends "@HomeConstructFo/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/reset_mdp.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block title %}
+    Mot de passe oublié
+{% endblock %}
+
+{% block content %}
+    {% include "@HomeConstructUser/Resetting/request_content.html.twig" %}
+    {{ parent() }}
+{% endblock content %}

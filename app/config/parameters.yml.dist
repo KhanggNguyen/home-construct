@@ -1,0 +1,63 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+
+
+    # MySQL
+    # database_driver: pdo_mysql
+    # database_host: 127.0.0.1
+    # database_port: 3306
+    # database_name: symfony
+    # database_user: root
+    # database_password: root
+    # database_charset: UTF8
+
+    # PostgreSQL
+    # database_driver: pdo_pgsql
+    # database_host: 127.0.0.1
+    # database_port: 5432
+    # database_name: symfony
+    # database_user: postgres
+    # database_password: postgres
+    # database_charset: UTF8
+
+    # MongoDB database parameters
+    # mongod_host: localhost
+    # mongod_port: 27017
+    # mongod_db: admin
+    # mongod_user: mongoadm
+    # mongod_password: mongoadm
+
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: symfony
+    database_user: root
+    database_password: ~
+    # You should uncomment this if you want to use pdo_sqlite
+    #database_path: '%kernel.project_dir%/var/data/data.sqlite'
+
+    # mailer_transport: smtp
+    # mailer_host: 127.0.0.1
+    # mailer_user: ~
+    # mailer_password: ~
+    sender_name: Home-Construct
+    # mailer_transport: gmail
+    # mailer_port: 465
+    # mailer_encryption: ssl
+    # mailer_auth_mode: login
+    # mailer_host: smtp.gmail.com
+    # mailer_user: projet.developpeur@gmail.com
+    # mailer_password: Motdepasse34
+    # mailer_error_user: projet.developpeur@gmail.com
+    mailer_transport: mail
+    mailer_port: 587
+    mailer_encryption: ssl
+    mailer_auth_mode: login
+    mailer_host: smtp.home-construct.online
+    mailer_user: developpeur@home-construct.online
+    mailer_password: Devmotdepasse1
+    mailer_error_user: developpeur@home-construct.online
+
+    # A secret key that's used to generate certain security-related tokens
+    secret: a9ad8670977a4878d89aa089863d9b6ea675aead

@@ -1,0 +1,202 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {{ parent() }}
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_profile_with_estimation">
+
+            <div class="col-lg-6 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block"> Nombre de lintaux :
+                                    {% if elevation.qteLintaux is defined and elevation.qteLintaux is not null %}
+                                        <b> {{  elevation.qteLintaux|number_format(2, ',', ' ') }}m²</b>
+                                    {% else %}
+                                        <b>Non définie</b>
+                                    {% endif %}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">Surface totale :
+                                        <b>
+                                            {{ grosOeuvre.informationBase.surfaceTotale }}m²
+                                        </b>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">
+                                    <h5>Liste des murs :</h5>
+                                    {% if murs is defined and murs is not null and murs is not empty %}
+                                        {% set index=1 %}
+                                        <ul>
+                                        {% for mur in murs %}
+                                            <b>Mur n°{{ index }} :</b>
+                                            <li>Type : <b>{{ mur.type.nom }}, {{ mur.type.prix|number_format(2, ',', ' ') }}€/m²</b></li>
+                                            <li>Hauteur : <b>{{ mur.hauteur}}</b></li>
+                                            <li>Longueur : <b>{{ mur.longueur}}</b></li>
+                                            <li>Dimensions : <b>{{ mur.longueur * mur.hauteur}}</b></li>
+                                            <br>
+                                            {% set index=index+1 %}
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                        <b><I>Aucune donnée pour l'instant</I></b>
+                                    {% endif %}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">
+                                     <h5>Liste des poutres :</h5>
+                                    {% if poutres is defined and poutres is not null and poutres is not empty %}
+                                        {% set index=1 %}
+                                        <ul>
+                                        {% for poutre in poutres %}
+                                            <b>Poutre n°{{ index }} :</b>
+                                            <li>Type : <b>{{ poutre.type.nom }}, {{ poutre.type.prix|number_format(2, ',', ' ') }}€/m²</b></li>
+                                            <li>Largeur : <b>{{poutre.largeur}}</b></li>
+                                            <li>Longueur : <b>{{poutre.longueur}}</b></li>
+                                            <li>Dimensions : <b>{{poutre.longueur * poutre.largeur}}</b></li>
+                                            <br>
+                                            {% set index=index+1 %}
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                        <b><I>Aucune donnée pour l'instant</I></b>
+                                    {% endif %}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                                <span class="d-block">
+                                    <h5>Liste des appuis de fenêtres :</h5>
+                                    {% if appuisFenetres is defined and appuisFenetres is not null and appuisFenetres is not empty %}
+                                        {% set index=1 %}
+                                        <ul>
+                                        {% for appuisFenetre in appuisFenetres %}
+                                            <b>Appui de fenêtre n°{{ index }} :</b>
+                                            <li>Type : <b>{{ appuisFenetre.type.nom }}, {{ appuisFenetre.type.prix|number_format(2, ',', ' ') }}€/m²</b></li>
+                                            <li>Quantité : <b>{{appuisFenetre.quantite}}</b></li>
+                                            <br>
+                                            {% set index=index+1 %}
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                        <b><I>Aucune donnée pour l'instant</I></b>
+                                    {% endif %}
+                                </span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a id="button_next"
+                           class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                           href="{{ path('home_construct_elevation_modification',{'idElevation':elevation.id}) }}" data-speed="350">
+                            Modifier
+                            <div  class="fas fa-pencil"></div>
+                        </a>
+                    </div>
+                </div>
+                <!-- End Info -->
+            </div>
+
+            <div class="col-lg-6 g-mb-50">
+                <div class="block_estimation_prix">
+                    <h4 class="titre_estimation text-center">
+                        Estimation
+                    </h4>
+                    <h6> <I> Données utilisées : </I></h6>
+                    <ul class="liste_variables_estimation">
+                        <li>
+                            <h5 class="titre_sous_entite">
+                                <a class="link_sous_entite" href="{{ path('home_construct_information_base_profile',{'id':grosOeuvre.informationBase.id}) }}">
+                                    Informations de base :
+                                </a>
+                            </h5>
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Surface totale de la maison :
+                                <b>
+                                    {{ grosOeuvre.informationBase.surfaceTotale|number_format(2, ',', ' ') }}m²
+                                </b>
+                        </li>
+                        <li>
+                            <h5 class="titre_sous_entite">
+                                <a class="link_sous_entite" href="{{ path('home_construct_elevation_profile',{'id':elevation.id}) }}">
+                                    Informations sur l'élevation :
+                                </a>
+                            </h5>
+                        </li>
+                        <li>
+                            {% if murs is defined and murs is not null and murs is not empty %}
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Prix total des murs : <b> {{  3 |number_format(2, ',', ' ') }} €</b>
+                            {% else %}
+                                <i class="fas fa-times variable-non-presente"></i>
+                                Prix total des murs : <b><I>Non calculable pour le moment</I></b>
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if poutres is defined and poutres is not null and poutres is not empty %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Prix total des poutres :
+                            <b>
+                                {{ 3 |number_format(2, ',', ' ') }} €
+                            </b>
+                        {% else %}
+                            <i class="fas fa-times variable-non-presente"></i>
+                            Prix total des poutres : <b><I>Non calculable pour le moment</I></b>
+                        {% endif %}
+                        </li>
+                        <li>
+                            {% if appuisFenetres is defined and appuisFenetres is not null and appuisFenetres is not empty %}
+                            <i class="fas fa-check-circle variable-presente"></i>
+                            Prix total des appuis de fenêtres :
+                            <b>
+                                {{ 3 |number_format(2, ',', ' ') }} €
+                            </b>
+                        {% else %}
+                        <i class="fas fa-times variable-non-presente"></i>
+                            Prix total des appuis de fenêtres : <b><I>Non calculable pour le moment</I></b>
+                        {% endif %}
+                        </li>
+                        <li>
+                            {% if elevation.qteLintaux is defined and elevation.qteLintaux is not null %}
+                                <i class="fas fa-check-circle variable-presente"></i>
+                                Prix total des lintaux :
+                                <b>
+                                    {{ elevation.prixLintaux |number_format(2, ',', ' ') }} €
+                                </b>
+                            {% else %}
+                                <i class="fas fa-times variable-non-presente"></i>
+                                Prix total des lintaux : <b><I>Non calculable pour le moment</I></b>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {% if elevation.prixTotal is defined and elevation.prixTotal is not null %}
+                        <div class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                            Prix total :
+                            <b>{{  elevation.prixTotal|number_format(2, ',', ' ') }} €</b>
+                        </div>
+                    {% else %}
+                        <I>
+                            Pour pouvoir estimer un prix total veuillez renseigner les éléments manquants.
+                        </I>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% endblock sub_content %}
+
+{% endblock content %}
+

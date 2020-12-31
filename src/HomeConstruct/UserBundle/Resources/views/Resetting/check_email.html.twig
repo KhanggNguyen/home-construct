@@ -1,0 +1,29 @@
+{% extends "@HomeConstructFo/layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/check_email.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+<div class="container g-pb-30 g-mt-60">
+    <div class="row justify-content-center">
+        <div id="block_text" class="col-md-12 col-lg-8 text-center g-width-auto g-font-size-20 rounded">
+            <i class="fas fa-check g-color-white g-font-size-40"></i>
+            <p id="txt_email_send">
+                Si un compte est relié à l'adresse <b>{{ app.request.get('username') }}</b>, un email y a été envoyé. Il contient un lien sur lequel vous devez cliquer pour réinitialiser votre mot de passe.
+                </br>
+                Remarque: vous pouvez demander un nouveau mot de passe qu'une fois toutes les 2 heures.
+            </br>
+                </br>
+                <I>Si vous ne recevez pas d'e-mail, vérifiez votre dossier de courrier indésirable ou réessayez.</I>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

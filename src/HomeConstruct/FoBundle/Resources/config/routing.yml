@@ -1,0 +1,4 @@
+home_construct_fo_route:
+    resource: "../../Controller/"
+    type:     annotation
+    prefix:   /

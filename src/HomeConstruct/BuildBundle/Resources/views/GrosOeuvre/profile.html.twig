@@ -1,0 +1,732 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+{% block title %}
+    {{ titreOnglet }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/affichage_liste.css'
+        'bundles/homeconstructfo/css/administration.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+{% set index = 1 %}
+    <div class="row g-mb-35">
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{ index }}" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.informationBase is defined and grosOeuvre.informationBase is not null %}
+                            {{ path('home_construct_information_base_profile',{'id':grosOeuvre.informationBase.id}) }}
+                         {% else %}
+                            {{ path('home_construct_information_base_creation',{'id':grosOeuvre.id}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-darkblue-v2 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-education-072 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Informations de base
+                                    </span>
+                                </div>
+                            </div>
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_information_base_edit',{'idInformationBase':grosOeuvre.informationBase.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+
+        {% set index = index+1 %}
+
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{ index }}" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.toiture is defined and grosOeuvre.toiture is not null %}
+                            {{ path('home_construct_toiture_profile',{'id':grosOeuvre.toiture.id}) }}
+                         {% else %}
+                            {{ path('home_construct_toiture_creation',{'idGrosOeuvre':grosOeuvre.id}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-lightblue-v4 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class=" icon-real-estate-059 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Toiture
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+
+                                </div>
+
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.toiture.prix is defined and grosOeuvre.toiture.prix is not null %}
+                                        Estimation : {{ grosOeuvre.toiture.prix |number_format(2, ',', ' ') }} €
+                                        {% elseif grosOeuvre.toiture is not defined or grosOeuvre.toiture is null %}
+                                        <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+
+                            </div>
+                            {% if grosOeuvre.toiture is defined and grosOeuvre.toiture is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_toiture_edit',{'idToiture':grosOeuvre.toiture.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_toiture_delete',{'id':grosOeuvre.toiture.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur la toiture ? Cela entrainera également la suppression de la charpente. Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% if grosOeuvre.toiture is defined and grosOeuvre.toiture is not null %}
+            {% set index = index+1 %}
+
+                <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')" >
+                <!-- Panel -->
+                <div id="element{{index}}" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                    <a href="{% if grosOeuvre.charpente is defined and grosOeuvre.charpente is not null %}
+                                {{ path('home_construct_charpente_profile',{'id':grosOeuvre.charpente.id}) }}
+                             {% else %}
+                                {{ path('home_construct_charpente_creation',{'idGrosOeuvre':idGrosOeuvre}) }}
+                             {% endif %}
+                    ">
+                        <div class="card-block g-font-weight-300 g-pa-20">
+                            <div>
+                                <div class="d-flex g-mr-15">
+                                    <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-purple g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                        <i class="icon-real-estate-047 g-absolute-centered"></i>
+                                    </div>
+                                </div>
+
+                                <div class="media-body align-self-center">
+                                    <div class="d-flex align-items-center g-mb-5">
+                                        <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                            Charpente
+                                        </span>
+                                        <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                        </span>
+                                    </div>
+                                    <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                        {% if grosOeuvre.charpente.prix is defined and grosOeuvre.charpente.prix is not null %}
+                                            Estimation : {{ grosOeuvre.charpente.prix |number_format(2, ',', ' ') }} €
+                                        {% elseif grosOeuvre.charpente is not defined or grosOeuvre.charpente is null %}
+                                            <I>Aucune information</I>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                                {% if grosOeuvre.charpente is defined and grosOeuvre.charpente is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_charpente_edit',{'idCharpente':grosOeuvre.charpente.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_charpente_delete',{'id':grosOeuvre.charpente.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur la charpente ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+                <!-- End Panel -->
+                {% endif %}
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{ index }}" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.pieces is defined and grosOeuvre.pieces is not null %}
+                            {{ path('home_construct_piece_profile',{'idGrosOeuvre':grosOeuvre.id}) }}
+                         {% else %}
+                            {{ path('home_construct_piece_creation',{'idGrosOeuvre':grosOeuvre.id}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-brown g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="fas fa-bars g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Pieces <b>({{ grosOeuvre.informationBase.nbPieces }})</b>
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{{ path('home_construct_menuiserie_exterieure_list',{'idGrosOeuvre':idGrosOeuvre}) }}">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-gray-dark-v10 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-furniture-059 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Menuiseries Exterieures
+                                        {% if grosOeuvre.menuiseriesExterieures is defined and grosOeuvre.menuiseriesExterieures is not null %}
+                                            {% if grosOeuvre.menuiseriesExterieures | length >0 %}
+                                            <b>({{ grosOeuvre.menuiseriesExterieures | length }})</b>
+                                            {% else %}
+                                            <b>(0)</b>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.menuiseriesExterieures is defined and grosOeuvre.menuiseriesExterieures is not null %}
+                                            {#{% set prix=0 %}
+                                            {% for menuiserie in grosOeuvre.menuiseriesExterieures %}
+                                                {% set prix= prix+ (menuiserie.prix*menuiserie.quantite) %}
+                                            {% endfor %}#}
+                                            {% if grosOeuvre.calculPrixMenuiseries is defined and grosOeuvre.calculPrixMenuiseries is not null %}
+                                                Estimation : {{ grosOeuvre.calculPrixMenuiseries |number_format(2, ',', ' ') }} €
+                                            {% endif %}
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.menuiseriesExterieures is defined and grosOeuvre.menuiseriesExterieures is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_menuiserie_exterieure_creation',{'idGrosOeuvre':grosOeuvre.id}) }}">
+                                        <i class="hs-admin-plus g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_menuiserie_exterieure_deleteall',{'idGrosOeuvre':grosOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les menuiseries extérieures ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+                <div id="element{{ index }}" class="block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                    <a {% if "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                    data-toggle="tooltip" data-placement="right" data-html="true" title="Cette tâche est effectué par un professionnel"
+                    {% endif %}
+                    href="{% if grosOeuvre.etudeSol is defined and grosOeuvre.etudeSol is not null %}
+                                                {{ path('home_construct_etude_sol_profile',{'id':grosOeuvre.etudeSol.id}) }}
+                                             {% elseif "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                                                {{ path('home_construct_etude_sol_creation',{'idGrosOeuvre':grosOeuvre.id}) }}
+                                             {% endif %}
+                                    ">
+                        <div class="card-block g-font-weight-300 g-pa-20">
+                            <div>
+                                <div class="d-flex g-mr-15">
+                                    <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-orange g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                        <i class="icon-education-045 g-absolute-centered"></i>
+                                    </div>
+                                </div>
+
+                                <div class="media-body align-self-center">
+                                    <div class="d-flex align-items-center g-mb-5">
+                                        <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                            Etude du sol
+                                        </span>
+                                        <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                        </span>
+                                    </div>
+                                    <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                        {% if grosOeuvre.etudeSol.prixForfait is defined and grosOeuvre.etudeSol.prixForfait is not null %}
+                                            Estimation : {{ grosOeuvre.etudeSol.prixForfait |number_format(2, ',', ' ') }} €
+                                        {% elseif "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                                            <I>En attente du professionnel</I>
+                                            {% else %}
+                                            <I>Aucune information</I>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                                {% if grosOeuvre.etudeSol is defined and grosOeuvre.etudeSol is not null %}
+                                    {% if "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                                        <div class="media-body text-right">
+                                            <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                               href="{{ path('home_construct_etude_sol_edit',{'idEtudeSol':grosOeuvre.etudeSol.id}) }}">
+                                                <i class="hs-admin-pencil g-font-size-24"></i>
+                                            </a>
+                                            <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                               href="{{ path('home_construct_etude_sol_delete',{'id':grosOeuvre.etudeSol.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur l\'étude du sol ? Attention cette action sera irréversible !')">
+                                                <i class="hs-admin-trash g-font-size-24"></i>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        </a>
+                </div>
+
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a {% if "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                    data-toggle="tooltip" data-placement="right" data-html="true" title="Cette tâche est effectué par un professionnel"
+                    {% endif %}
+                href="{% if grosOeuvre.excavation is defined and grosOeuvre.excavation is not null %}
+                            {{ path('home_construct_excavation_profile',{'id':grosOeuvre.excavation.id}) }}
+                         {% elseif "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                            {{ path('home_construct_excavation_creation',{'idGrosOeuvre':grosOeuvre.id}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-red g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-real-estate-049 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Excavation
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.excavation.prixTotal is defined and grosOeuvre.excavation.prixTotal is not null %}
+                                            Estimation : {{ grosOeuvre.excavation.prixTotal |number_format(2, ',', ' ') }} €
+                                        {% elseif "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                                            <I>En attente du professionnel</I>
+                                        {% else %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.excavation is defined and grosOeuvre.excavation is not null %}
+                                {% if "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                                    <div class="media-body text-right">
+                                        <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                           href="{{ path('home_construct_excavation_edit',{'idExcavation':grosOeuvre.excavation.id}) }}">
+                                            <i class="hs-admin-pencil g-font-size-24"></i>
+                                        </a>
+                                        <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                           href="{{ path('home_construct_excavation_delete',{'id':grosOeuvre.excavation.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur l\'excavation ? Attention cette action sera irréversible !')">
+                                            <i class="hs-admin-trash g-font-size-24"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- End Panel -->
+        </div>
+        {% set index = index+1 %}
+
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a {% if "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                    data-toggle="tooltip" data-placement="right" data-html="true" title="Cette tâche est effectué par un professionnel"
+                    {% endif %}
+                href="{% if grosOeuvre.prepaAccesTerrain is defined and grosOeuvre.prepaAccesTerrain is not null %}
+                            {{ path('home_construct_prepa_acces_terrain_profile',{'id':grosOeuvre.prepaAccesTerrain.id}) }}
+                         {% elseif "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                            {{ path('home_construct_prepa_acces_terrain_creation',{'idGrosOeuvre':idGrosOeuvre}) }}
+                         {% endif %}
+                ">
+
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-black g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-real-estate-017 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Préparation d'accès au terrain
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                   {% if grosOeuvre.prepaAccesTerrain.prixTotal is defined and grosOeuvre.prepaAccesTerrain.prixTotal is not null %}
+                                            Estimation : {{ grosOeuvre.prepaAccesTerrain.prixTotal |number_format(2, ',', ' ') }} €
+                                   {% elseif "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                                            <I>En attente du professionnel</I>
+                                   {% else %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.prepaAccesTerrain is defined and grosOeuvre.prepaAccesTerrain is not null %}
+                                {% if "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                                    <div class="media-body text-right">
+                                        <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                           href="{{ path('home_construct_prepa_acces_terrain_modification',{'idPrepaAcces':grosOeuvre.prepaAccesTerrain.id}) }}">
+                                            <i class="hs-admin-pencil g-font-size-24"></i>
+                                        </a>
+                                        <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                           href="{{ path('home_construct_prepa_acces_terrain_delete',{'id':grosOeuvre.prepaAccesTerrain.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur la préparation d\'accès au terrain ? Attention cette action sera irréversible !')">
+                                            <i class="hs-admin-trash g-font-size-24"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <!-- End Panel -->
+            {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.fondation is defined and grosOeuvre.fondation is not null %}
+                            {{ path('home_construct_fondation_profile',{'id':grosOeuvre.fondation.id}) }}
+                         {% else %}
+                            {{ path('home_construct_fondation_creation',{'idGrosOeuvre':idGrosOeuvre}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-lightblue-v4 g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-real-estate-019 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Fondations
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.fondation.prix  is defined and grosOeuvre.fondation.prix is not null %}
+                                            Estimation : {{ grosOeuvre.fondation.prix |number_format(2, ',', ' ') }} €
+                                    {% elseif grosOeuvre.fondation is not defined or grosOeuvre.fondation is null %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.fondation is defined and grosOeuvre.fondation is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_fondation_edit',{'idFondation':grosOeuvre.fondation.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_fondation_delete',{'id':grosOeuvre.fondation.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur les fondations ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <!-- End Panel -->
+{% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.soubassement is defined and grosOeuvre.soubassement is not null %}
+                            {{ path('home_construct_soubassement_profile',{'id':grosOeuvre.soubassement.id}) }}
+                         {% else %}
+                            {{ path('home_construct_soubassement_creation',{'idGrosOeuvre':idGrosOeuvre}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div class="">
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-green g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-real-estate-014 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Soubassement
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.soubassement.prixTotal  is defined and grosOeuvre.soubassement.prixTotal is not null %}
+                                            Estimation : {{ grosOeuvre.soubassement.prixTotal |number_format(2, ',', ' ') }} €
+                                    {% elseif grosOeuvre.soubassement is not defined or grosOeuvre.soubassement is null %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.soubassement is defined and grosOeuvre.soubassement is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_soubassement_edit',{'idSoubassement':grosOeuvre.soubassement.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_soubassement_delete',{'id':grosOeuvre.soubassement.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur le soubassement ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <!-- End Panel -->
+{% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+            <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.vrd is defined and grosOeuvre.vrd is not null %}
+                            {{ path('home_construct_vrd_profile',{'id':grosOeuvre.vrd.id}) }}
+                         {% else %}
+                            {{ path('home_construct_vrd_creation',{'idGrosOeuvre':idGrosOeuvre}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-yellow g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-electronics-010 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Voirie et réseaux divers
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.vrd.prixTotal is defined and grosOeuvre.vrd.prixTotal is not null %}
+                                            Estimation : {{ grosOeuvre.vrd.prixTotal|number_format(2, ',', ' ') }} €
+                                    {% elseif grosOeuvre.vrd is not defined or grosOeuvre.vrd is null %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.vrd is defined and grosOeuvre.vrd is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_vrd_edit',{'idVrd':grosOeuvre.vrd.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_vrd_delete',{'id':grosOeuvre.vrd.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur la VRD ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <!-- End Panel -->
+            {% set index = index+1 %}
+        <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')">
+  <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a {% if "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                    data-toggle="tooltip" data-placement="right" data-html="true" title="Cette tâche est effectué par un professionnel"
+                    {% endif %}
+                href="{% if grosOeuvre.plancher is defined and grosOeuvre.plancher is not null and grosOeuvre.plancher is not empty %}
+                            {{ path('home_construct_plancher_list',{'idGrosOeuvre':grosOeuvre.id}) }}
+                         {% elseif "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                            {{ path('home_construct_plancher_creation',{'idGrosOeuvre':grosOeuvre.id}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-brown g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-real-estate-017 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Plancher
+                                         {% if grosOeuvre.plancher is defined and grosOeuvre.plancher is not null %}
+                                            {% if grosOeuvre.plancher | length >0 %}
+                                                <b>({{ grosOeuvre.plancher | length }})</b>
+                                            {% else %}
+                                                <b>(0)</b>
+                                            {% endif %}
+                                         {% endif %}
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                </h6>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.plancher is defined and grosOeuvre.plancher is not null and grosOeuvre.plancher is not empty %}
+                                        {% set prix=0 %}
+                                        {% for plancher in grosOeuvre.plancher %}
+                                            {% set prix=prix+plancher.prixTotal %}
+                                        {% endfor %}
+                                        Estimation : {{ prix |number_format(2, ',', ' ') }} €
+                                        {% elseif "ROLE_ADMIN" not in app.user.roles and "ROLE_SUPER_ADMIN" not in app.user.roles %}
+                                            <I>En attente du professionnel</I>
+                                        {% else %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                        </div>
+                        {% if grosOeuvre.plancher is defined and grosOeuvre.plancher is not empty and grosOeuvre.plancher is not null %}
+                            {% if "ROLE_ADMIN" in app.user.roles or "ROLE_SUPER_ADMIN" in app.user.roles %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_plancher_edit',{'idGrosOeuvre':grosOeuvre.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_plancher_deleteall',{'idGrosOeuvre':grosOeuvre.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur le plancher ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+        </div>
+            <!-- End Panel -->
+            {% set index = index+1 %}
+            <div class="block_element col-sm-6 col-lg-6 col-xl-3 g-mb-30" onmouseover="select('element{{ index }}')" onmouseout="deselection('element{{ index }}')" >
+ <!-- Panel -->
+            <div id="element{{index}}" class=" block_choix card h-100 g-brd-gray-light-v7 g-rounded-3">
+                <a href="{% if grosOeuvre.elevation is defined and grosOeuvre.elevation is not null %}
+                            {{ path('home_construct_elevation_profile',{'id':grosOeuvre.elevation.id}) }}
+                         {% else %}
+                            {{ path('home_construct_elevation_creation',{'idGrosOeuvre':idGrosOeuvre}) }}
+                         {% endif %}
+                ">
+                    <div class="card-block g-font-weight-300 g-pa-20">
+                        <div>
+                            <div class="d-flex g-mr-15">
+                                <div class="u-header-dropdown-icon-v1 g-pos-rel g-width-60 g-height-60 g-bg-yellow g-font-size-18 g-font-size-24--md g-color-white rounded-circle">
+                                    <i class="icon-finance-012 g-absolute-centered"></i>
+                                </div>
+                            </div>
+
+                            <div class="media-body align-self-center">
+                                <div class="d-flex align-items-center g-mb-5">
+                                    <span class="g-font-size-24 g-line-height-1 g-color-black">
+                                        Elevation
+                                    </span>
+                                    <span class="d-flex align-self-center g-font-size-0 g-ml-5 g-ml-10--md">
+                                    </span>
+                                </div>
+                                <h6 class="g-font-size-16 g-font-weight-300 g-color-gray-dark-v6 mb-0">
+                                    {% if grosOeuvre.elevation.prixTotal  is defined and grosOeuvre.elevation.prixTotal is not null %}
+                                            Estimation : {{ grosOeuvre.elevation.calculPrix |number_format(2, ',', ' ') }} €
+                                    {% elseif grosOeuvre.elevation is not defined or grosOeuvre.elevation is null %}
+                                            <I>Aucune information</I>
+                                    {% endif %}
+                                </h6>
+                            </div>
+                            {% if grosOeuvre.elevation is defined and grosOeuvre.elevation is not null %}
+                                <div class="media-body text-right">
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_elevation_modification',{'idElevation':grosOeuvre.elevation.id}) }}">
+                                        <i class="hs-admin-pencil g-font-size-24"></i>
+                                    </a>
+                                    <a class="u-link-v5 g-color-gray-light-v6 g-color-lightblue-v4--hover"
+                                       href="{{ path('home_construct_elevation_delete',{'id':grosOeuvre.elevation.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer les informations sur l\'elevation ? Attention cette action sera irréversible !')">
+                                        <i class="hs-admin-trash g-font-size-24"></i>
+                                    </a>
+                                </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <!-- End Panel -->
+
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function select(id){
+            document.getElementById(id).style.backgroundColor = "orange";
+        }
+        function deselection(id){
+            document.getElementById(id).style.backgroundColor = "white";
+        }
+    </script>
+{% endblock %}

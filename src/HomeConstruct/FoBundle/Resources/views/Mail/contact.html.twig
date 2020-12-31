@@ -1,0 +1,29 @@
+{% extends "@HomeConstructMail/Mail/layout.html.twig" %}
+
+{% block subject_content %}Nouveau contact{% endblock %}
+
+{% block name %}{% endblock %}
+
+{% block body %}
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Vous avez reçu un message.
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;<br></p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Contact :
+        <ul>
+            <li><b>Nom :</b> {{ lastname }}</li>
+            <li><b>Prénom :</b> {{ name }}</li>
+            <li><b>Email :</b> {{ email }}</li>
+            <li><b>Phone :</b> {{ phone }}</li>
+        </ul>
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;<br></p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        <b>Sujet :</b> {{ subject }}
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;<br></p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        {{ message }}
+    </p>
+{% endblock %}

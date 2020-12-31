@@ -1,0 +1,55 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<!-- Login -->
+<div class="container g-pb-30">
+    <div id="block_connexion_inscription">
+        <div id="block_connexion" class="g-mb-70 ml-3">
+            <h2 class="mb-4">Connexion</h2>
+            {{ include('@SymracineTemplate/Multipage/RealEstate/error.html.twig') }}
+            <!-- Login Form -->
+            <form class="g-pb-10" action="{{ path("fos_user_security_check") }}" method="post">
+                <div class="g-mb-20 g-width-60x">
+                    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded-0 g-py-13 g-px-15"
+                           type="email" id="username" name="_username" placeholder="Identifiant" required>
+                </div>
+
+                <div class="g-mb-20 g-width-60x">
+                    <input class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--hover rounded-0 g-py-13 g-px-15"
+                           type="password" id="password" name="_password" placeholder="Mot de passe" required>
+                </div>
+                <div>
+                    <div id="block_mdp_oublie" class="d-flex g-mb-10">
+                        <a class="d-block g-mb-10" href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a>
+                    </div>
+                </div>
+                <button class="btn btn-block u-btn-lightblue-v3 g-color-white g-bg-primary-dark-v1--hover g-font-weight-600 g-font-size-12 text-uppercase rounded-0 g-px-25 g-py-15 g-width-60x"
+                        type="submit">Connexion
+                </button>
+            </form>
+            <!-- End Login Form -->
+        </div>
+        <div id="block_inscription" class="col-6 right g-mb-10 ml-3 g-pb-10">
+            <h2 class="text-center">Crée un compte</h2>
+            <div>
+                <div id="block_contenu_inscription">
+                    <p>Crée un compte home-construct et profite de nombreux avantages:</p>
+                    <ul id="liste_avantages" style="margin-top: 20px;">
+                        <li><i class="fas fa-check g-color-teal"></i> Créer tes projets de construction de maison</li>
+                        <li><i class="fas fa-check g-color-teal"></i> Voir l'avancée de tes projets</li>
+                        <li><i class="fas fa-check g-color-teal"></i> Voir les professionnels liés à tes projets</li>
+                        <li><i class="fas fa-check g-color-teal"></i> Voir les informations sur le gros oeuvre et le second oeuvre de ton projet</li>
+                        <li><i class="fas fa-check g-color-teal"></i> Avoir une estimation du coût de construction de ta future maison</li>
+                        <li><i class="fas fa-check g-color-teal"></i> Obtenir un devis pour un projet sous forme de fichier PDF</li>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a id="bouton_cree" class="d-block btn btn-block u-btn-lightblue-v3 g-color-white g-bg-primary-dark-v1--hover g-font-weight-600 g-font-size-12 text-uppercase rounded-0 g-px-25 g-py-15 g-width-60x" href="{{ path('home_construct_user_create') }}">
+                        Créer un compte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login -->
+

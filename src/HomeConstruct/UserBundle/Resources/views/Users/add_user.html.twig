@@ -1,0 +1,60 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+        'bundles/homeconstructfo/css/add_user.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock stylesheets %}
+
+{% block title %}
+    Création d'un utilisateur
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+            <div class="col-md-12 col-lg-8 g-mb-70">
+                <h2 class="h5 mb-4">Création d'un utilisateur</h2>
+                {{ form_start(form,{'attr': {'class': 'g-mb-30'}}) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.groups,{'attr': {'onchange': 'champsFormulaire()'}}) }}
+                {% if app.user is not defined or app.user is null %}
+                    {{ form_row(form.plainPassword) }}
+                {% endif %}
+                <div id="block_boutons_cancel_save">
+
+                    <div class="row" id="block_bouton_enregistrer">
+                        <div class="col-12">
+
+                            <span class="d-block">{{ form_row(form.save) }}</span>
+                        </div>
+                    </div>
+                    <div class="row" id="block_bouton_enregistrer">
+                        <div class="col-12">
+
+                            <span class="d-block">{{ form_row(form.cancel) }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Info -->
+        </div>
+        {{ form_end(form) }}
+    </div>
+    </div>
+    </div>
+
+
+{% endblock content %}
+
+
+

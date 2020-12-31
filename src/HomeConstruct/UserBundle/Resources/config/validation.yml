@@ -1,0 +1,94 @@
+# Note: We still want to validate the email
+# See FOSUserBundle/Resources/config/validation/orm.xml to understand
+# the UniqueEntity constraint that was originally applied to both
+# username and email fields
+#
+# As you can see, we are only applying the UniqueEntity constraint to
+# the email field and not the username field.
+FOS\UserBundle\Model\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+             fields: email
+             errorPath: email
+             message: fos_user.email.already_used
+             groups: [ "SymbaseRegistration", "SymbaseProfile" ]
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+             fields: usernameCanonical
+             errorPath: username
+             message: fos_user.email.already_used
+             groups: [ "SymbaseRegistration", "SymbaseProfile" ]
+    properties:
+        email:
+            - NotBlank:
+                message: fos_user.email.blank
+                groups: [ "SymbaseRegistration", "SymbaseProfile" ]
+            - Length:
+                min: 2
+                minMessage: fos_user.email.short
+                max: 255
+                maxMessage: fos_user.email.long
+                groups: [ "SymbaseRegistration", "ResetPassword" ]
+            - Email:
+                message: fos_user.email.invalid
+                groups: [ "SymbaseRegistration", "SymbaseProfile" ]
+        plainPassword:
+            - Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrength:
+                minLength: 8
+                minStrength: 4
+                message: "Mot de passe trop court ou non complexe (8 caractères avec au moins au minimum minuscule, majuscules, chiffre, caractère spécial)"
+                groups: [ "SymbaseRegistration", "ResetPassword", "ChangePassword" ]
+            - Rollerworks\Component\PasswordStrength\Validator\Constraints\Blacklist:
+                message: "Choisissez un meilleur mot de passe. Le mot de passe est non sécurisé."
+                groups: [ "SymbaseRegistration", "ResetPassword", "ChangePassword" ]
+FOS\UserBundle\Model\Group:
+    properties:
+        name:
+            - NotBlank:
+                message: fos_user.group.blank
+                groups: [ "SymbaseRegistration" ]
+            - Length:
+                min: 2
+                minMessage: fos_user.group.short
+                max: 255
+                maxMessage: fos_user.group.long
+                groups: [ "SymbaseRegistration" ]
+
+FOS\UserBundle\Propel\User:
+    properties:
+        email:
+            - NotBlank:
+                message: fos_user.email.blank
+                groups: [ "SymbaseRegistration", "SymbaseProfile" ]
+            - Length:
+                min: 2
+                minMessage: fos_user.email.short
+                max: 255
+                maxMessage: fos_user.email.long
+                groups: [ "SymbaseRegistration", "ResetPassword" ]
+            - Email:
+                message: fos_user.email.invalid
+                groups: [ "SymbaseRegistration", "SymbaseProfile" ]
+
+        plainPassword:
+            - NotBlank:
+                message: fos_user.password.blank
+                groups: [ "SymbaseRegistration", "ResetPassword", "ChangePassword" ]
+            - Length:
+                min: 2
+                max: 4096
+                minMessage: fos_user.password.short
+                groups: [ "SymbaseRegistration", "SymbaseProfile", "ResetPassword", "ChangePassword"]
+
+
+FOS\UserBundle\Propel\Group:
+    properties:
+        name:
+            - NotBlank:
+                message: fos_user.group.blank
+                groups: [ "SymbaseRegistration" ]
+            - Length:
+                min: 2
+                minMessage: fos_user.group.short
+                max: 255
+                maxMessage: fos_user.group.long
+                groups: [ "SymbaseRegistration" ]

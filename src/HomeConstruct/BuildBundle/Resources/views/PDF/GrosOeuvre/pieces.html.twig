@@ -1,0 +1,175 @@
+<h3>
+    Informations sur les pièces
+</h3>
+{% set index = 0 %}
+<div>
+    {% if pieces|length >1 %}
+        <h3> Liste des {{ pieces|length }} pièces :</h3>
+    {% endif %}
+</div>
+<div class="col-lg-9 g-mb-50">
+    {% for piece in pieces %}
+        {% set index = index +1 %}
+        <h3> Pièce n°{{ index }}</h3>
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Surface :
+                                {% if piece.surface is defined and piece.surface is not null %}
+                                    <b>{{ piece.surface|number_format(2, ',', ' ') }}m²</b>
+                                {% else %}
+                                    <b> Non renseigné </b>
+                                {% endif %}
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">C'est une salle d'eau ?
+                                {% if piece.salleDeau == true %}
+                                    <b>Oui</b>
+                                    {% else %}
+                                    <b>Non</b>
+                                {% endif %}
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">La cloison est amovible ?
+                                {% if piece.cloisonAmovible == true %}
+                                    <b>Oui</b>
+                                    {% else %}
+                                    <b>Non</b>
+                                {% endif %}
+                            </span>
+                </div>
+            </div>
+        <h4> Isolation : </h4>
+        {% if piece.isolation is not defined or piece.isolation is null %}
+            <I>Aucune isolation pour le moment</I>
+        {% else %}
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Type :
+                                <b>{{ piece.isolation.nom }}</b>
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Prix :
+                                <b>{{ piece.isolation.prix|number_format(2, ',', ' ') }} €</b>
+                            </span>
+                </div>
+            </div>
+        {% endif %}
+        <h4> Chauffage : </h4>
+        {% if piece.chauffage is not defined or piece.chauffage is null %}
+            <I>Aucun chauffage pour le moment</I>
+        {% else %}
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Type :
+                                <b>{{ piece.chauffage.type.nom }}</b>
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Quantité :
+                                <b>{{ piece.chauffage.quantite }}</b>
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Prix total :
+                                <b>{{ piece.chauffage.prix |number_format(2, ',', ' ') }} €</b>
+                            </span>
+                </div>
+            </div>
+        {% endif %}
+        <h4> Ventilation : </h4>
+        {% if piece.ventilation is not defined or piece.ventilation is null %}
+            <I>Aucune ventilation pour le moment</I>
+        {% else %}
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Type :
+                                <b>{{ piece.ventilation.type.nom }}</b>
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                        <span class="d-block">Quantité :
+                            <b>{{ piece.ventilation.quantite }}</b>
+                        </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                        <span class="d-block">Prix total :
+                            <b>{{ piece.ventilation.prix |number_format(2, ',', ' ') }} €</b>
+                        </span>
+                </div>
+            </div>
+        {% endif %}
+        <h4> Climatisation : </h4>
+        {% if piece.climatisation is not defined or piece.climatisation is null %}
+            <I>Aucune climatisation pour le moment</I>
+        {% else %}
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Type :
+                                <b>{{ piece.climatisation.type.nom }}</b>
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Quantité :
+                                <b>{{ piece.climatisation.quantite }}</b>
+                            </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                            <span class="d-block">Prix total :
+                                <b>{{ piece.climatisation.prix|number_format(2, ',', ' ') }} €</b>
+                            </span>
+                </div>
+            </div>
+        {% endif %}
+        <h4> Revêtement du sol : </h4>
+        {% if piece.revetementSol is not defined or piece.revetementSol is null %}
+            <I>Aucun revêtement du sol pour le moment</I>
+        {% else %}
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Type :
+                                    <b>{{ piece.revetementSol.type.nom }}</b>
+                                </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Quantité (en m²) :
+                                    <b>{{ piece.revetementSol.quantiteM2 |number_format(2, ',', ' ') }}m²</b>
+                                </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                                <span class="d-block">Prix total :
+                                    <b>{{ piece.revetementSol.prix|number_format(2, ',', ' ') }} €</b>
+                                </span>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    {% endfor %}
+</div>

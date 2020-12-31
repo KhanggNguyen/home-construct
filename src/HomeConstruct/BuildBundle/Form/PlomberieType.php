@@ -1,0 +1,73 @@
+<?php
+
+namespace HomeConstruct\BuildBundle\Form;
+
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class PlomberieType extends AbstractType
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+
+        $builder
+            ->add('m2', NumberType::class, [
+                'label' => 'Nombre de mètres :',
+                'required' => false,
+                'attr' => array(
+                    'id' => 'm2',
+                    'maxLength' => '64',
+                    'step'=>"0.01",
+                    'min'=> '1'
+                )
+            ])
+            ->add('quantite', IntegerType::class, [
+                'label' => 'Quantité : *',
+                'required' => true,
+                'attr' => array(
+                    'id' => 'quantite',
+                    'maxLength' => '64',
+                    'step'=>"1",
+                    'min'=> '1'
+                )
+            ])
+            ->add('typePlomberie', EntityType::class, [
+                'class'        => 'HomeConstruct\BuildBundle\Entity\TypePlomberie',
+                'choice_label' => 'nom',
+                'multiple'     => false,
+                'label' => 'Type de salle de bain : *',
+                'required' => true,
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => ['class' => 'bouton_enregistrer btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10']
+            ])
+        ;
+    }
+
+    /**
+    * {@inheritdoc}
+    */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'HomeConstruct\BuildBundle\Entity\Plomberie'
+        ));;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'homeconstruct_buildbundle_plomberie';
+    }
+}

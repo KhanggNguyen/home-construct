@@ -1,0 +1,175 @@
+{% trans_default_domain 'SymracineTemplateBundle' %}
+
+<!doctype html>
+<html lang="fr">
+<head>
+
+    <title>{% block title_fixe %}Home-Construct | {% endblock title_fixe %}
+        {% block title %}
+            Accueil
+        {% endblock title %}
+    </title>
+
+    {% block meta %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Home-construct - Ayez une vision globale sur la construction de votre maison">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="format-detection" content="telephone=yes"/>
+        <meta name="robots" content="index, follow" />
+
+        <meta property="og:site_name" content="Home-construct" />
+        <meta property="og:title" content="Application web pour l’aide des artisans de construction de maisons individuelles" />
+        <meta property="og:description" content="Ayez une vision globale de la construction de votre maison" />
+    {% endblock meta %}
+
+    {% block meta_google %}
+        <link rel="alternate" href="http://example.com/fr" hreflang="fr"/>
+    {% endblock meta_google %}
+
+    {% block favicon %}
+        <!-- Favicon -->
+    {% endblock favicon %}
+
+    {% block stylesheets %}
+         {# Utilisation des assetic : #}
+        {% stylesheets filter='cssrewrite, ?scssphp'
+            'bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.css'
+            'bundles/symracinetemplate/vendor/icon-awesome/css/fontawesome-all.min.css'
+            'bundles/symracinetemplate/vendor/icon-line/css/simple-line-icons.min.css'
+            'bundles/symracinetemplate/vendor/icon-line-pro/style.css'
+            'bundles/symracinetemplate/vendor/icon-hs/style.min.css'
+            'bundles/symracinetemplate/vendor/animate.min.css'
+            'bundles/symracinetemplate/vendor/hs-megamenu/src/hs.megamenu.min.css'
+            'bundles/symracinetemplate/vendor/hamburgers/hamburgers.min.css'
+            'bundles/symracinetemplate/vendor/chosen/chosen.min.css'
+            'bundles/symracinetemplate/vendor/slick-carousel/slick/slick.min.css'
+            'bundles/symracinetemplate/vendor/fancybox/jquery.fancybox.min.css'
+            'bundles/symracinetemplate/vendor/noty/lib/noty.css'
+            'bundles/symracinetemplate/css/unify.css'
+            'bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.css'
+            'bundles/symracinetemplate/css-admin/unify-admin.css'
+            'bundles/symracinetemplate/vendor/icon-etlinefont/style.css'
+            'bundles/symracinetemplate/vendor/icon-line-pro/style.css'
+            'bundles/symracinetemplate/vendor/hs-admin-icons/hs-admin-icons.css'
+            'bundles/symracinetemplate/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css'
+            'bundles/symracinetemplate/vendor/bootstrap-select/css/bootstrap-select.min.css'
+            'bundles/symracinetemplate/vendor/fancybox-3.0.47/jquery.fancybox.min.css'
+            'bundles/symracinetemplate/css-admin/unify-admin.css'
+            'bundles/symracinetemplate/css/custom.css'
+            'bundles/symracinetemplate/vendor/jquery-ui/themes/base/jquery-ui.css'
+            'bundles/homeconstructfo/css/layout_non_connecte.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+    {% endblock stylesheets %}
+
+</head>
+<body {% block body_attributs %}
+
+        {% endblock body_attributs %}
+>
+
+<!-- Header -->
+        <header id="block_logo_site">
+            <span class="titre_systeme fas icon-real-estate-009">
+                <a class="titre_systeme" href="{{ path('home_construct_accueil') }}">HOME-CONSTRUCT</a>
+            </span>
+
+        </header>
+            <!-- End Breadcrumb-v1 -->
+    <div id="content">
+            <div id="block_logo_crm">
+
+            </div>
+
+                {% block content %}
+                {% endblock content %}
+            </div>
+        {#
+        <footer id="footer" class="g-color-gray-dark-v6 g-brd-top g-brd-gray-light-v7 g-pa-20">
+                <div class="row align-items-center">
+                    <!-- Footer Nav -->
+                    <div class="col-md-4 g-mb-10 g-mb-0--md">
+                        <ul class="list-inline text-center text-md-left mb-0">
+                            <li class="list-inline-item">
+                                <a class="g-color-gray-dark-v6 g-color-lightblue-v3--hover" href="#!">FAQ</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="g-color-gray-dark-v6">|</span>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="g-color-gray-dark-v6 g-color-lightblue-v3--hover" href="#!">Support</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="g-color-gray-dark-v6">|</span>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="g-color-gray-dark-v6 g-color-lightblue-v3--hover" href="{{ path('home_construct_contact') }}">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Footer Nav -->
+                </div>
+        </footer>
+ <!-- End Footer -->
+ #}
+        </div>
+    </div>
+</section>
+{% block javascripts %}
+    {% javascripts filter='jsqueeze'
+        'bundles/symracinetemplate/vendor/jquery/jquery.min.js'
+        'bundles/symracinetemplate/vendor/jquery-migrate/jquery-migrate.min.js'
+        'bundles/symracinetemplate/vendor/popper.min.js'
+        'bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.js'
+        'bundles/symracinetemplate/vendor/noty/lib/noty.min.js'
+        'bundles/symracinetemplate/vendor/cookiejs/jquery.cookie.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!-- fin du Jquery -->
+    {% if app.flashes('mailSend') is not empty %}
+    <script>
+        $(document).on('ready', function () {
+            var testNoty = new Noty({
+                "type": "info",
+                "layout": "topRight",
+                "timeout": "7000",
+                "animation": {
+                    "open": "animated fadeIn",
+                    "close": "animated fadeOut"
+                },
+                "closeWith": [
+                    "click",
+                    "button"
+                ],
+                "text": "<div class=\"g-mr-20\">" +
+                "<div class=\"noty_body__icon\">" +
+                "<i class=\"hs-admin-check\">" +
+                "</i>" +
+                "</div>" +
+                "</div>" +
+                "<div>" +
+                {% for message in app.flashes('notifMail') %}
+                "{{ message }}"+
+                {% endfor %}
+                "</div>",
+                "theme": "unify--v1"
+            }).show();
+        });
+    </script>
+
+    {% endif %}
+
+
+{% endblock javascripts %}
+
+</body>
+</html>

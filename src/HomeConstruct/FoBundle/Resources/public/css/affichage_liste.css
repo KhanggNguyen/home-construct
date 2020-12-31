@@ -1,0 +1,60 @@
+#block_search_and_show{
+    margin-left:0 !important;
+    width:50%;
+}
+
+#block_search{
+    margin-left:0 !important;
+}
+
+#block_show{
+    margin-left: 10%;
+}
+
+.progress{
+    margin-bottom: 0 !important;
+}
+
+.block_modif_suppr{
+    display:flex;
+}
+
+
+.block_modif_suppr i {
+    font-size: 25px !important;
+}
+.block_modif_suppr a {
+    margin-right: 12px;
+}
+
+.block_modif_suppr a:hover{
+    color: red !important;
+}
+
+.block_description_tache{
+    position: absolute;
+    background-color: wheat;
+    display:block;
+}
+
+#indication_description{
+    color:red;
+}
+
+#case_colonne_vide{
+    width:1px !important;;
+}
+
+
+p{
+    overflow-wrap:break-word;
+}
+
+#case_modif_suppr_agence{
+    width:10%;
+}
+
+.table-responsive{
+    overflow: auto;
+    white-space: nowrap;
+}

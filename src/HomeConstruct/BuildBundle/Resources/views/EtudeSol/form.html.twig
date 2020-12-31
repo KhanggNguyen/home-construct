@@ -1,0 +1,151 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block body_attributs %}
+    onload="profondeur()"
+{% endblock body_attributs %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and grosOeuvre.etudeSol is defined and grosOeuvre.etudeSol is not null %}
+            {% set retour = path('home_construct_etude_sol_profile',{'id':grosOeuvre.etudeSol.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        <div class="block_form_with_estimation">
+                {{ form_start(form) }}
+                    <div class="col-lg-9 g-mb-50">
+                        <!-- Info -->
+                        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="d-block">{{ form_row(form.type) }}</span>
+                                    <div id="recommandation_profondeur">
+                                        <!-- le texte est généré automatiquement en fonction du type de sol (js) !-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="d-block">{{ form_row(form.profondeurChoisie) }}</span>
+                                </div>
+                            </div>
+                            <div class="block_button_backnext">
+                                <button id="button_next"
+                                        class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                        href="" data-speed="350">
+                                    {% if editMode %}
+                                        Enregistrer
+                                    {% else %}
+                                        Terminé
+                                    {% endif %}
+                                    <div  class="fas fa-check"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- End Info -->
+
+                    </div>
+                {{ form_end(form) }}
+            <div class="block_estimation_prix_js">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <h5 class="titre_sous_entite">
+                        <a class="link_sous_entite" href="{{ path('home_construct_information_base_profile',{'id':grosOeuvre.informationBase.id}) }}">
+                            Informations de base :
+                        </a>
+                    </h5>
+                    <li>
+                        <span id="block_checked_type">
+                            <i class="fas fa-check-circle variable-presente"></i>
+                        </span>
+                        Surface totale de la maison :
+                        <b>
+                            {{ grosOeuvre.informationBase.surfaceTotale |number_format(2, ',', ' ') }}m²
+                        </b>
+                    </li>
+                    <li>
+                        <span id="block_checked_tarif">
+                            <i class="fas fa-check-circle variable-presente"></i>
+                        </span>
+                        Présence d'un sous sol :
+                        <b>
+                            {% if grosOeuvre.informationBase.sousSol == true %}
+                                Oui
+                            {% else %}
+                                Non
+                            {% endif %}
+                        </b>
+                    </li>
+                </ul>
+                <div id="prix_calcule" class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                    {% if grosOeuvre.informationBase.sousSol == true %}
+                        {% set prixSousSol=240 %}
+                    {% else %}
+                        {% set prixSousSol=0 %}
+                    {% endif %}
+                    {{ ((grosOeuvre.informationBase.surfaceTotale *10)+(prixSousSol))|number_format(2, ',', ' ') }} €
+                </div>
+                <I id="rappel">
+                </I>
+            </div>
+        </div>
+
+    {% endblock sub_content %}
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function profondeur(){
+            var element=document.getElementById('homeconstruct_buildbundle_etudesol_type');
+            var opt = element.options[element.selectedIndex];
+            var nomTypeSelection = opt.text;
+            {% for type in typesSol %}
+                var typeNom = "{{ type.nom }}";
+                if(typeNom==nomTypeSelection){
+                    var max={{ type.profondeurRecommande.fourchetteValeur.maximum }};
+                    var min={{ type.profondeurRecommande.fourchetteValeur.minimum }};
+                    var text="<I>Profondeur minimale recommandée pour ce type de sol : "+min+"m </I></br>";
+                    text+= "<I>Profondeur maximale recommandée pour ce type de sol : "+max+"m</I>";
+                    document.getElementById("recommandation_profondeur").innerHTML=text;
+                }
+            {% endfor %}
+        }
+
+        function testBonneProfondeur(){
+            var input=document.getElementById('homeconstruct_buildbundle_etudesol_profondeurChoisie');
+            var valeurEntree=input.value;
+            var element=document.getElementById('homeconstruct_buildbundle_etudesol_type');
+            var opt = element.options[element.selectedIndex];
+            var nomTypeSelection = opt.text;
+            {% for type in typesSol %}
+                var typeNom = "{{ type.nom }}";
+                if(typeNom==nomTypeSelection) {
+                    var borneMin = {{ type.profondeurRecommande.fourchetteValeur.minimum }};
+                    var borneMax = {{ type.profondeurRecommande.fourchetteValeur.maximum }};
+                    if(valeurEntree<borneMin || valeurEntree>borneMax){
+                        input.value=borneMin;
+                        alert("Veuillez entrez une valeur entre "+borneMin+" et "+borneMax+" inclus");
+                    }
+                }
+            {% endfor %}
+        }
+    </script>
+{% endblock javascripts %}
+

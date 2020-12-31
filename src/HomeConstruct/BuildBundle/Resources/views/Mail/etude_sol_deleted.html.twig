@@ -1,0 +1,41 @@
+{#{% extends "SymracineMailBundle:Mail:layout.html.twig" %}#}
+
+{% block subject %}Etude du sol pour votre futur maison{% endblock %}
+
+{% block name %}Home-Construct{% endblock %}
+
+{% block body_text %}
+    <h2> Home-Construct - Projet : "{{ projet.nom }}"</h2>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        Bonjour {{ client.name }} {{ client.firstname }} ({{ client.username }}) !
+    </p>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">Les informations sur l'étude du sol de votre projet <b>"{{ projet.nom }}"</b> ont été supprimées
+        par le professionnel : <b>{{ user.name }} {{ user.firstname }} ({{ user.username }})</b>.
+        <br/>
+        {% if projet.grosOeuvre.fondation is defined and projet.grosOeuvre.fondation is not null%}
+            </br>
+            L'estimation du prix des fondations a donc été modifié.
+            Pour aller voir la nouvelle estimation cliquez ce lien suivant :
+            {{ url('home_construct_fondation_profile',{'id':projet.grosOeuvre.fondation.id}) }}
+        {% endif %}
+    </p><br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+        <strong>
+            Pour voir les informations sur la partie gros oeuvre de votre maison, cliquez sur le lien ci-dessous :
+        </strong>
+    </p>
+
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">&nbsp;
+            {{ url('home_construct_gros_oeuvre_profile',{'id':projet.grosOeuvre.id}) }}
+        <br>
+    </p>
+
+
+    <br/>
+    <p style="margin: 0;font-size: 12px;line-height: 14px;text-align: left">
+    Cordialement,<br/>
+    L'équipe
+    </p>
+
+
+{% endblock %}

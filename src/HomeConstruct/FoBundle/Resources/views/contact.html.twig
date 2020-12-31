@@ -1,0 +1,79 @@
+{% extends "@HomeConstructFo/layout.html.twig" %}
+{% use "@SymracineTemplate/Multipage/RealEstate/contact.html.twig" %}
+
+{% block content %}
+
+    {% block contact_google_map %}
+    {% endblock %}
+
+    <!-- Contacts -->
+    <div class="container g-py-25">
+        <header class="text-center g-mb-50">
+            <h1 class="h2">Contactez nous</h1>
+            <p class="lead">Vous avez une question ?</p>
+        </header>
+
+
+    {% block contact_more_informations %}
+    {% endblock %}
+        <!-- Important to add the recaptcha api in your document -->
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+
+        <div class="text-center mx-auto g-width-70x--md">
+            {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-6 form-group g-mb-30">
+                        {{ form_widget(form.lastname, {attr: {class: 'g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus rounded-0 g-py-13 g-px-15'}}) }}
+                    </div>
+
+                    <div class="col-md-6 form-group g-mb-30">
+                        {{ form_widget(form.name, {attr: {class: 'g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus rounded-0 g-py-13 g-px-15'}}) }}
+                    </div>
+
+                    <div class="col-md-6 form-group g-mb-30">
+                        {{ form_widget(form.email, {attr: {class: 'g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus rounded-0 g-py-13 g-px-15'}}) }}
+                    </div>
+
+                    <div class="col-md-6 form-group g-mb-30">
+                        {{ form_widget(form.phone, {attr: {class: 'g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus rounded-0 g-py-13 g-px-15'}}) }}
+                    </div>
+
+                    <div class="col-md-12 form-group g-mb-30">
+                        {{ form_widget(form.subject, {attr: {class: 'g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus rounded-0 g-py-13 g-px-15'}}) }}
+                    </div>
+
+                    <div class="col-md-12 form-group g-mb-30">
+                        {{ form_widget(form.message, {attr: {
+                            class: 'form-control g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus g-resize-none rounded-0 g-py-13 g-px-15',
+                            rows: 7
+                        }
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <!-- Now add the widget with the sitekey that you retrieve in the registration -->
+
+                    {{ form_row(form.save, {attr: {class: 'btn u-btn-primary text-uppercase rounded-0 g-px-25 g-py-13'}}) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!-- End Contacts -->
+
+    {% block contanct_call_action %}
+    <div class="g-bg-primary g-py-100">
+    </div>
+    {% endblock %}
+
+    {% block javascripts_implementing_plugins %}
+    {% endblock %}
+
+    {% block javascripts_ready_initialization %}
+    {% endblock %}
+
+    {% block javascripts_function_initialization %}
+    {% endblock %}
+
+{% endblock %}
+

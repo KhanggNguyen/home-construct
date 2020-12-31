@@ -1,0 +1,546 @@
+{% extends "@HomeConstructBuild/SecondOeuvre/base-forms-profiles-secondOeuvre.html.twig" %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and secondOeuvre.isolation is defined and secondOeuvre.isolation is not null %}
+            {% set retour = path('home_construct_isolation_profile',{'id':secondOeuvre.isolation.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+    {% block sub_content %}
+        {{ form_start(form) }}
+        <div class="row block_profile_with_estimation">
+            <div class="col-lg-7 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.typeIsolation) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.surfaceMursInterieur) }}</span>
+                            <button type="button" id="import_surface_mur_interieur" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Ajoutez les murs de la maison pour générer la surface totale des murs intérieurs automatiquement">
+                                Génerer la surface des murs intérieurs existants
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.surfaceMursExterieur) }}</span>
+                            <button type="button" id="import_surface_mur_exterieur" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Ajoutez les murs de la maison pour générer la surface totale des murs extérieurs automatiquement">
+                                Génerer la surface des murs intérieurs existants
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.surfacePlafond) }}</span>
+                            <button type="button" id="import_surface_plafond" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Ajoutez les murs de la maison pour générer la surface totale du plafond automatiquement">
+                                Génerer la surface du plafond existant
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.surfaceSol) }}</span>
+                            <button type="button" id="import_surface_plancher" class="bouton_importer btn btn-sm" data-toggle="tooltip" data-placement="right" data-html="true" title="Ajoutez les murs de la maison pour générer la surface totale des planchers automatiquement">
+                                Génerer la surface des planchers existants
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="surfaceVitre" class="col-12">
+                            <span class="d-block">{{ form_row(form.surfaceVitre) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="typeMur" class="col-12">
+                            <span class="d-block">{{ form_row(form.typeIsolationMur) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="typePlancher" class="col-12">
+                            <span class="d-block">{{ form_row(form.typeIsolationPlancher) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="typePlafond" class="col-12">
+                            <span class="d-block">{{ form_row(form.typeIsolationPlafond) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="typeVitre" class="col-12">
+                            <span class="d-block">{{ form_row(form.typeIsolationVitre) }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">{{ form_row(form.save) }}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- End Info -->
+            <div class="col-lg-5 block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <h5 class="titre_sous_entite">
+                        <div class="link_sous_entite" href="">
+                            Informations sur l'isolation :
+                        </div>
+                    </h5>
+                    <div id ="thermique">
+                        <li>
+                            Prix par m² des murs intérieurs : <b>45</b>
+                        </li>
+                        <li>
+                            Prix par m² des murs extérieurs : <b>95</b>
+                        </li>
+                        <li>
+                            Prix par m² de plafond : <b>30</b>
+                        </li>
+                        <li>
+                            Prix par m² de sol : <b>20</b>
+                        </li>
+                    </div>
+                    <div id ="phonique">
+                        <li>
+                            Prix du matériel d'isolation des murs (par m²) :
+                            <b id="prix_type_murs">
+                            </b>
+                        </li>
+                        <li>
+                            Prix du matériel d'isolation du sol (par m²) :
+                            <b id="prix_type_sol">
+                            </b>
+                        </li>
+                        <li>
+                            Prix du matériel d'isolation du plafond (par m²) :
+                            <b id="prix_type_plafond">
+                            </b>
+                        </li>
+                        <li>
+                            Prix du matériel d'isolation des vitres (par m²) :
+                            <b id="prix_type_vitre">
+                            </b>
+                        </li>
+                        <li>
+                            <span id="block_checked_murs">
+                                <i class="fas fa-check-circle variable-presente"></i>
+                            </span>
+                            Prix d'isolation des murs (par m²) :
+                            <b id="prix_murs">
+                            </b>
+                        </li>
+                        <li>
+                            <span id="block_checked_sol">
+                                <i class="fas fa-check-circle variable-presente"></i>
+                            </span>
+                            Prix d'isolation du sol (par m²) :
+                            <b id="prix_sol">
+                            </b>
+                        </li>
+                        <li>
+                            <span id="block_checked_plafond">
+                                <i class="fas fa-check-circle variable-presente"></i>
+                            </span>
+                            Prix d'isolation du plafond (par m²) :
+                            <b id="prix_plafond">
+                            </b>
+                        </li>
+                        <li>
+                            <span id="block_checked_vitre">
+                                <i class="fas fa-check-circle variable-presente"></i>
+                            </span>
+                            Prix d'isolation des vitres (par m²) :
+                            <b id="prix_vitre">
+                            </b>
+                        </li>
+                    </div>
+                </ul>
+                <div id="prix_calcule" class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+                </div>
+                <I id="rappel">
+                </I>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    {% endblock sub_content %}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent()}}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            $typeMur = {{ typeIsolationMur|json_encode|raw }};
+            $typePlancher = {{ typeIsolationPlancher|json_encode|raw }};
+            $typePlafond = {{ typeIsolationPlafond|json_encode|raw }};
+            $typeVitre = {{ typeIsolationVitre|json_encode|raw }};
+            $typeIsolation = $('#homeconstruct_buildbundle_isolation_typeIsolation');
+
+
+            //initialiser surfaces
+            $surfaceMurInterieur = $('#homeconstruct_buildbundle_isolation_surfaceMursInterieur');
+            $surfaceMurExterieur = $('#homeconstruct_buildbundle_isolation_surfaceMursExterieur');
+            $surfacePlafond = $('#homeconstruct_buildbundle_isolation_surfacePlafond');
+            $surfaceSol = $('#homeconstruct_buildbundle_isolation_surfaceSol');
+            $surfaceVitre = $('#homeconstruct_buildbundle_isolation_surfaceVitre');
+
+            //initialiser tab estimation et form
+            if($('#homeconstruct_buildbundle_isolation_typeIsolation').val() == "thermique"){
+                $('#typePlancher').removeAttr("style").hide();
+                $('#typeMur').removeAttr("style").hide();
+                $('#typePlafond').removeAttr("style").hide();
+                $('#typeVitre').removeAttr("style").hide();
+                $('#surfaceVitre').removeAttr("style").hide();
+                $('#phonique').removeAttr("style").hide();
+                $('#thermique').show();
+                $typeIsolation = "thermique";
+                calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+            }else{
+                $('#typePlancher').show();
+                $('#typeMur').show();
+                $('#typePlafond').show();
+                $('#typeVitre').show();
+                $('#surfaceVitre').show();
+                $('#phonique').show();
+                $('#thermique').removeAttr("style").hide();
+                if($('#homeconstruct_buildbundle_isolation_typeIsolationMur').val() != ""){
+                    $('#prix_type_murs').html($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix']);
+                    if($surfaceMurInterieur.val() != "" && $surfaceMurExterieur.val() != ""){
+                        $('#prix_murs').html(($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix'] * (parseFloat($surfaceMurInterieur.val()) + parseFloat($surfaceMurExterieur.val()))) + "€");
+                    }
+                }else{
+                    $('#prix_type_murs').html(0);
+                    $('#prix_murs').html(0);
+                }
+                if($('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val() != ""){
+                    $('#prix_type_sol').html($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix']);
+                    if($surfaceSol.val() != ""){
+                        $('#prix_sol').html(($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix'] * $surfaceSol.val()) + "€");
+                    }
+                }else{
+                    $('#prix_type_sol').html(0);
+                    $('#prix_sol').html(0);
+                }
+                if($('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val() != ""){
+                    $('#prix_type_plafond').html($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix']);
+                    if($surfacePlafond.val() != ""){
+                        $('#prix_plafond').html(($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix'] * $surfacePlafond.val()) + "€");
+                    }
+                }else{
+                    $('#prix_type_plafond').html(0);
+                    $('#prix_plafond').html(0);
+                }
+                if($('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val() != ""){
+                    $('#prix_type_vitre').html($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix']);
+                    if($surfaceVitre.val() != ""){
+                        $('#prix_vitre').html(($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix'] * $surfaceVitre.val()) + "€");
+                    }
+                }else{
+                    $('#prix_type_vitre').html(0);
+                    $('#prix_vitre').html(0);
+                }
+                $typeIsolation = "phonique";
+                calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+            }
+
+            //sur changement de type isolation, changer form et tab estimation
+            $('#homeconstruct_buildbundle_isolation_typeIsolation').on('change', function(){
+                if($(this).val() == "thermique"){
+                    $('#typePlancher').removeAttr("style").hide();
+                    $('#typeMur').removeAttr("style").hide();
+                    $('#typePlafond').removeAttr("style").hide();
+                    $('#typeVitre').removeAttr("style").hide();
+                    $('#surfaceVitre').removeAttr("style").hide();
+                    $('#phonique').removeAttr("style").hide();
+                    $('#thermique').show();
+                    $typeIsolation = "thermique";
+                    calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+                }else{
+                    $('#typePlancher').show();
+                    $('#typeMur').show();
+                    $('#typePlafond').show();
+                    $('#typeVitre').show();
+                    $('#surfaceVitre').show();
+                    $('#phonique').show();
+                    $('#thermique').removeAttr("style").hide();
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationMur').val() != ""){
+                        $('#prix_type_murs').html($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix']);
+                        if($surfaceMurInterieur.val() != "" && $surfaceMurExterieur.val() != ""){
+                            $('#prix_murs').html(($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix'] * (parseFloat($surfaceMurInterieur.val()) + parseFloat($surfaceMurExterieur.val()))) + "€");
+                        }
+                    }else{
+                        $('#prix_type_murs').html(0);
+                        $('#prix_murs').html(0);
+                    }
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val() != ""){
+                        $('#prix_type_sol').html($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix']);
+                        if($surfaceSol.val() != ""){
+                            $('#prix_sol').html(($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix'] * $surfaceSol.val()) + "€");
+                        }
+                    }else{
+                        $('#prix_type_sol').html(0);
+                        $('#prix_sol').html(0);
+                    }
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val() != ""){
+                        $('#prix_type_plafond').html($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix']);
+                        if($surfacePlafond.val() != ""){
+                            $('#prix_plafond').html(($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix'] * $surfacePlafond.val()) + "€") ;
+                        }
+                    }else{
+                        $('#prix_type_plafond').html(0);
+                        $('#prix_plafond').html(0);
+                    }
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val() != ""){
+                        $('#prix_type_vitre').html($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix']);
+                        if($surfaceVitre.val() != ""){
+                            $('#prix_vitre').html(($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix'] * $surfaceVitre.val()) + "€");
+                        }
+                    }else{
+                        $('#prix_type_vitre').html(0);
+                        $('#prix_vitre').html(0);
+                    }
+                    $typeIsolation = "phonique";
+                    calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+                }
+            });
+
+            //initialiser les champs type a la chargement du page
+            if($('#homeconstruct_buildbundle_isolation_typeIsolationMur').val() != ""){
+                $('#prix_type_murs').html($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix'] + "€");
+            }else{
+                $('#prix_type_murs').html(0);
+            }
+
+            if($('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val() != ""){
+                $('#prix_type_sol').html($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix'] + "€");
+            }else{
+                $('#prix_type_sol').html(0);
+            }
+
+            if($('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val() != ""){
+                $('#prix_type_plafond').html($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix'] + "€");
+            }else{
+                $('#prix_type_plafond').html(0);
+            }
+
+            if($('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val() != ""){
+                $('#prix_type_vitre').html($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix'] + "€");
+            }else{
+                $('#prix_type_vitre').html(0);
+            }
+
+            //sur changement des inputs
+            $('input').on('input', function(){
+                if($typeIsolation == "thermique"){
+                    calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+                }else{
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationMur').val() != ""){
+                        $('#prix_type_murs').html($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix']);
+                        if($surfaceMurInterieur.val() != "" && $surfaceMurExterieur.val() != ""){
+                            $('#prix_murs').html($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix'] * (parseFloat($surfaceMurInterieur.val()) + parseFloat($surfaceMurExterieur.val())));
+                        }else{
+                            $('#prix_murs').html(0);
+                        }
+                    }else{
+                        $('#prix_type_murs').html(0);
+                        $('#prix_murs').html(0);
+                    }
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val() != ""){
+                        $('#prix_type_sol').html($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix']);
+                        if($surfaceSol.val() != ""){
+                            $('#prix_sol').html(($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix'] * $surfaceSol.val()) + "€");
+                        }else{
+                            $('#prix_sol').html(0);
+                        }
+                    }else{
+                        $('#prix_type_sol').html(0);
+                        $('#prix_sol').html(0);
+                    }
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val() != ""){
+                        $('#prix_type_plafond').html($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix']);
+                        if($surfacePlafond.val() != ""){
+                            $('#prix_plafond').html(($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix'] * $surfacePlafond.val()) + "€");
+                        }else{
+                            $('#prix_plafond').html(0);
+                        }
+                    }else{
+                        $('#prix_type_plafond').html(0);
+                        $('#prix_plafond').html(0);
+                    }
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val() != ""){
+                        $('#prix_type_vitre').html($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix']);
+                        if($surfaceVitre.val() != ""){
+                            $('#prix_vitre').html(($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix'] * $surfaceVitre.val()) + "€");
+                        }else{
+                            $('#prix_vitre').html(0);
+                        }
+                    }else{
+                        $('#prix_type_vitre').html(0);
+                        $('#prix_vitre').html(0);
+                    }
+                    calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+                }
+            });
+
+            //sur changement des types
+            $('#homeconstruct_buildbundle_isolation_typeIsolationMur').on('change',function (){
+                if($(this).val() != ""){
+                    $('#prix_type_murs').html($typeMur[$(this).val()-1]['prix']);
+                    if($surfaceMurInterieur.val() != "" && $surfaceMurExterieur.val() != ""){
+                        $('#prix_murs').html(($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix'] * (parseFloat($surfaceMurInterieur.val()) + parseFloat($surfaceMurExterieur.val()))) + "€");
+                    }
+
+                }else{
+                    $('#prix_type_murs').html(0);
+                }
+                calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+            });
+
+            $('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').on('change',function (){
+                if($(this).val() != ""){
+                    $('#prix_type_sol').html($typePlancher[$(this).val()-1]['prix']);
+                    if($surfaceSol.val() != ""){
+                        $('#prix_sol').html(($typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix'] * $surfaceSol.val()) + "€");
+                    }
+                }else{
+                    $('#prix_type_sol').html(0);
+                }
+                calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+            });
+
+            $('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').on('change',function (){
+                if($(this).val() != ""){
+                    $('#prix_type_plafond').html($typePlafond[$(this).val()-1]['prix']);
+                    if($surfacePlafond.val() != ""){
+                        $('#prix_plafond').html(($typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix'] * $surfacePlafond.val()) + "€");
+                    }
+                }else{
+                    $('#prix_type_plafond').html(0);
+                }
+                calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+            });
+
+            $('#homeconstruct_buildbundle_isolation_typeIsolationVitre').on('change',function (){
+                if($(this).val() != ""){
+                    $('#prix_type_vitre').html($typeVitre[$(this).val()-1]['prix']);
+                    if($surfaceVitre.val() != ""){
+                        $('#prix_vitre').html(($typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix'] * $surfaceVitre.val()) + "€");
+                    }
+                }else{
+                    $('#prix_type_vitre').html(0);
+                }
+                calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+            });
+
+
+            //fonction calculer prix
+            function calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol){
+                $prixTotal = 0;
+                if($surfaceMurInterieur.val() != "" && $surfaceMurExterieur.val() != "" && $surfacePlafond.val() != "" && $surfaceSol.val() != "")
+                {
+                    $prixTotal += $surfaceMurExterieur.val() * 95 +
+                            $surfaceMurInterieur.val() * 45 +
+                            $surfacePlafond.val() * 30 +
+                            $surfaceSol.val() * 20;
+                }
+                $('#prix_calcule').html($prixTotal+ "€");
+            }
+
+            function calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre){
+                $prixTotal = 0;
+                if($surfaceMurInterieur.val() != "" && $surfaceMurExterieur.val() != "" && $surfacePlafond.val() != "" && $surfaceSol.val() != "" && $surfaceVitre.val() != "")
+                {
+                    if($('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val() != "" &&
+                        $('#homeconstruct_buildbundle_isolation_typeIsolationMur').val() != "" &&
+                        $('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val() != "" &&
+                        $('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val() != "")
+                    {
+                        $prixTotal += (parseFloat($surfaceMurExterieur.val()) + parseFloat($surfaceMurInterieur.val())) * parseFloat($typeMur[$('#homeconstruct_buildbundle_isolation_typeIsolationMur').val()-1]['prix'])
+                            + $surfacePlafond.val() * $typePlafond[$('#homeconstruct_buildbundle_isolation_typeIsolationPlafond').val()-1]['prix']
+                            + $surfaceSol.val() * $typePlancher[$('#homeconstruct_buildbundle_isolation_typeIsolationPlancher').val()-1]['prix']
+                            + $surfaceVitre.val() * $typeVitre[$('#homeconstruct_buildbundle_isolation_typeIsolationVitre').val()-1]['prix'];
+                    }
+                }
+                $('#prix_calcule').html($prixTotal + "€");
+            }
+
+            //on click bouton génerer
+            $surfaceMurExterieurImporter = 0;
+            {% if elevation is defined and elevation is not null %}
+                $surfaceMurExterieurImporter = {{ elevation.calculSurfaceMurExterieur }}
+            {% endif %}
+            $('#import_surface_mur_exterieur').on('click',function(){
+                if($surfaceMurExterieurImporter != 0 && $surfaceMurExterieurImporter != null){
+                    $surfaceMurExterieur.val($surfaceMurExterieurImporter);
+                    if($typeIsolation != "thermique"){
+                        calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+                    }else{
+                        calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+                    }
+                }
+            });
+
+            $surfaceMurInterieurImporter = 0;
+            {% if elevation is defined and elevation is not null %}
+                $surfaceMurInterieurImporter = {{ elevation.calculSurfaceMurInterieur }};
+            {% endif %}
+            $('#import_surface_mur_interieur').on('click',function(){
+                if($surfaceMurInterieurImporter != 0 && $surfaceMurInterieurImporter != null){
+                    $surfaceMurInterieur.val($surfaceMurInterieurImporter);
+                    if($typeIsolation != "thermique"){
+                        calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+                    }else{
+                        calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+                    }
+                }
+            });
+
+            $surfacePlafondImporter = 0;
+            {% if toiture is defined and toiture is not null%}
+            $surfacePlafondImporter = {{ toiture.m2 }};
+            {% endif %}
+            $('#import_surface_plafond').on('click',function(){
+                if($surfacePlafondImporter != 0 && $surfacePlafondImporter != null){
+                    $surfacePlafond.val($surfacePlafondImporter);
+                    if($typeIsolation != "thermique"){
+                        calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+                    }else{
+                        calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+                    }
+                }
+            });
+
+            $surfacePlancherImporter = 0;
+            {% if grosOeuvre.plancher is defined and grosOeuvre.plancher is not null and grosOeuvre.plancher is not empty%}
+                $surfacePlancherImporter = {{ grosOeuvre.calculSurfacePlancher }};
+            {% endif %}
+            $('#import_surface_plancher').on('click',function(){
+
+                if($surfacePlancherImporter != 0 && $surfacePlancherImporter != null){
+                    $surfaceSol.val($surfacePlancherImporter);
+                    if($typeIsolation != "thermique"){
+                        calculPrixPhonique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol, $surfaceVitre);
+                    }else{
+                        calculPrixThermique($surfaceMurInterieur, $surfaceMurExterieur, $surfacePlafond, $surfaceSol);
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

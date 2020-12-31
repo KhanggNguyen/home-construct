@@ -1,0 +1,28 @@
+.sous_block_form_to_display{
+    display:flex;
+    background-color: rgba(24, 101, 255, 0.65);
+    border-radius: 9px;
+}
+
+.sous_block_form_to_display .fa-bars{
+    padding-top: 10px;
+    padding-left: 93%;
+    height: 34px;
+    width: 3%;
+}
+
+.block_form_to_display{
+    color: white;
+    border-radius: 9px;
+    height: 100%;
+}
+
+.block_form_to_display .d-block {
+    width: 100%;
+}
+
+.block_cliquable_form{
+    width:100%;
+    position: absolute;
+    height: 52px;
+}

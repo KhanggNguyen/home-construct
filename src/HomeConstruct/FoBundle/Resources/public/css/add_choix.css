@@ -1,0 +1,20 @@
+#block_choix_tache{
+    margin-left: 162px
+}
+
+#contenant_box_choix{
+    /*display:flex;*/
+}
+
+#box_compte{
+   /* margin-left: 169px;*/
+    margin-top:20px;
+}
+
+#box_compte select,#box_contact select {
+    width: 368px;
+}
+
+#box_contact{
+    /*margin-left:40px;*/
+}

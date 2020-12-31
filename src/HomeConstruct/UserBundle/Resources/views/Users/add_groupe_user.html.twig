@@ -1,0 +1,53 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+{% block title %}Rattachement Groupe{% endblock title %}
+
+
+{% block stylesheets %}
+    {{ parent()}}
+    {% stylesheets filter='cssrewrite, ?scssphp'
+        'bundles/homeconstructfo/css/formulaires_creation.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    {{ form_start(form) }}
+    <div class="col-lg-9 g-mb-50">
+        <!-- Info -->
+        <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+            <div class="row">
+                <div class="col-12">
+                    <span class="d-block">
+                        {{ form_row(form.groups) }}
+                    </span>
+                </div>
+            </div>
+            <div id="block_boutons_cancel_save">
+
+                <div class="row" id="block_bouton_enregistrer">
+                    <div class="col-12">
+                        <span class="d-block">
+                            {{ form_row(form.cancel) }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row" id="block_bouton_enregistrer">
+                    <div class="col-12">
+                        <span class="d-block">
+                            {{ form_row(form.save) }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- End Info -->
+    </div>
+    {{ form_end(form) }}
+
+{%endblock content%}
+

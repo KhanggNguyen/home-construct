@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <title>
+            {% block title_fixe %}
+                Home-Construct |
+            {% endblock title_fixe %}
+            {% block title %}
+                {% if apercuPdf is defined and apercuPdf == true %}
+                   Aperçu projet
+                {% endif %}
+            {% endblock title %}
+        </title>
+
+        {% block meta %}
+            <!-- Required meta tags -->
+            <meta charset="utf-8">
+            <meta http-equiv="x-ua-compatible" content="ie=edge">
+            <meta name="description" content="Home-Construct - Ayez une vision sur la construction de votre maison">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="format-detection" content="telephone=yes"/>
+            <meta name="robots" content="index, follow"/>
+            <meta property="og:site_name" content="Home-Construct"/>
+            <meta property="og:title" content="Test"/>
+            <meta property="og:description" content="Test 2"/>
+        {% endblock meta %}
+
+        {% block meta_google %}
+            <link rel="alternate" href="http://example.com/fr" hreflang="fr"/>
+        {% endblock meta_google %}
+
+        {% block favicon %}
+            <!-- Favicon -->
+        {% endblock favicon %}
+
+        {% block stylesheets %}
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.css')) }}">
+
+            <!-- CSS Implementing Plugins -->
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-awesome/css/fontawesome-all.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-line/css/simple-line-icons.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-line-pro/style.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-hs/style.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/animate.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/hs-megamenu/src/hs.megamenu.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/hamburgers/hamburgers.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/chosen/chosen.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/slick-carousel/slick/slick.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/fancybox/jquery.fancybox.min.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/noty/lib/noty.css')) }}">
+            <link rel="stylesheet" type="text/css"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/css/unify.css')) }}">
+            <!-- CSS UNIFY !!!! -->
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/datatables/media/images/favicon.ico')) }}">
+            <!-- Google Fonts -->
+            <!-- CSS Global Compulsory -->
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/bootstrap/bootstrap.min.css')) }}">
+            <!-- CSS Global Icons -->
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/symracinetemplate/css-admin/unify-admin.css')) }}">
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-line/css/simple-line-icons.css')) }}">
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-etlinefont/style.css')) }}">
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-line-pro/style.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/icon-hs/style.css')) }}">
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/hs-admin-icons/hs-admin-icons.css')) }}">
+
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/animate.css')) }}">
+
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css')) }}">
+
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/bootstrap-select/css/bootstrap-select.min.css')) }}">
+
+            <link rel="stylesheet"
+                  href="{{ absolute_url(asset('bundles/symracinetemplate/vendor/hamburgers/hamburgers.min.css')) }}">
+
+            <!-- CSS Unify -->
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/symracinetemplate/css-admin/unify-admin.css')) }}">
+            <!-- CSS Customization -->
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/symracinetemplate/css/custom.css')) }}">
+            <!-- CSS Page HorsConnexion -->
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/homeconstructfo/css/layout_non_connecte.css')) }}">
+            <!-- CSS Profiles et formulaires -->
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/homeconstructfo/css/profile_view.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/homeconstructfo/css/formulaires_creation.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('bundles/homeconstructfo/css/layout_pdf.css')) }}">
+
+        {% endblock stylesheets %}
+
+    </head>
+    <body>
+    <div class="g-pa-20">
+        <div class="media sous_titre">
+            <div class="d-flex align-self-center">
+                <h1 class="text-center g-font-weight-300 g-font-size-28 g-color-black mb-0">
+                    <div class="d-flex">
+                        <b>Projet "{{ projet.nom }}" :</b>
+                    </div>
+                </h1>
+                {% if apercuPdf is defined and apercuPdf == true %}
+                    <div class="block_button_back">
+                        <a id="button_back" class="btn btn-xl u-btn-yellow g-width-160--md g-font-size-default g-ml-10" href="{{ path('home_construct_projet_pdf',{'id':projet.id}) }}" data-speed="350">
+                            <div  class="fas fa-file-pdf-o"></div>
+                            Print To PDF
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+        {% if apercuPdf is defined and apercuPdf == true %}
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ app.request.server.get('HTTP_REFERER') }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        {% endif %}
+        {% block contentProjet %}
+            {% if projet is defined and projet is not null %}
+                {% include '@HomeConstructBuild/PDF/projet.html.twig' %}
+                <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                {% if projet.grosOeuvre is defined and projet.grosOeuvre is not null %}
+                    <h2><b>Le gros oeuvre :</b></h2>
+                    <div class="block_affichage_prix text-center font-weight-bold g-font-size-20 border-dark border">
+                        <b>
+                            Prix total : {{  projet.grosOeuvre.prix|number_format(2, ',', ' ') }} €
+                        </b>
+                    </div>
+                    {% block contentGrosOeuvre %}
+                        {% if projet.grosOeuvre.informationBase is defined and projet.grosOeuvre.informationBase is not null %}
+                            {% set information=projet.grosOeuvre.informationBase %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/informationBase.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.toiture is defined and projet.grosOeuvre.toiture is not null %}
+                            {% set toiture=projet.grosOeuvre.toiture %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/toiture.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.charpente is defined and projet.grosOeuvre.charpente is not null %}
+                            {% set charpente=projet.grosOeuvre.charpente %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/charpente.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.pieces is defined and projet.grosOeuvre.pieces is not null and projet.grosOeuvre.pieces is not empty%}
+                            {% set pieces=projet.grosOeuvre.pieces %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/pieces.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.menuiseriesExterieures is defined and projet.grosOeuvre.menuiseriesExterieures is not null and projet.grosOeuvre.menuiseriesExterieures is not empty %}
+                            {% set entities= projet.grosOeuvre.menuiseriesExterieures%}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/menuiseriesExterieures.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.etudeSol is defined and projet.grosOeuvre.etudeSol is not null %}
+                            {% set etude=projet.grosOeuvre.etudeSol %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/etudeSol.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.excavation is defined and projet.grosOeuvre.excavation is not null %}
+                            {% set excavation=projet.grosOeuvre.excavation %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/excavation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.prepaAccesTerrain is defined and projet.grosOeuvre.prepaAccesTerrain is not null %}
+                            {% set prepaAccesTerrain=projet.grosOeuvre.prepaAccesTerrain %}
+                            {% set arbres=projet.grosOeuvre.prepaAccesTerrain.elagageArbre.arbres %}
+                            {% set terrassements=projet.grosOeuvre.prepaAccesTerrain.terrassements %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/prepaAccesTerrain.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.fondation is defined and projet.grosOeuvre.fondation is not null %}
+                            {% set fondation=projet.grosOeuvre.fondation %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/fondation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.soubassement is defined and projet.grosOeuvre.soubassement is not null %}
+                            {% set soubassement=projet.grosOeuvre.soubassement %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/soubassement.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.vrd is defined and projet.grosOeuvre.vrd is not null %}
+                            {% set vrd=projet.grosOeuvre.vrd %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/vrd.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.plancher is defined and projet.grosOeuvre.plancher is not null and projet.grosOeuvre.plancher is not empty %}
+                            {% set entities= projet.grosOeuvre.plancher %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/plancher.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.grosOeuvre.elevation is defined and projet.grosOeuvre.elevation is not null %}
+                            {% set elevation=projet.grosOeuvre.elevation %}
+                            {% set murs=projet.grosOeuvre.elevation.mur %}
+                            {% set poutres=projet.grosOeuvre.elevation.poutre %}
+                            {% set appuisFenetre=projet.grosOeuvre.elevation.appuisFenetre %}
+                            {% include '@HomeConstructBuild/PDF/GrosOeuvre/elevation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                    {% endblock contentGrosOeuvre %}
+                {% endif %}
+                {% if projet.secondOeuvre is defined and projet.secondOeuvre is not null %}
+                    <h2><b>Le second oeuvre :</b></h2>
+                    <div class="block_affichage_prix text-center font-weight-bold g-font-size-20 border-dark border">
+                        <b>
+                            Prix total : {{  projet.secondOeuvre.prix|number_format(2, ',', ' ') }} €
+                        </b>
+                    </div>
+                    {% block contentSecondOeuvre %}
+                        {% if projet.secondOeuvre.domotiques is defined and projet.secondOeuvre.domotiques is not null and projet.secondOeuvre.domotiques is not empty %}
+                            {% set entities=projet.secondOeuvre.domotiques %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/domotiques.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.isolation is defined and projet.secondOeuvre.isolation is not null %}
+                            {% set isolation=projet.secondOeuvre.isolation %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/isolation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.enduitExterieur is defined and projet.secondOeuvre.enduitExterieur is not null %}
+                            {% set enduitExterieur=projet.secondOeuvre.enduitExterieur %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/enduitExterieur.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.menuiseriesInterieures is defined and projet.secondOeuvre.menuiseriesInterieures is not null and projet.secondOeuvre.menuiseriesInterieures is not empty %}
+                            {% set entities=projet.secondOeuvre.menuiseriesInterieures %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/menuiseriesInterieures.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.escaliers is defined and projet.secondOeuvre.escaliers is not null and projet.secondOeuvre.escaliers is not empty %}
+                            {% set entities=projet.secondOeuvre.escaliers %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/escaliers.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.climatisation is defined and projet.secondOeuvre.climatisation is not null and projet.secondOeuvre.climatisation is not empty %}
+                            {% set entities=projet.secondOeuvre.climatisation %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/climatisation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.chauffage is defined and projet.secondOeuvre.chauffage is not null and projet.secondOeuvre.chauffage is not empty %}
+                            {% set entities=projet.secondOeuvre.chauffage %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/chauffage.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.revetementSol is defined and projet.secondOeuvre.revetementSol is not null and projet.secondOeuvre.revetementSol is not empty %}
+                            {% set entities=projet.secondOeuvre.revetementSol %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/revetementSol.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.ventilations is defined and projet.secondOeuvre.ventilations is not null and projet.secondOeuvre.ventilations is not empty %}
+                            {% set entities=projet.secondOeuvre.ventilations %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/ventilation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.evacuations is defined and projet.secondOeuvre.evacuations is not null and projet.secondOeuvre.evacuations is not empty %}
+                            {% set entities=projet.secondOeuvre.evacuations %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/evacuation.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                        {% if projet.secondOeuvre.plomberies is defined and projet.secondOeuvre.plomberies is not null and projet.secondOeuvre.plomberies is not empty %}
+                            {% set entities=projet.secondOeuvre.plomberies %}
+                            {% include '@HomeConstructBuild/PDF/SecondOeuvre/plomberie.html.twig' %}
+                            <hr class="d-flex g-brd-gray-light-v7 g-my-30">
+                        {% endif %}
+                    {% endblock contentSecondOeuvre %}
+                {% endif %}
+            {% endif %}
+        {% endblock contentProjet %}
+        {% if apercuPdf is defined and apercuPdf == true %}
+            <div class="block_button_back">
+                <a id="button_back" class="btn btn-xl u-btn-yellow g-width-160--md g-font-size-default g-ml-10" href="{{ path('home_construct_projet_pdf',{'id':projet.id}) }}" data-speed="350">
+                    <div  class="fas fa-file-pdf-o"></div>
+                    Print To PDF
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    </body>
+</html>
+

@@ -1,0 +1,16 @@
+{% extends "@HomeConstructBuild/Default/layout.html.twig" %}
+
+{% block content %}
+    <div class="text-center border-dark card-block g-bg-orange g-brd-gray-light-v7 g-rounded-3 g-mb-30">
+        <p>
+            Désolé mais vous n'avez pas les droits requis pour effectuer cette action ou accèder à cette page.
+        </p>
+        <a class="btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+           href="{{ path('home_construct_projet_list') }}">
+           <i class="fas fa-reply">
+           </i>
+            ACCUEIL
+        </a>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,152 @@
+{% extends "@HomeConstructBuild/GrosOeuvre/base-forms-profiles-grosOeuvre.html.twig" %}
+
+{% block body_attributs %}
+    onload="showPriceType(),updateEstimationPrice()"
+{% endblock body_attributs %}
+
+{% block content %}
+    {% block button_return %}
+        {% if refererIsAForm == true and grosOeuvre.charpente is defined and grosOeuvre.charpente is not null %}
+            {% set retour = path('home_construct_charpente_profile',{'id':grosOeuvre.charpente.id}) %}
+        {% else %}
+            {% set retour = app.request.server.get('HTTP_REFERER') %}
+        {% endif %}
+        <div class="block_button_back">
+            <a id="button_back"
+               class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+               href="{{ retour }}" data-speed="350">
+                <div  class="fas fa-reply"></div>
+                Retour
+            </a>
+        </div>
+    {% endblock button_return %}
+
+    {% block sub_content %}
+        {{ form_start(form) }}
+        <div class="block_form_with_estimation">
+            <div class="col-lg-9 g-mb-50">
+                <!-- Info -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.type) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.forme) }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="d-block">{{ form_row(form.tarifMainDoeuvre) }}</span>
+                            <p><span id="valeur_tarif"></span>€/m²</p>
+                        </div>
+                    </div>
+
+                    <div class="block_button_backnext">
+                        <button id="button_next"
+                                class=" btn btn-xl u-btn-lightblue-v3 g-width-160--md g-font-size-default g-ml-10"
+                                href="" data-speed="350">
+                            {% if editMode %}
+                                Enregistrer
+                            {% else %}
+                                Terminé
+                            {% endif %}
+                            <div  class="fas fa-check"></div>
+                        </button>
+                    </div>
+                </div>
+                <!-- End Info -->
+            </div>
+            <div class="block_estimation_prix">
+                <h4 class="titre_estimation text-center">
+                    Estimation
+                </h4>
+                <h6> <I> Données utilisés : </I></h6>
+                <ul class="liste_variables_estimation">
+                    <h5 class="titre_sous_entite">
+                        <div class="link_sous_entite" href="">
+                            Informations sur la charpente :
+                        </div>
+                    </h5>
+                    <li>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Prix du type de la charpente :
+                        <b id="prix_type">
+
+                        </b>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Tarif de la main d'oeuvre :
+                        <b id="tarif_main_doeuvre">
+
+                        </b>
+                    </li>
+                    <h5 class="titre_sous_entite">
+                        <div class="link_sous_entite" href="">
+                            Informations sur la toiture :
+                        </div>
+                    </h5>
+                    <li>
+                        <i class="fas fa-check-circle variable-presente"></i>
+                        Surface totale de la toiture :
+                        <b id="surface_toiture">{{ toiture.m2}}m²</b>
+                    </li>
+
+                </ul>
+                <div id="prix_calcule" class="block_affichage_prix text-center font-weight-bold g-font-size-30 border-dark border">
+
+                </div>
+                <I id="rappel">
+                </I>
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+    {% endblock sub_content %}
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var slider = document.getElementById("homeconstruct_buildbundle_charpente_tarifMainDoeuvre");
+        var output = document.getElementById("valeur_tarif");
+        var tarifBlockEstimation = document.getElementById("tarif_main_doeuvre");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+            tarifBlockEstimation.innerHTML=this.value+"€/m²";
+        }
+
+        var valeurTarif=document.getElementById("homeconstruct_buildbundle_charpente_tarifMainDoeuvre").value;
+        document.getElementById("tarif_main_doeuvre").innerHTML=valeurTarif+"€/m²";
+    </script>
+    <script>
+        function showPriceType(){
+            var element=document.getElementById('homeconstruct_buildbundle_charpente_type');
+            var opt = element.options[element.selectedIndex];
+            var nomTypeSelection = opt.text;
+            {% for typeCharpente in typesCharpente %}
+
+                var nomTypeCharpente = "{{ typeCharpente.nom }}";
+                if(nomTypeCharpente==nomTypeSelection){
+                    var prixType = "{{ typeCharpente.prix }}";
+                }
+            {% endfor %}
+            document.getElementById('prix_type').innerHTML=prixType+"€";
+        }
+    </script>
+    {% javascripts filter='jsqueeze'
+        'bundles/homeconstructbuild/js/form_charpente.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+{% endblock javascripts %}
+
